@@ -29,6 +29,14 @@ class Passkit {
     return '$passesDir$passFileName';
   }
 
+  Future<String> getPassFromUrl(String url) async {
+    String pathToPass = await this._generatePathToPass();
+
+    await Dio().download(url, pathToPass);
+
+    return pathToPass;
+  }
+
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
