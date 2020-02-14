@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -14,7 +18,8 @@ class Passkit {
 
   Future<String> _checkPassesDirectory() async {
     Directory baseInternalDir = await getApplicationDocumentsDirectory();
-    Directory passesDir = Directory(baseInternalDir.path + '/' + this._passesDirName);
+    Directory passesDir =
+        Directory(baseInternalDir.path + '/' + this._passesDirName);
 
     bool dirExist = await passesDir.exists();
     if (!dirExist) {
@@ -29,10 +34,31 @@ class Passkit {
     return '$passesDir$passFileName';
   }
 
+  Future<void> _unpackPass(String pathToPass) async {
+    final File passFile = File(pathToPass);
+    final String pathName = basenameWithoutExtension(pathToPass);
+    final String path = await this._checkPassesDirectory();
+    final String folderToPass = path + '/' + pathName;
+
+    final bytes = passFile.readAsBytesSync();
+    final passArchive = ZipDecoder().decodeBytes(bytes);
+    for (var file in passArchive) {
+      final filename = '$folderToPass/${file.name}';
+
+      final decompressed = await compute(file.content, file);
+      var outFile = new File(filename);
+      outFile = await outFile.create(recursive: true);
+      await outFile.writeAsBytes(decompressed);
+    }
+  }
+
   Future<String> getPassFromUrl(String url) async {
     String pathToPass = await this._generatePathToPass();
+    Response<ResponseBody> responce = await Dio().download(url, pathToPass);
 
-    await Dio().download(url, pathToPass);
+    debugPrint('Response - ' + responce.statusCode.toString());
+
+    await this._unpackPass(pathToPass);
 
     return pathToPass;
   }
