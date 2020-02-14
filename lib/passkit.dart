@@ -41,6 +41,10 @@ class Passkit {
 
   Future<String> _unpackPass(String pathToPass) async {
     final File passFile = File(pathToPass);
+    if (!(await passFile.exists())) {
+      throw ('Pass file not found!');
+    }
+
     final String pathName = basenameWithoutExtension(pathToPass);
     final String path = await this._getPassesDirectory();
     final String folderToPass = path + '/' + pathName;
