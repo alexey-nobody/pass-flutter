@@ -23,6 +23,12 @@ class Passkit {
     return '${passesDir.path}/';
   }
 
+  Future<String> _generatePathToPass() async {
+    String passesDir = await this._checkPassesDirectory();
+    String passFileName = Uuid().v1() + '.passkit';
+    return '$passesDir$passFileName';
+  }
+
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
