@@ -44,10 +44,8 @@ class Passkit {
     for (var file in passArchive) {
       final filename = '$folderToPass/${file.name}';
       if (file.isFile) {
-        final decompressed = await compute(file.content, file);
-        var outFile = new File(filename);
-        outFile = await outFile.create(recursive: true);
-        await outFile.writeAsBytes(decompressed);
+        File outFile = await File(filename).create(recursive: true);
+        await outFile.writeAsBytes(file.content);
       } else {
         await new Directory(filename).create(recursive: true);
       }
