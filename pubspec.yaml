@@ -15,10 +15,13 @@ dependencies:
   path_provider: ^1.6.0
   uuid: ^2.0.4
 
+  json_annotation: ^3.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  json_serializable: ^3.2.5
+  build_runner: ^1.7.4
 
 flutter:
   plugin:
