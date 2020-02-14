@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -44,22 +43,23 @@ class Passkit {
     final passArchive = ZipDecoder().decodeBytes(bytes);
     for (var file in passArchive) {
       final filename = '$folderToPass/${file.name}';
-
-      final decompressed = await compute(file.content, file);
-      var outFile = new File(filename);
-      outFile = await outFile.create(recursive: true);
-      await outFile.writeAsBytes(decompressed);
+      if (file.isFile) {
+        final decompressed = await compute(file.content, file);
+        var outFile = new File(filename);
+        outFile = await outFile.create(recursive: true);
+        await outFile.writeAsBytes(decompressed);
+      } else {
+        await new Directory(filename).create(recursive: true);
+      }
     }
   }
 
   Future<String> getPassFromUrl(String url) async {
     String pathToPass = await this._generatePathToPass();
     Response<ResponseBody> responce = await Dio().download(url, pathToPass);
-
-    debugPrint('Response - ' + responce.statusCode.toString());
-
-    await this._unpackPass(pathToPass);
-
+    if (responce.statusCode == 200) {
+      await this._unpackPass(pathToPass);
+    }
     return pathToPass;
   }
 
