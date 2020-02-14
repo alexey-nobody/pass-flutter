@@ -42,25 +42,29 @@ class Passkit {
   Future<String> _unpackPass(String pathToPass) async {
     final File passFile = File(pathToPass);
     if (!(await passFile.exists())) {
-      throw ('Pass file not found!');
+      throw ('Passkit file not found!');
     }
 
     final String pathName = basenameWithoutExtension(pathToPass);
     final String path = await this._getPassesDirectory();
     final String folderToPass = path + '/' + pathName;
 
-    final passArchive = passFile.readAsBytesSync();
-    final passFiles = ZipDecoder().decodeBytes(passArchive);
-    for (var file in passFiles) {
-      final filename = '$folderToPass/${file.name}';
-      if (file.isFile) {
-        File outFile = await File(filename).create(recursive: true);
-        await outFile.writeAsBytes(file.content);
-      } else {
-        await new Directory(filename).create(recursive: true);
+    try {
+      final passArchive = passFile.readAsBytesSync();
+      final passFiles = ZipDecoder().decodeBytes(passArchive);
+      for (var file in passFiles) {
+        final filename = '$folderToPass/${file.name}';
+        if (file.isFile) {
+          File outFile = await File(filename).create(recursive: true);
+          await outFile.writeAsBytes(file.content);
+        } else {
+          await new Directory(filename).create(recursive: true);
+        }
       }
+      return folderToPass;
+    } catch (e) {
+      throw ('Error in unpack passkit file!');
     }
-    return folderToPass;
   }
 
   Future<Pass> _parsePass(String pathToPassFile, String pathToPass) async {
