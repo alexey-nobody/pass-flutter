@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
+import 'package:passkit/models/pass.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -38,7 +39,7 @@ class Passkit {
     return '$passesDir$passFileName';
   }
 
-  Future<void> _unpackPass(String pathToPass) async {
+  Future<String> _unpackPass(String pathToPass) async {
     final File passFile = File(pathToPass);
     final String pathName = basenameWithoutExtension(pathToPass);
     final String path = await this._getPassesDirectory();
@@ -55,15 +56,22 @@ class Passkit {
         await new Directory(filename).create(recursive: true);
       }
     }
+    return folderToPass;
   }
 
-  Future<String> getPassFromUrl(String url) async {
-    String pathToPass = await this._generatePathToPass();
-    Response<ResponseBody> responce = await Dio().download(url, pathToPass);
+  Future<Pass> _parsePass(String pathToPassFile, String pathToPass) async {
+    return null;
+  }
+
+  Future<Pass> getPassFromUrl(String url) async {
+    String pathToPassFile = await this._generatePathToPass();
+    Response<ResponseBody> responce = await Dio().download(url, pathToPassFile);
     if (responce.statusCode == 200) {
-      await this._unpackPass(pathToPass);
+      String pathToPass = await this._unpackPass(pathToPassFile);
+      Pass pass = await this._parsePass(pathToPassFile, pathToPass);
+      return pass;
     }
-    return pathToPass;
+    return null;
   }
 
   static Future<String> get platformVersion async {
