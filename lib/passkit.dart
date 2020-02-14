@@ -14,8 +14,13 @@ class Passkit {
   static const MethodChannel _channel = const MethodChannel(_channelName);
 
   String _passesDirName = 'passes';
+  String _pathToPass;
 
-  Future<String> _checkPassesDirectory() async {
+  Future<String> _getPassesDirectory() async {
+    if ((this._pathToPass is String) || (this._pathToPass.length > 0)) {
+      return this._pathToPass;
+    }
+
     Directory baseInternalDir = await getApplicationDocumentsDirectory();
     Directory passesDir =
         Directory(baseInternalDir.path + '/' + this._passesDirName);
@@ -24,11 +29,12 @@ class Passkit {
     if (!dirExist) {
       await passesDir.create();
     }
-    return '${passesDir.path}/';
+    this._pathToPass = '${passesDir.path}/';
+    return this._pathToPass;
   }
 
   Future<String> _generatePathToPass() async {
-    String passesDir = await this._checkPassesDirectory();
+    String passesDir = await this._getPassesDirectory();
     String passFileName = Uuid().v1() + '.passkit';
     return '$passesDir$passFileName';
   }
@@ -36,12 +42,12 @@ class Passkit {
   Future<void> _unpackPass(String pathToPass) async {
     final File passFile = File(pathToPass);
     final String pathName = basenameWithoutExtension(pathToPass);
-    final String path = await this._checkPassesDirectory();
+    final String path = await this._getPassesDirectory();
     final String folderToPass = path + '/' + pathName;
 
-    final bytes = passFile.readAsBytesSync();
-    final passArchive = ZipDecoder().decodeBytes(bytes);
-    for (var file in passArchive) {
+    final passArchive = passFile.readAsBytesSync();
+    final passFiles = ZipDecoder().decodeBytes(passArchive);
+    for (var file in passFiles) {
       final filename = '$folderToPass/${file.name}';
       if (file.isFile) {
         File outFile = await File(filename).create(recursive: true);
