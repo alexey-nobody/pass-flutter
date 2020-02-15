@@ -61,13 +61,13 @@ class Passkit {
           await new Directory(filename).create(recursive: true);
         }
       }
-      return folderToPass;
+      return pathName;
     } catch (e) {
       throw ('Error in unpack passkit file!');
     }
   }
 
-  Future<PassFile> _parsePass(String pathToPassFile, String pathToPass) async {
+  Future<PassFile> _parsePass(String passName) async {
     return null;
   }
 
@@ -75,11 +75,11 @@ class Passkit {
     String pathToPassFile = await this._generatePathToPass();
     Response<ResponseBody> responce = await Dio().download(url, pathToPassFile);
     if (responce.statusCode == 200) {
-      String pathToPass = await this._unpackPass(pathToPassFile);
-      PassFile passFile = await this._parsePass(pathToPassFile, pathToPass);
+      String passName = await this._unpackPass(pathToPassFile);
+      PassFile passFile = await this._parsePass(passName);
       return passFile;
     }
-    return null;
+    throw('Unable to download pass at specified url');
   }
 
   static Future<String> get platformVersion async {
