@@ -18,7 +18,7 @@ class Passkit {
   final String _passesDirName = 'passes';
   String _pathToPass;
 
-  Future<String> _getPassesDirectory() async {
+  Future<String> _getPasskitsDir() async {
     if ((this._pathToPass != null) && (this._pathToPass.length > 0)) {
       return this._pathToPass;
     }
@@ -36,19 +36,19 @@ class Passkit {
   }
 
   Future<String> _generatePathToPass() async {
-    String passesDir = await this._getPassesDirectory();
+    String passesDir = await this._getPasskitsDir();
     String passFileName = Uuid().v1() + '.passkit';
     return '$passesDir$passFileName';
   }
 
-  Future<String> _unpackPass(String pathToPass) async {
+  Future<String> _unpackPasskitFile(String pathToPass) async {
     final File passFile = File(pathToPass);
     if (!(await passFile.exists())) {
       throw ('Passkit file not found!');
     }
 
     final String pathName = basenameWithoutExtension(pathToPass);
-    final String path = await this._getPassesDirectory();
+    final String path = await this._getPasskitsDir();
     final String folderToPass = path + '/' + pathName;
 
     try {
@@ -70,24 +70,24 @@ class Passkit {
   }
 
   Future<PasskitPass> _parsePassJson(String passName) async {
-    String pathToJson = await _getPassesDirectory() + passName + '/pass.json';
+    String pathToJson = await _getPasskitsDir() + passName + '/pass.json';
     String passJson = await File(pathToJson).readAsString();
     return PasskitPass.fromJson(json.decode(passJson));
   }
 
-  Future<PassFile> _parsePass(String passName) async {
+  Future<PassFile> _parsePasskit(String passName) async {
     PassFile passFile = new PassFile();
     passFile.id = passName;
     passFile.pass = await this._parsePassJson(passName);
     return passFile;
   }
 
-  Future<PassFile> getPassFromUrl(String url) async {
+  Future<PassFile> getPasskitFromUrl(String url) async {
     String pathToPassFile = await this._generatePathToPass();
     Response<ResponseBody> responce = await Dio().download(url, pathToPassFile);
     if (responce.statusCode == 200) {
-      String passName = await this._unpackPass(pathToPassFile);
-      PassFile passFile = await this._parsePass(passName);
+      String passName = await this._unpackPasskitFile(pathToPassFile);
+      PassFile passFile = await this._parsePasskit(passName);
       return passFile;
     }
     throw ('Unable to download pass at specified url');
