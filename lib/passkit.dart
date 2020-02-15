@@ -19,7 +19,7 @@ class Passkit {
   String _pathToPass;
 
   Future<String> _getPassesDirectory() async {
-    if ((this._pathToPass is String) || (this._pathToPass.length > 0)) {
+    if ((this._pathToPass != null) || (this._pathToPass.length > 0)) {
       return this._pathToPass;
     }
 
