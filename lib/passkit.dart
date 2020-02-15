@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:passkit/models/pass.dart';
+import 'package:passkit/models/pass_file.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -13,7 +13,7 @@ class Passkit {
   static const String _channelName = 'passkit';
   static const MethodChannel _channel = const MethodChannel(_channelName);
 
-  String _passesDirName = 'passes';
+  final String _passesDirName = 'passes';
   String _pathToPass;
 
   Future<String> _getPassesDirectory() async {
@@ -67,17 +67,17 @@ class Passkit {
     }
   }
 
-  Future<Pass> _parsePass(String pathToPassFile, String pathToPass) async {
+  Future<PassFile> _parsePass(String pathToPassFile, String pathToPass) async {
     return null;
   }
 
-  Future<Pass> getPassFromUrl(String url) async {
+  Future<PassFile> getPassFromUrl(String url) async {
     String pathToPassFile = await this._generatePathToPass();
     Response<ResponseBody> responce = await Dio().download(url, pathToPassFile);
     if (responce.statusCode == 200) {
       String pathToPass = await this._unpackPass(pathToPassFile);
-      Pass pass = await this._parsePass(pathToPassFile, pathToPass);
-      return pass;
+      PassFile passFile = await this._parsePass(pathToPassFile, pathToPass);
+      return passFile;
     }
     return null;
   }
