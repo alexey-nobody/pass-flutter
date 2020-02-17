@@ -27,6 +27,7 @@ PasskitPass _$PasskitPassFromJson(Map<String, dynamic> json) {
         ?.toList(),
     appLaunchURL: json['appLaunchURL'] as String,
     expirationDate: json['expirationDate'] as String,
+    voided: json['voided'] as bool,
   );
 }
 
@@ -47,4 +48,5 @@ Map<String, dynamic> _$PasskitPassToJson(PasskitPass instance) =>
       'associatedStoreIdentifiers': instance.associatedStoreIdentifiers,
       'appLaunchURL': instance.appLaunchURL,
       'expirationDate': instance.expirationDate,
+      'voided': instance.voided,
     };
