@@ -50,6 +50,10 @@ class Passkit {
     final String pathName = basenameWithoutExtension(pathToPass);
     final String path = await this._getPasskitsDir();
     final String folderToPass = path + '/' + pathName;
+    final Directory passDirectory = Directory(folderToPass);
+    if (!(await passDirectory.exists())) {
+      await passDirectory.create();
+    }
 
     try {
       final passArchive = passFile.readAsBytesSync();
@@ -65,6 +69,8 @@ class Passkit {
       }
       return pathName;
     } catch (e) {
+      await passFile.delete();
+      await passDirectory.delete();
       throw ('Error in unpack passkit file!');
     }
   }
