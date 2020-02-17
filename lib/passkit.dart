@@ -29,7 +29,7 @@ class Passkit {
       PassFile passFile = await _PasskitParser().parsePasskit(passName);
       return passFile;
     }
-    throw ('Unable to download pass at specified url');
+    throw ('Unable to download pass file at specified url');
   }
 
   static Future<String> get platformVersion async {
