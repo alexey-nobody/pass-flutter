@@ -22,7 +22,7 @@ class Passkit {
   static const String _channelName = 'passkit';
   static const MethodChannel _channel = const MethodChannel(_channelName);
 
-  Future<PassFile> getPasskitFromUrl(String url) async {
+  Future<PassFile> getFromUrl(String url) async {
     String pathToPassFile = await _PasskitUtils.generatePathToPass();
     Response<ResponseBody> responce = await Dio().download(url, pathToPassFile);
     if (responce.statusCode == HTTP_RESPONSE_OK) {
