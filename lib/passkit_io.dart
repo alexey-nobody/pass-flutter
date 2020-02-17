@@ -1,22 +1,16 @@
-library passkit.io;
+part of 'passkit.dart';
 
-import 'dart:io';
-
-import 'package:archive/archive.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-
-class PasskitIo {
+class _PasskitIo {
   final String _passesDirName = 'passes';
   String _pathToPass;
 
-  static final PasskitIo _singleton = PasskitIo._internal();
+  static final _PasskitIo _singleton = _PasskitIo._internal();
 
-  factory PasskitIo() {
+  factory _PasskitIo() {
     return _singleton;
   }
 
-  PasskitIo._internal();
+  _PasskitIo._internal();
 
   Future<String> getPassesDir() async {
     if ((this._pathToPass != null) && (this._pathToPass.length > 0)) {

@@ -1,12 +1,8 @@
-library passkit.utils;
+part of 'passkit.dart';
 
-import 'package:uuid/uuid.dart';
-
-import 'passkit_io.dart';
-
-class PasskitUtils {
+class _PasskitUtils {
   static Future<String> generatePathToPass() async {
-    String passesDir = await PasskitIo().getPassesDir();
+    String passesDir = await _PasskitIo().getPassesDir();
     String passFileName = Uuid().v1() + '.passkit';
     return '$passesDir$passFileName';
   }

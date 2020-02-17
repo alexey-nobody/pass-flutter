@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:passkit/passkit.dart';
 
@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await PasskitParser.platformVersion;
+      platformVersion = await Passkit.platformVersion;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
