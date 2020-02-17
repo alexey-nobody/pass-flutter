@@ -18,6 +18,7 @@ class PasskitPass {
   String serialNumber;
   String authenticationToken;
   List<int> associatedStoreIdentifiers;
+  String appLaunchURL;
 
   PasskitPass({
     this.formatVersion,
@@ -33,6 +34,7 @@ class PasskitPass {
     this.serialNumber,
     this.authenticationToken,
     this.associatedStoreIdentifiers,
+    this.appLaunchURL,
   });
 
   factory PasskitPass.fromJson(Map<String, dynamic> json) =>

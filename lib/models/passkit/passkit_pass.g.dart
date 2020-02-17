@@ -22,6 +22,10 @@ PasskitPass _$PasskitPassFromJson(Map<String, dynamic> json) {
     webServiceURL: json['webServiceURL'] as String,
     serialNumber: json['serialNumber'] as String,
     authenticationToken: json['authenticationToken'] as String,
+    associatedStoreIdentifiers: (json['associatedStoreIdentifiers'] as List)
+        ?.map((e) => e as int)
+        ?.toList(),
+    appLaunchURL: json['appLaunchURL'] as String,
   );
 }
 
@@ -39,4 +43,6 @@ Map<String, dynamic> _$PasskitPassToJson(PasskitPass instance) =>
       'webServiceURL': instance.webServiceURL,
       'serialNumber': instance.serialNumber,
       'authenticationToken': instance.authenticationToken,
+      'associatedStoreIdentifiers': instance.associatedStoreIdentifiers,
+      'appLaunchURL': instance.appLaunchURL,
     };
