@@ -19,6 +19,7 @@ class PasskitPass {
   String authenticationToken;
   List<int> associatedStoreIdentifiers;
   String appLaunchURL;
+  String expirationDate;
 
   PasskitPass({
     this.formatVersion,
@@ -35,6 +36,7 @@ class PasskitPass {
     this.authenticationToken,
     this.associatedStoreIdentifiers,
     this.appLaunchURL,
+    this.expirationDate,
   });
 
   factory PasskitPass.fromJson(Map<String, dynamic> json) =>

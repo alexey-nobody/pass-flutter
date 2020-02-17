@@ -26,6 +26,7 @@ PasskitPass _$PasskitPassFromJson(Map<String, dynamic> json) {
         ?.map((e) => e as int)
         ?.toList(),
     appLaunchURL: json['appLaunchURL'] as String,
+    expirationDate: json['expirationDate'] as String,
   );
 }
 
@@ -45,4 +46,5 @@ Map<String, dynamic> _$PasskitPassToJson(PasskitPass instance) =>
       'authenticationToken': instance.authenticationToken,
       'associatedStoreIdentifiers': instance.associatedStoreIdentifiers,
       'appLaunchURL': instance.appLaunchURL,
+      'expirationDate': instance.expirationDate,
     };
