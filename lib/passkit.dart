@@ -18,13 +18,14 @@ part 'passkit_io.dart';
 part 'passkit_utils.dart';
 
 class Passkit {
+  static const HTTP_RESPONSE_OK = 200;
   static const String _channelName = 'passkit';
   static const MethodChannel _channel = const MethodChannel(_channelName);
 
   Future<PassFile> getPasskitFromUrl(String url) async {
     String pathToPassFile = await _PasskitUtils.generatePathToPass();
     Response<ResponseBody> responce = await Dio().download(url, pathToPassFile);
-    if (responce.statusCode == 200) {
+    if (responce.statusCode == HTTP_RESPONSE_OK) {
       String passName = await _PasskitIo().unpackPasskitFile(pathToPassFile);
       PassFile passFile = await _PasskitParser().parsePasskit(passName);
       return passFile;
