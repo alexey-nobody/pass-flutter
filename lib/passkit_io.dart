@@ -2,7 +2,7 @@ part of 'passkit.dart';
 
 class _PasskitIo {
   final String _passesDirName = 'passes';
-  String _pathToPass;
+  Directory _pathToPass;
 
   static final _PasskitIo _singleton = _PasskitIo._internal();
 
@@ -12,20 +12,16 @@ class _PasskitIo {
 
   _PasskitIo._internal();
 
-  Future<String> getPassesDir() async {
-    if ((this._pathToPass != null) && (this._pathToPass.length > 0)) {
-      return this._pathToPass;
-    }
+  Future<Directory> getPassesDir() async {
+    if (this._pathToPass != null) return this._pathToPass;
 
     Directory baseInternalDir = await getApplicationDocumentsDirectory();
-    Directory passesDir =
-        Directory(baseInternalDir.path + '/' + this._passesDirName);
+    String passesDirPath = baseInternalDir.path + '/' + this._passesDirName;
 
-    bool dirExist = await passesDir.exists();
-    if (!dirExist) {
-      await passesDir.create();
-    }
-    this._pathToPass = '${passesDir.path}/';
+    Directory passesDir = Directory(passesDirPath);
+    await passesDir.create(recursive: true);
+
+    this._pathToPass = passesDir;
     return this._pathToPass;
   }
 
@@ -36,8 +32,8 @@ class _PasskitIo {
     }
 
     final String pathName = basenameWithoutExtension(pathToPass);
-    final String path = await this.getPassesDir();
-    final String folderToPass = path + '/' + pathName;
+    final Directory passesDir = await this.getPassesDir();
+    final String folderToPass = passesDir.path + '/' + pathName;
     final Directory passDirectory = Directory(folderToPass);
     if (!(await passDirectory.exists())) {
       await passDirectory.create();

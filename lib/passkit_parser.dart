@@ -2,9 +2,8 @@ part of 'passkit.dart';
 
 class _PasskitParser {
   Future<PasskitPass> _parsePassJson(String passName) async {
-    String pathToJson =
-        await _PasskitIo().getPassesDir() + passName + '/pass.json';
-    String passJson = await File(pathToJson).readAsString();
+    Directory passesDir = await _PasskitIo().getPassesDir();
+    String passJson = await File('${passesDir.path}/$passName/pass.json').readAsString();
     return PasskitPass.fromJson(json.decode(passJson));
   }
 

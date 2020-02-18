@@ -13,8 +13,8 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
-part 'passkit_parser.dart';
 part 'passkit_io.dart';
+part 'passkit_parser.dart';
 part 'passkit_utils.dart';
 
 class Passkit {
