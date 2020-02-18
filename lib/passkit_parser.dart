@@ -14,7 +14,6 @@ class _PasskitParser {
     if (!passJsonFile.existsSync()) {
       throw('Not find pass.json in pkpass file');
     }
-
     String passJson = await passJsonFile.readAsString();
     return PasskitPass.fromJson(json.decode(passJson));
   }
