@@ -4,9 +4,9 @@ class _PasskitParser {
   String _passName;
   String _passDir;
 
-  _PasskitParser({String passName, String passDir}) {
+  _PasskitParser({String passName, Directory passDir}) {
     this._passName = passName;
-    this._passDir = passDir;
+    this._passDir = passDir.path;
   }
 
   Future<PasskitPass> _parsePassJson() async {
