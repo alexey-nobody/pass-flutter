@@ -29,6 +29,12 @@ class _PasskitParser {
     PassFile passFile = new PassFile();
     passFile.id = this._passName;
     passFile.pass = await this._parsePassJson();
+    passFile.logo = this._getImage(name: 'logo');
+    passFile.background = this._getImage(name: 'background');
+    passFile.footer = this._getImage(name: 'footer');
+    passFile.strip = this._getImage(name: 'strip');
+    passFile.icon = this._getImage(name: 'icon');
+    passFile.thumbnail = this._getImage(name: 'thumbnail');
     return passFile;
   }
 }
