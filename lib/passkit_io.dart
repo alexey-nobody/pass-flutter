@@ -15,13 +15,9 @@ class _PasskitIo {
   Future<Directory> getPassesDir() async {
     if (this._pathToPass != null) return this._pathToPass;
 
-    Directory baseInternalDir = await getApplicationDocumentsDirectory();
-    String passesDirPath = baseInternalDir.path + '/' + this._passesDirName;
-
-    Directory passesDir = Directory(passesDirPath);
-    await passesDir.create(recursive: true);
-
-    this._pathToPass = passesDir;
+    Directory appDir = await getApplicationDocumentsDirectory();
+    Directory passesDir = Directory(appDir.path + '/' + this._passesDirName);
+    this._pathToPass = await passesDir.create(recursive: true);
     return this._pathToPass;
   }
 
