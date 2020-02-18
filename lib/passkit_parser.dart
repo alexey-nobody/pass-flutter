@@ -11,6 +11,10 @@ class _PasskitParser {
 
   Future<PasskitPass> _parsePassJson() async {
     File passJsonFile = File('${this._passDir}/${this._passName}/pass.json');
+    if (!passJsonFile.existsSync()) {
+      throw('Not find pass.json in pkpass file');
+    }
+
     String passJson = await passJsonFile.readAsString();
     return PasskitPass.fromJson(json.decode(passJson));
   }
@@ -29,12 +33,14 @@ class _PasskitParser {
     PassFile passFile = new PassFile();
     passFile.id = this._passName;
     passFile.pass = await this._parsePassJson();
+
     passFile.logo = this._getImage(name: 'logo');
     passFile.background = this._getImage(name: 'background');
     passFile.footer = this._getImage(name: 'footer');
     passFile.strip = this._getImage(name: 'strip');
     passFile.icon = this._getImage(name: 'icon');
     passFile.thumbnail = this._getImage(name: 'thumbnail');
+
     return passFile;
   }
 }

@@ -1,7 +1,6 @@
 part of 'passkit.dart';
 
 class _PasskitIo {
-  final String _passesDirName = 'passes';
   Directory _pathToPass;
 
   static final _PasskitIo _singleton = _PasskitIo._internal();
@@ -16,7 +15,7 @@ class _PasskitIo {
     if (this._pathToPass != null) return this._pathToPass;
 
     Directory appDir = await getApplicationDocumentsDirectory();
-    Directory passesDir = Directory(appDir.path + '/' + this._passesDirName);
+    Directory passesDir = Directory('${appDir.path}/passes');
     this._pathToPass = await passesDir.create(recursive: true);
     return this._pathToPass;
   }
@@ -29,8 +28,8 @@ class _PasskitIo {
 
     final String pathName = basenameWithoutExtension(pathToPass);
     final Directory passesDir = await this.getPassesDir();
-    final String folderToPass = passesDir.path + '/' + pathName;
-    final Directory passDirectory = Directory(folderToPass);
+    final String pathToUnpackPass = passesDir.path + '/' + pathName;
+    final Directory passDirectory = Directory(pathToUnpackPass);
     if (!(await passDirectory.exists())) {
       await passDirectory.create();
     }
@@ -39,7 +38,7 @@ class _PasskitIo {
       final passArchive = passFile.readAsBytesSync();
       final passFiles = ZipDecoder().decodeBytes(passArchive);
       for (var file in passFiles) {
-        final filename = '$folderToPass/${file.name}';
+        final filename = '$pathToUnpackPass/${file.name}';
         if (file.isFile) {
           File outFile = await File(filename).create(recursive: true);
           await outFile.writeAsBytes(file.content);
