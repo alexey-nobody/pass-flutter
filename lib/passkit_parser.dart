@@ -22,7 +22,7 @@ class _PasskitParser {
     if (!image.existsSync() || !image2x.existsSync() || !image3x.existsSync()) {
       return null;
     }
-    return PasskitImage(image: image, image2x: image2x, image3x: image3x);
+    return PasskitImage(image, image2x, image3x);
   }
 
   Future<PassFile> parse() async {
