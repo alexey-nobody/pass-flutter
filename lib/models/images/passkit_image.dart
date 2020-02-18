@@ -1,5 +1,13 @@
+import 'dart:io';
+
 class PasskitImage {
-  String path;
-  String path2x;
-  String path3x;
+  File image;
+  File image2x;
+  File image3x;
+
+  PasskitImage({File image, File image2x, File image3x}) {
+    this.image = image;
+    this.image2x = image2x;
+    this.image3x = image3x;
+  }
 }
