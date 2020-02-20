@@ -24,15 +24,10 @@ class Passkit {
   static const MethodChannel _channel = const MethodChannel(_channelName);
 
   Future<PassFile> getFromUrl(String url) async {
-    Directory passesDir = await _PasskitIo().getPassesDir();
     String pathToPass = await _PasskitUtils.generatePathToPass();
     Response<ResponseBody> responce = await Dio().download(url, pathToPass);
     if (responce.statusCode == HTTP_RESPONSE_OK) {
-      String passName = await _PasskitIo().unpackPasskitFile(pathToPass);
-
-      _PasskitParser passkitParser =
-          new _PasskitParser(passDir: passesDir, passName: passName);
-      return await passkitParser.parse();
+      return await _PasskitParser().parse(pathToPass);
     }
     throw ('Unable to download pass file at specified url');
   }

@@ -2,33 +2,32 @@ part of 'passkit.dart';
 
 class _PasskitParser {
   String _passName;
-  String _passDir;
-
-  _PasskitParser({String passName, Directory passDir}) {
-    this._passName = passName;
-    this._passDir = passDir.path;
-  }
+  Directory _passDir;
 
   Future<PasskitPass> _parsePassJson() async {
-    File passJsonFile = File('${this._passDir}/${this._passName}/pass.json');
+    String pathToPassJson = '${this._passDir.path}/${this._passName}/pass.json';
+    File passJsonFile = File(pathToPassJson);
     if (!passJsonFile.existsSync()) {
-      throw('Not find pass.json in pkpass file');
+      throw ('Not find pass.json in pkpass file');
     }
     String passJson = await passJsonFile.readAsString();
     return PasskitPass.fromJson(json.decode(passJson));
   }
 
   PasskitImage _getImage({String name}) {
-    File image = File('${this._passDir}/${this._passName}/$name.png');
-    File image2x = File('${this._passDir}/${this._passName}/$name@2x.png');
-    File image3x = File('${this._passDir}/${this._passName}/$name@3x.png');
+    File image = File('${this._passDir.path}/${this._passName}/$name.png');
+    File image2x = File('${this._passDir.path}/${this._passName}/$name@2x.png');
+    File image3x = File('${this._passDir.path}/${this._passName}/$name@3x.png');
     if (!image.existsSync() || !image2x.existsSync() || !image3x.existsSync()) {
       return null;
     }
     return PasskitImage(image, image2x, image3x);
   }
 
-  Future<PassFile> parse() async {
+  Future<PassFile> parse(String pathToPass) async {
+    this._passDir = await _PasskitIo().getPassesDir();
+    this._passName = await _PasskitIo().unpackPasskitFile(pathToPass);
+
     PassFile passFile = new PassFile();
     passFile.id = this._passName;
     passFile.pass = await this._parsePassJson();
