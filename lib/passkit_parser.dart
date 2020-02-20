@@ -25,8 +25,10 @@ class _PasskitParser {
   }
 
   Future<PassFile> parse(String pathToPass) async {
+    this._passName = basenameWithoutExtension(pathToPass);
+
     this._passDir = await _PasskitIo().getPassesDir();
-    this._passName = await _PasskitIo().unpackPasskitFile(pathToPass);
+    await _PasskitIo().unpackPasskitFile(pathToPass, this._passName);
 
     PassFile passFile = new PassFile();
     passFile.id = this._passName;

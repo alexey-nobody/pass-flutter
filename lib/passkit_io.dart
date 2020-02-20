@@ -34,13 +34,11 @@ class _PasskitIo {
     return passFile;
   }
 
-  Future<String> unpackPasskitFile(String pathToPass) async {
-    String passName = basenameWithoutExtension(pathToPass);
-
+  Future<void> unpackPasskitFile(String pathToPass, String passName) async {
     File passFile = _getPassFile(pathToPass);
     Directory passDirectory = await this._createPassDirectory(passName);
     if (passDirectory.existsSync()) {
-      return passName;
+      return;
     }
     passDirectory.createSync();
 
@@ -56,7 +54,6 @@ class _PasskitIo {
           await new Directory(filename).create(recursive: true);
         }
       }
-      return passName;
     } catch (e) {
       await passFile.delete();
       await passDirectory.delete();
