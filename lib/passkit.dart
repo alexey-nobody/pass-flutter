@@ -32,6 +32,21 @@ class Passkit {
     throw ('Unable to download pass file at specified url');
   }
 
+  Future<List<PassFile>> getAllSaved() async {
+    List<PassFile> parsedPasses = [];
+    Directory passesDir = await _PasskitIo().getPassesDir();
+    List<FileSystemEntity> passes = await passesDir.list().toList();
+    passes.forEach((entity) async {
+      if (entity is File) {
+        try {
+          PassFile pass = await _PasskitParser().parse(entity.path);
+          parsedPasses.add(pass);
+        } catch (e) {}
+      }
+    });
+    return parsedPasses;
+  }
+
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
