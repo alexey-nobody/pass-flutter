@@ -23,7 +23,7 @@ class _PasskitIo {
   Future<Directory> _createPassDirectory(String passName) async {
     Directory passesDir = await this.getPassesDir();
     String pathToUnpackPass = passesDir.path + '/' + passName;
-    return await Directory(pathToUnpackPass).create();
+    return Directory(pathToUnpackPass);
   }
 
   File _getPassFile(pathToPass) {
@@ -39,6 +39,10 @@ class _PasskitIo {
 
     File passFile = _getPassFile(pathToPass);
     Directory passDirectory = await this._createPassDirectory(passName);
+    if (passDirectory.existsSync()) {
+      return passName;
+    }
+    passDirectory.createSync();
 
     try {
       final passArchive = passFile.readAsBytesSync();
