@@ -20,25 +20,31 @@ class _PasskitIo {
     return this._pathToPass;
   }
 
-  Future<String> unpackPasskitFile(String pathToPass) async {
+  Future<Directory> _createPassDirectory(String passName) async {
+    Directory passesDir = await this.getPassesDir();
+    String pathToUnpackPass = passesDir.path + '/' + passName;
+    return await Directory(pathToUnpackPass).create();
+  }
+
+  File _getPassFile(pathToPass) {
     final File passFile = File(pathToPass);
-    if (!(await passFile.exists())) {
+    if (!(passFile.existsSync())) {
       throw ('Passkit file not found!');
     }
+    return passFile;
+  }
 
-    final String pathName = basenameWithoutExtension(pathToPass);
-    final Directory passesDir = await this.getPassesDir();
-    final String pathToUnpackPass = passesDir.path + '/' + pathName;
-    final Directory passDirectory = Directory(pathToUnpackPass);
-    if (!(await passDirectory.exists())) {
-      await passDirectory.create();
-    }
+  Future<String> unpackPasskitFile(String pathToPass) async {
+    String passName = basenameWithoutExtension(pathToPass);
+
+    File passFile = _getPassFile(pathToPass);
+    Directory passDirectory = await this._createPassDirectory(passName);
 
     try {
       final passArchive = passFile.readAsBytesSync();
       final passFiles = ZipDecoder().decodeBytes(passArchive);
       for (var file in passFiles) {
-        final filename = '$pathToUnpackPass/${file.name}';
+        final filename = '$passDirectory.path/${file.name}';
         if (file.isFile) {
           File outFile = await File(filename).create(recursive: true);
           await outFile.writeAsBytes(file.content);
@@ -46,7 +52,7 @@ class _PasskitIo {
           await new Directory(filename).create(recursive: true);
         }
       }
-      return pathName;
+      return passName;
     } catch (e) {
       await passFile.delete();
       await passDirectory.delete();
