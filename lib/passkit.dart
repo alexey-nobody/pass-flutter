@@ -36,14 +36,14 @@ class Passkit {
     List<PassFile> parsedPasses = [];
     Directory passesDir = await _PasskitIo().getPassesDir();
     List<FileSystemEntity> passes = await passesDir.list().toList();
-    passes.forEach((entity) async {
+    for(var entity in passes) {
       if (entity is File) {
         try {
           PassFile pass = await _PasskitParser().parse(entity.path);
           parsedPasses.add(pass);
         } catch (e) {}
       }
-    });
+    }
     return parsedPasses;
   }
 
