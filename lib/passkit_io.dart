@@ -46,7 +46,7 @@ class _PasskitIo {
       final passArchive = passFile.readAsBytesSync();
       final passFiles = ZipDecoder().decodeBytes(passArchive);
       for (var file in passFiles) {
-        final filename = '$passDirectory.path/${file.name}';
+        final filename = '${passDirectory.path}/${file.name}';
         if (file.isFile) {
           File outFile = await File(filename).create(recursive: true);
           await outFile.writeAsBytes(file.content);
