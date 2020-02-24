@@ -20,7 +20,7 @@ part 'passkit_utils.dart';
 
 class Passkit {
   static const HTTP_RESPONSE_OK = 200;
-  static const String _channelName = 'passkit';
+  static const String _channelName = 'pass-flutter';
   static const MethodChannel _channel = const MethodChannel(_channelName);
 
   Future<PassFile> getFromUrl(String url) async {
