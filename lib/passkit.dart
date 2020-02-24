@@ -1,4 +1,4 @@
-library passkit;
+library pass_flutter;
 
 import 'dart:async';
 import 'dart:convert';
@@ -7,9 +7,9 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:passkit/models/images/passkit_image.dart';
-import 'package:passkit/models/pass_file.dart';
-import 'package:passkit/models/passkit/passkit_pass.dart';
+import 'package:pass_flutter/models/images/passkit_image.dart';
+import 'package:pass_flutter/models/pass_file.dart';
+import 'package:pass_flutter/models/passkit/passkit_pass.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';

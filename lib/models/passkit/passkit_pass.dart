@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:passkit/models/passkit/store_card/store_card.dart';
+import 'package:pass_flutter/models/passkit/store_card/store_card.dart';
 
 part 'passkit_pass.g.dart';
 

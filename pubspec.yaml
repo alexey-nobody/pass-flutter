@@ -1,8 +1,8 @@
-name: passkit
-description: Plugin for work with PassKit Framework (Apple Pay and Wallet)
+name: pass_flutter
+description: A Flutter library for work with Apple Wallet passes.
 version: 1.0.0
-author:
-homepage:
+author: Alexey Lepskii <alexey.lepskii@gmail.com>
+homepage: https://github.com/alexeynobody/pass-flutter
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -25,5 +25,5 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: com.example.passkit
-    pluginClass: PasskitPlugin
+    androidPackage: com.alexeynobody.pass_flutter
+    pluginClass: PassFlutterPlugin

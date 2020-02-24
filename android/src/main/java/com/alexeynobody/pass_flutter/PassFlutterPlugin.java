@@ -1,4 +1,4 @@
-package com.example.passkit;
+package com.alexeynobody.pass_flutter;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -9,10 +9,10 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** PasskitPlugin */
-public class PasskitPlugin implements FlutterPlugin, MethodCallHandler {
+public class PassFlutterPlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    final MethodChannel channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "passkit");
+    final MethodChannel channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "pass_flutter");
     channel.setMethodCallHandler(new PasskitPlugin());
   }
 
