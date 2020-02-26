@@ -21,6 +21,10 @@ class Passkit {
   static const String _channelName = 'pass-flutter';
   static const MethodChannel _channel = const MethodChannel(_channelName);
 
+  ///
+  /// Save pass file from [url] to internal memory,
+  /// parse and return [PassFile]
+  ///
   Future<PassFile> getFromUrl(String url) async {
     String pathToPass = await _PasskitUtils.generatePathToPass();
     Response<ResponseBody> responce = await Dio().download(url, pathToPass);
@@ -30,6 +34,10 @@ class Passkit {
     throw ('Unable to download pass file at specified url');
   }
 
+  ///
+  /// Return all saved pass files in device internal memory
+  /// in List of [PassFile]
+  ///
   Future<List<PassFile>> getAllSaved() async {
     List<PassFile> parsedPasses = [];
     Directory passesDir = await _PasskitIo().getPassesDir();
