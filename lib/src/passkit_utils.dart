@@ -1,4 +1,4 @@
-part of 'passkit.dart';
+part of 'passkit_core.dart';
 
 class _PasskitUtils {
   static Future<String> generatePathToPass() async {

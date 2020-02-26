@@ -1,5 +1,5 @@
-import 'package:pass_flutter/models/images/passkit_image.dart';
-import 'package:pass_flutter/models/passkit/passkit_pass.dart';
+import 'package:pass_flutter/src/models/images/passkit_image.dart';
+import 'package:pass_flutter/src/models/passkit/passkit_pass.dart';
 
 class PassFile {
   String id;

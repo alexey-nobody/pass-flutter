@@ -1,4 +1,4 @@
-part of 'passkit.dart';
+part of 'passkit_core.dart';
 
 class _PasskitParser {
   String _passName;
