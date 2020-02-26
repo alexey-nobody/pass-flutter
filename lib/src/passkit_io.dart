@@ -34,7 +34,7 @@ class _PasskitIo {
     return passFile;
   }
 
-  Future<void> unpackPasskitFile(String pathToPass, String passName) async {
+  Future unpackPasskitFile(String pathToPass, String passName) async {
     File passFile = _getPassFile(pathToPass);
     Directory passDirectory = await this._createPassDirectory(passName);
     if (passDirectory.existsSync()) {
