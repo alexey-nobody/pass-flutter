@@ -13,7 +13,6 @@ class _PasskitIo {
 
   Future<Directory> getPassesDir() async {
     if (this._pathToPass != null) return this._pathToPass;
-
     Directory appDir = await getApplicationDocumentsDirectory();
     Directory passesDir = Directory('${appDir.path}/passes');
     this._pathToPass = await passesDir.create(recursive: true);
@@ -34,7 +33,7 @@ class _PasskitIo {
     return passFile;
   }
 
-  Future unpackPasskitFile(String pathToPass, String passName) async {
+  Future unpack(String pathToPass, String passName) async {
     File passFile = _getPassFile(pathToPass);
     Directory passDirectory = await this._createPassDirectory(passName);
     if (passDirectory.existsSync()) {

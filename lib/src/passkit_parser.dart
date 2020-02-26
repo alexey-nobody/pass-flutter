@@ -28,7 +28,7 @@ class _PasskitParser {
     this._passName = basenameWithoutExtension(pathToPass);
 
     this._passDir = await _PasskitIo().getPassesDir();
-    await _PasskitIo().unpackPasskitFile(pathToPass, this._passName);
+    await _PasskitIo().unpack(pathToPass, this._passName);
 
     PassFile passFile = new PassFile();
     passFile.id = this._passName;
