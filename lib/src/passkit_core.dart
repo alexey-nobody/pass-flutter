@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:pass_flutter/src/models/pass_image.dart';
 import 'package:pass_flutter/src/models/pass_file.dart';
 import 'package:pass_flutter/src/models/pass_json/pass_json.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -45,7 +45,7 @@ class Passkit {
     for (var entity in passes) {
       if (entity is File) {
         try {
-          String passId = basenameWithoutExtension(entity.path);
+          String passId = path.basenameWithoutExtension(entity.path);
 
           PassFile passFile =
               await _PasskitIo().createOrGetPass(passId: passId);
