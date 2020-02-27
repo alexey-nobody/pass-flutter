@@ -26,8 +26,8 @@ class Passkit {
   /// parse and return [PassFile]
   ///
   Future<PassFile> getFromUrl(String url) async {
-    File passFile = await _PasskitUtils.generatePassFile();
-    Response<ResponseBody> responce = await Dio().download(url, passFile.path);
+    PassFile passFile = await _PasskitIo().createOrGetPass();
+    Response<ResponseBody> responce = await Dio().download(url, passFile.file.path);
     if (responce.statusCode == HTTP_RESPONSE_OK) {
       return await _PasskitParser().parse(passFile);
     }
