@@ -1,11 +1,10 @@
 part of 'passkit_core.dart';
 
 class _PasskitParser {
-  String _passName;
-  String _pathToPass;
+  PassFile _passFile;
 
   Future<PasskitPass> _parsePassJson() async {
-    String pathToPassJson = '${this._pathToPass}/pass.json';
+    String pathToPassJson = '${this._passFile.directory.path}/pass.json';
     File passJsonFile = File(pathToPassJson);
     if (!passJsonFile.existsSync()) {
       throw ('Pass file is bad! Not find pass.json in pass file!');
@@ -15,26 +14,21 @@ class _PasskitParser {
   }
 
   PasskitImage _getImage({String name}) {
-    File image = File('${this._pathToPass}/$name.png');
-    File image2x = File('${this._pathToPass}/$name@2x.png');
-    File image3x = File('${this._pathToPass}/$name@3x.png');
+    File image = File('${this._passFile.directory.path}/$name.png');
+    File image2x = File('${this._passFile.directory.path}/$name@2x.png');
+    File image3x = File('${this._passFile.directory.path}/$name@3x.png');
     if (!image.existsSync() || !image2x.existsSync() || !image3x.existsSync()) {
       return null;
     }
     return PasskitImage(image, image2x, image3x);
   }
 
-  Future<PassFile> parse(File pass) async {
-    this._passName = basenameWithoutExtension(pass.uri.path);
-    Directory passDir = await _PasskitIo().getPassesDir();
-    this._pathToPass = '${passDir.path}/${this._passName}';
+  Future<PassFile> parse(PassFile passFile) async {
+    this._passFile = passFile;
 
-    await _PasskitIo().unpack(this._pathToPass, this._passName);
+    await _PasskitIo().unpack(passFile);
 
-    PassFile passFile = new PassFile();
-    passFile.id = this._passName;
     passFile.pass = await this._parsePassJson();
-
     passFile.logo = this._getImage(name: 'logo');
     passFile.background = this._getImage(name: 'background');
     passFile.footer = this._getImage(name: 'footer');
