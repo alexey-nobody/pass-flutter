@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:pass_flutter/src/models/images/pass_image.dart';
+import 'package:pass_flutter/src/models/pass_image.dart';
 import 'package:pass_flutter/src/models/pass_file.dart';
 import 'package:pass_flutter/src/models/passkit/passkit_pass.dart';
 import 'package:path/path.dart';
