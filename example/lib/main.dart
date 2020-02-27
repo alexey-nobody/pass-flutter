@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pass_flutter/passkit.dart';
+import 'package:pass_flutter/pass_flutter.dart';
 
 void main() => runApp(MyApp());
 
