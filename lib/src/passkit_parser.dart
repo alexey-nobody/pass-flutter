@@ -8,7 +8,7 @@ class _PasskitParser {
     String pathToPassJson = '${this._passDir.path}/${this._passName}/pass.json';
     File passJsonFile = File(pathToPassJson);
     if (!passJsonFile.existsSync()) {
-      throw ('Not find pass.json in pkpass file');
+      throw ('Pass file is bad! Not find pass.json in pass file!');
     }
     String passJson = await passJsonFile.readAsString();
     return PasskitPass.fromJson(json.decode(passJson));
