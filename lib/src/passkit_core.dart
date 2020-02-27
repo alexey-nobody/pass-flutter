@@ -27,7 +27,8 @@ class Passkit {
   ///
   Future<PassFile> getFromUrl(String url) async {
     PassFile passFile = await _PasskitIo().createOrGetPass();
-    Response<ResponseBody> responce = await Dio().download(url, passFile.file.path);
+    String pathToSave = passFile.file.path;
+    Response<ResponseBody> responce = await Dio().download(url, pathToSave);
     if (responce.statusCode == HTTP_RESPONSE_OK) {
       return await _PasskitParser().parse(passFile);
     }
@@ -45,8 +46,13 @@ class Passkit {
     for (var entity in passes) {
       if (entity is File) {
         try {
-          PassFile pass = await _PasskitParser().parse(entity);
-          parsedPasses.add(pass);
+          String passId = basenameWithoutExtension(entity.path);
+
+          PassFile passFile =
+              await _PasskitIo().createOrGetPass(passId: passId);
+          passFile = await _PasskitParser().parse(passFile);
+
+          parsedPasses.add(passFile);
         } catch (e) {}
       }
     }
