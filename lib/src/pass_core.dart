@@ -12,10 +12,10 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
-part 'passkit_io.dart';
-part 'passkit_parser.dart';
+part 'pass_io.dart';
+part 'pass_parser.dart';
 
-class Passkit {
+class Pass {
   static const HTTP_RESPONSE_OK = 200;
   static const String _channelName = 'pass-flutter';
   static const MethodChannel _channel = const MethodChannel(_channelName);
@@ -25,11 +25,11 @@ class Passkit {
   /// parse and return [PassFile]
   ///
   Future<PassFile> getFromUrl(String url) async {
-    PassFile passFile = await _PasskitIo().createOrGetPass();
+    PassFile passFile = await _PassIo().createOrGetPass();
     String pathToSave = passFile.file.path;
     Response<ResponseBody> responce = await Dio().download(url, pathToSave);
     if (responce.statusCode == HTTP_RESPONSE_OK) {
-      return await _PasskitParser().parse(passFile);
+      return await _PassParser().parse(passFile);
     }
     throw ('Unable to download pass file at specified url');
   }
@@ -40,7 +40,7 @@ class Passkit {
   ///
   Future<List<PassFile>> getAllSaved() async {
     List<PassFile> parsedPasses = [];
-    Directory passesDir = await _PasskitIo().getPassesDir();
+    Directory passesDir = await _PassIo().getPassesDir();
     List<FileSystemEntity> passes = await passesDir.list().toList();
     for (var entity in passes) {
       if (entity is File) {
@@ -48,8 +48,8 @@ class Passkit {
           String passId = path.basenameWithoutExtension(entity.path);
 
           PassFile passFile =
-              await _PasskitIo().createOrGetPass(passId: passId);
-          passFile = await _PasskitParser().parse(passFile);
+              await _PassIo().createOrGetPass(passId: passId);
+          passFile = await _PassParser().parse(passFile);
 
           parsedPasses.add(passFile);
         } catch (e) {}
@@ -63,7 +63,7 @@ class Passkit {
   /// in internal memory
   ///
   delete(PassFile passFile) {
-    _PasskitIo().delete(passFile.directory, passFile.file);
+    _PassIo().delete(passFile.directory, passFile.file);
   }
 
   static Future<String> get platformVersion async {

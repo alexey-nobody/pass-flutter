@@ -1,18 +1,18 @@
-part of 'passkit_core.dart';
+part of 'pass_core.dart';
 
-class _PasskitIo {
+class _PassIo {
   Directory _pathToPass;
 
-  static final _PasskitIo _singleton = _PasskitIo._internal();
+  static final _PassIo _singleton = _PassIo._internal();
 
-  factory _PasskitIo() {
+  factory _PassIo() {
     return _singleton;
   }
 
-  _PasskitIo._internal();
+  _PassIo._internal();
 
   Future<PassFile> createOrGetPass({String passId}) async {
-    Directory passesDir = await _PasskitIo().getPassesDir();
+    Directory passesDir = await this.getPassesDir();
     if (passId == null) passId = Uuid().v1();
     String passFileName = '$passId.passkit';
 

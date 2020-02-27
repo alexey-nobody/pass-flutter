@@ -1,6 +1,6 @@
-part of 'passkit_core.dart';
+part of 'pass_core.dart';
 
-class _PasskitParser {
+class _PassParser {
   PassFile _passFile;
 
   Future<PassJson> _parsePassJson() async {
@@ -26,7 +26,7 @@ class _PasskitParser {
   Future<PassFile> parse(PassFile passFile) async {
     this._passFile = passFile;
 
-    await _PasskitIo().unpack(passFile);
+    await _PassIo().unpack(passFile);
 
     passFile.pass = await this._parsePassJson();
     passFile.logo = this._getImage(name: 'logo');
