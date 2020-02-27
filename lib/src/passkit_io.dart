@@ -11,6 +11,22 @@ class _PasskitIo {
 
   _PasskitIo._internal();
 
+  Future<PassFile> makePassFs() async {
+    Directory passesDir = await _PasskitIo().getPassesDir();
+    String passId = Uuid().v1();
+    String passFileName = '$passId.passkit';
+
+    File passFile = File('${passesDir.path}/$passFileName');
+    Directory passDirectory = Directory('${passesDir.path}/$passId');
+
+    PassFile pass = new PassFile();
+    pass.id = passId;
+    pass.passFile = passFile;
+    pass.passDirectory = passDirectory;
+
+    return pass;
+  }
+
   Future<Directory> getPassesDir() async {
     if (this._pathToPass != null) return this._pathToPass;
     Directory appDir = await getApplicationDocumentsDirectory();
