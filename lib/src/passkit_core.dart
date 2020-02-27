@@ -26,10 +26,10 @@ class Passkit {
   /// parse and return [PassFile]
   ///
   Future<PassFile> getFromUrl(String url) async {
-    String pathToPass = await _PasskitUtils.generatePathToPass();
-    Response<ResponseBody> responce = await Dio().download(url, pathToPass);
+    File passFile = await _PasskitUtils.generatePassFile();
+    Response<ResponseBody> responce = await Dio().download(url, passFile.path);
     if (responce.statusCode == HTTP_RESPONSE_OK) {
-      return await _PasskitParser().parse(pathToPass);
+      return await _PasskitParser().parse(passFile);
     }
     throw ('Unable to download pass file at specified url');
   }
@@ -42,10 +42,10 @@ class Passkit {
     List<PassFile> parsedPasses = [];
     Directory passesDir = await _PasskitIo().getPassesDir();
     List<FileSystemEntity> passes = await passesDir.list().toList();
-    for(var entity in passes) {
+    for (var entity in passes) {
       if (entity is File) {
         try {
-          PassFile pass = await _PasskitParser().parse(entity.path);
+          PassFile pass = await _PasskitParser().parse(entity);
           parsedPasses.add(pass);
         } catch (e) {}
       }
