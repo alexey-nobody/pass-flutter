@@ -7,6 +7,7 @@ class PassFile {
   String id;
 
   File file;
+  File json;
   Directory directory;
 
   PasskitImage background;
@@ -17,4 +18,10 @@ class PassFile {
   PasskitImage thumbnail;
 
   PasskitPass pass;
+
+  PassFile(String id, File passFile, Directory passDirectory) {
+    this.id = id;
+    this.file = passFile;
+    this.directory = passDirectory;
+  }
 }
