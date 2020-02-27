@@ -33,12 +33,7 @@ class _PasskitIo {
     return passFile;
   }
 
-  Future delete(String pathToPass, String passName) async {
-    Directory passesDir = await this.getPassesDir();
-
-    File passFile = File(pathToPass);
-    Directory passDirectory = Directory('${passesDir.path}/$passName');
-
+  delete(Directory passDirectory, File passFile) async {
     passFile.deleteSync();
     passDirectory.deleteSync();
   }
@@ -64,8 +59,7 @@ class _PasskitIo {
         }
       }
     } catch (e) {
-      await passFile.delete();
-      await passDirectory.delete();
+      this.delete(passDirectory, passFile);
       throw ('Error in unpack passkit file!');
     }
   }
