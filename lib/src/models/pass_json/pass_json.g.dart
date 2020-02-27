@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'passkit_pass.dart';
+part of 'pass_json.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PasskitPass _$PasskitPassFromJson(Map<String, dynamic> json) {
-  return PasskitPass(
+PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
+  return PassJson(
     formatVersion: json['formatVersion'] as int,
     storeCard: json['storeCard'] == null
         ? null
@@ -31,8 +31,7 @@ PasskitPass _$PasskitPassFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$PasskitPassToJson(PasskitPass instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'formatVersion': instance.formatVersion,
       'storeCard': instance.storeCard,
       'passTypeIdentifier': instance.passTypeIdentifier,

@@ -3,14 +3,14 @@ part of 'passkit_core.dart';
 class _PasskitParser {
   PassFile _passFile;
 
-  Future<PasskitPass> _parsePassJson() async {
+  Future<PassJson> _parsePassJson() async {
     String pathToPassJson = '${this._passFile.directory.path}/pass.json';
     File passJsonFile = File(pathToPassJson);
     if (!passJsonFile.existsSync()) {
       throw ('Pass file is bad! Not find pass.json in pass file!');
     }
     String passJson = await passJsonFile.readAsString();
-    return PasskitPass.fromJson(json.decode(passJson));
+    return PassJson.fromJson(json.decode(passJson));
   }
 
   PassImage _getImage({String name}) {

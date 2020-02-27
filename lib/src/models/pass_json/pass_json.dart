@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pass_flutter/src/models/pass_json/store_card/store_card.dart';
 
-part 'passkit_pass.g.dart';
+part 'pass_json.g.dart';
 
 @JsonSerializable()
-class PasskitPass {
+class PassJson {
   int formatVersion;
   StoreCard storeCard;
   String passTypeIdentifier;
@@ -22,7 +22,7 @@ class PasskitPass {
   String expirationDate;
   bool voided;
 
-  PasskitPass({
+  PassJson({
     this.formatVersion,
     this.storeCard,
     this.passTypeIdentifier,
@@ -41,8 +41,8 @@ class PasskitPass {
     this.voided,
   });
 
-  factory PasskitPass.fromJson(Map<String, dynamic> json) =>
-      _$PasskitPassFromJson(json);
+  factory PassJson.fromJson(Map<String, dynamic> json) =>
+      _$PassJsonFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PasskitPassToJson(this);
+  Map<String, dynamic> toJson() => _$PassJsonToJson(this);
 }
