@@ -13,7 +13,7 @@ public class PassFlutterPlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     final MethodChannel channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "pass_flutter");
-    channel.setMethodCallHandler(new PasskitPlugin());
+    channel.setMethodCallHandler(new PassFlutterPlugin());
   }
 
   // This static function is optional and equivalent to onAttachedToEngine. It supports the old
@@ -27,7 +27,7 @@ public class PassFlutterPlugin implements FlutterPlugin, MethodCallHandler {
   // in the same class.
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "pass-flutter");
-    channel.setMethodCallHandler(new PasskitPlugin());
+    channel.setMethodCallHandler(new PassFlutterPlugin());
   }
 
   @Override
