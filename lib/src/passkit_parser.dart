@@ -13,14 +13,14 @@ class _PasskitParser {
     return PasskitPass.fromJson(json.decode(passJson));
   }
 
-  PasskitImage _getImage({String name}) {
+  PassImage _getImage({String name}) {
     File image = File('${this._passFile.directory.path}/$name.png');
     File image2x = File('${this._passFile.directory.path}/$name@2x.png');
     File image3x = File('${this._passFile.directory.path}/$name@3x.png');
     if (!image.existsSync() || !image2x.existsSync() || !image3x.existsSync()) {
       return null;
     }
-    return PasskitImage(image, image2x, image3x);
+    return PassImage(image, image2x, image3x);
   }
 
   Future<PassFile> parse(PassFile passFile) async {

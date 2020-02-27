@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:pass_flutter/src/models/images/passkit_image.dart';
+import 'package:pass_flutter/src/models/images/pass_image.dart';
 import 'package:pass_flutter/src/models/passkit/passkit_pass.dart';
 
 class PassFile {
@@ -10,12 +10,12 @@ class PassFile {
   File json;
   Directory directory;
 
-  PasskitImage background;
-  PasskitImage footer;
-  PasskitImage icon;
-  PasskitImage logo;
-  PasskitImage strip;
-  PasskitImage thumbnail;
+  PassImage background;
+  PassImage footer;
+  PassImage icon;
+  PassImage logo;
+  PassImage strip;
+  PassImage thumbnail;
 
   PasskitPass pass;
 
