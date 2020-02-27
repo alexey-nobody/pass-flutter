@@ -11,20 +11,15 @@ class _PasskitIo {
 
   _PasskitIo._internal();
 
-  Future<PassFile> makePassFs() async {
+  Future<PassFile> createOrGetPass({String passId}) async {
     Directory passesDir = await _PasskitIo().getPassesDir();
-    String passId = Uuid().v1();
+    if (passId == null) passId = Uuid().v1();
     String passFileName = '$passId.passkit';
 
     File passFile = File('${passesDir.path}/$passFileName');
     Directory passDirectory = Directory('${passesDir.path}/$passId');
 
-    PassFile pass = new PassFile();
-    pass.id = passId;
-    pass.passFile = passFile;
-    pass.passDirectory = passDirectory;
-
-    return pass;
+    return PassFile(passId, passFile, passDirectory);
   }
 
   Future<Directory> getPassesDir() async {
@@ -35,38 +30,25 @@ class _PasskitIo {
     return this._pathToPass;
   }
 
-  Future<Directory> _createPassDirectory(String passName) async {
-    Directory passesDir = await this.getPassesDir();
-    String pathToUnpackPass = passesDir.path + '/' + passName;
-    return Directory(pathToUnpackPass);
-  }
-
-  File _getPassFile(pathToPass) {
-    final File passFile = File(pathToPass);
-    if (!(passFile.existsSync())) {
-      throw ('Passkit file not found!');
-    }
-    return passFile;
-  }
-
   delete(Directory passDirectory, File passFile) async {
     passFile.deleteSync();
     passDirectory.deleteSync();
   }
 
-  Future unpack(String pathToPass, String passName) async {
-    File passFile = this._getPassFile(pathToPass);
-    Directory passDirectory = await this._createPassDirectory(passName);
-    if (passDirectory.existsSync()) {
+  Future unpack(PassFile passFile) async {
+    if (!(passFile.file.existsSync())) {
+      throw ('Pass file not found!');
+    }
+    if (passFile.directory.existsSync()) {
       return;
     }
-    passDirectory.createSync();
+    passFile.directory.createSync();
 
     try {
-      final passArchive = passFile.readAsBytesSync();
+      final passArchive = passFile.file.readAsBytesSync();
       final passFiles = ZipDecoder().decodeBytes(passArchive);
       for (var file in passFiles) {
-        final filename = '${passDirectory.path}/${file.name}';
+        final filename = '${passFile.directory.path}/${file.name}';
         if (file.isFile) {
           File outFile = await File(filename).create(recursive: true);
           await outFile.writeAsBytes(file.content);
@@ -75,7 +57,7 @@ class _PasskitIo {
         }
       }
     } catch (e) {
-      this.delete(passDirectory, passFile);
+      this.delete(passFile.directory, passFile.file);
       throw ('Error in unpack passkit file!');
     }
   }
