@@ -47,8 +47,7 @@ class Pass {
         try {
           String passId = path.basenameWithoutExtension(entity.path);
 
-          PassFile passFile =
-              await _PassIo().createOrGetPass(passId: passId);
+          PassFile passFile = await _PassIo().createOrGetPass(passId: passId);
           passFile = await _PassParser().parse(passFile);
 
           parsedPasses.add(passFile);
