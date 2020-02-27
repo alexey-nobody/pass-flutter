@@ -17,7 +17,7 @@ part 'pass_parser.dart';
 
 class Pass {
   static const HTTP_RESPONSE_OK = 200;
-  static const String _channelName = 'pass-flutter';
+  static const String _channelName = 'pass_flutter';
   static const MethodChannel _channel = const MethodChannel(_channelName);
 
   ///

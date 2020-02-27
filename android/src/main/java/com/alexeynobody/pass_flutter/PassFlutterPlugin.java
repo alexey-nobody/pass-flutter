@@ -26,7 +26,7 @@ public class PassFlutterPlugin implements FlutterPlugin, MethodCallHandler {
   // depending on the user's project. onAttachedToEngine or registerWith must both be defined
   // in the same class.
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "pass-flutter");
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), "pass_flutter");
     channel.setMethodCallHandler(new PassFlutterPlugin());
   }
 
