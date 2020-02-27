@@ -58,6 +58,14 @@ class Passkit {
     return parsedPasses;
   }
 
+  ///
+  /// Delete all files and folders for [passFile]
+  /// in internal memory
+  ///
+  delete(PassFile passFile) {
+    _PasskitIo().delete(passFile.directory, passFile.file);
+  }
+
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
