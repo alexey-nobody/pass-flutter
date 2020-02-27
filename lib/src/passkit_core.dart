@@ -14,7 +14,6 @@ import 'package:uuid/uuid.dart';
 
 part 'passkit_io.dart';
 part 'passkit_parser.dart';
-part 'passkit_utils.dart';
 
 class Passkit {
   static const HTTP_RESPONSE_OK = 200;
