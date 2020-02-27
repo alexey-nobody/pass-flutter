@@ -6,8 +6,8 @@ import 'package:pass_flutter/src/models/passkit/passkit_pass.dart';
 class PassFile {
   String id;
 
-  File passFile;
-  Directory passDirectory;
+  File file;
+  Directory directory;
 
   PasskitImage background;
   PasskitImage footer;
