@@ -29,12 +29,32 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     appLaunchURL: json['appLaunchURL'] as String,
     expirationDate: json['expirationDate'] as String,
     voided: json['voided'] as bool,
-  );
+  )
+    ..generic = json['generic'] == null
+        ? null
+        : PassStructureDictionary.fromJson(
+            json['generic'] as Map<String, dynamic>)
+    ..eventTicket = json['eventTicket'] == null
+        ? null
+        : PassStructureDictionary.fromJson(
+            json['eventTicket'] as Map<String, dynamic>)
+    ..coupon = json['coupon'] == null
+        ? null
+        : PassStructureDictionary.fromJson(
+            json['coupon'] as Map<String, dynamic>)
+    ..boardingPass = json['boardingPass'] == null
+        ? null
+        : PassStructureDictionary.fromJson(
+            json['boardingPass'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'formatVersion': instance.formatVersion,
       'storeCard': instance.storeCard,
+      'generic': instance.generic,
+      'eventTicket': instance.eventTicket,
+      'coupon': instance.coupon,
+      'boardingPass': instance.boardingPass,
       'passTypeIdentifier': instance.passTypeIdentifier,
       'description': instance.description,
       'teamIdentifier': instance.teamIdentifier,

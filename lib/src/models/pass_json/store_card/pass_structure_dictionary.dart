@@ -5,9 +5,13 @@ part 'pass_structure_dictionary.g.dart';
 
 @JsonSerializable()
 class PassStructureDictionary {
+  List<Fields> auxiliaryFields;
   List<Fields> headerFields;
   List<Fields> secondaryFields;
   List<Fields> backFields;
+  List<Fields> primaryFields;
+
+  String transitType;
 
   PassStructureDictionary({this.headerFields, this.secondaryFields, this.backFields});
 
