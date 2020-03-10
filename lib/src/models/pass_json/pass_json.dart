@@ -8,6 +8,7 @@ class PassJson {
   int formatVersion;
   PassStructureDictionary storeCard;
   PassStructureDictionary generic;
+  PassStructureDictionary eventTicket;
   String passTypeIdentifier;
   String description;
   String teamIdentifier;
