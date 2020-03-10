@@ -9,6 +9,8 @@ class PassJson {
   PassStructureDictionary storeCard;
   PassStructureDictionary generic;
   PassStructureDictionary eventTicket;
+  PassStructureDictionary coupon;
+  PassStructureDictionary boardingPass;
   String passTypeIdentifier;
   String description;
   String teamIdentifier;
