@@ -35,7 +35,7 @@ class Pass {
   }
 
   ///
-  /// Return all saved pass files in device internal memory
+  /// Return all saved pass files from internal memory
   /// in List of [PassFile]
   ///
   Future<List<PassFile>> getAllSaved() async {
@@ -59,7 +59,7 @@ class Pass {
 
   ///
   /// Delete all files and folders for [passFile]
-  /// in internal memory
+  /// from internal memory
   ///
   delete(PassFile passFile) {
     _PassIo().delete(passFile.directory, passFile.file);
