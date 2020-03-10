@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'store_card.dart';
+part of 'pass_structure_dictionary.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-StoreCard _$StoreCardFromJson(Map<String, dynamic> json) {
-  return StoreCard(
+PassStructureDictionary _$PassStructureDictionaryFromJson(
+    Map<String, dynamic> json) {
+  return PassStructureDictionary(
     headerFields: (json['headerFields'] as List)
         ?.map((e) =>
             e == null ? null : Fields.fromJson(e as Map<String, dynamic>))
@@ -23,7 +24,9 @@ StoreCard _$StoreCardFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$StoreCardToJson(StoreCard instance) => <String, dynamic>{
+Map<String, dynamic> _$PassStructureDictionaryToJson(
+        PassStructureDictionary instance) =>
+    <String, dynamic>{
       'headerFields': instance.headerFields,
       'secondaryFields': instance.secondaryFields,
       'backFields': instance.backFields,

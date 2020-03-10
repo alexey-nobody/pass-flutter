@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pass_flutter/src/models/pass_json/store_card/store_card.dart';
+import 'package:pass_flutter/src/models/pass_json/store_card/pass_structure_dictionary.dart';
 
 part 'pass_json.g.dart';
 
 @JsonSerializable()
 class PassJson {
   int formatVersion;
-  StoreCard storeCard;
+  PassStructureDictionary storeCard;
   String passTypeIdentifier;
   String description;
   String teamIdentifier;

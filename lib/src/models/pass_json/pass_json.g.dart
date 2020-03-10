@@ -11,7 +11,8 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     formatVersion: json['formatVersion'] as int,
     storeCard: json['storeCard'] == null
         ? null
-        : StoreCard.fromJson(json['storeCard'] as Map<String, dynamic>),
+        : PassStructureDictionary.fromJson(
+            json['storeCard'] as Map<String, dynamic>),
     passTypeIdentifier: json['passTypeIdentifier'] as String,
     description: json['description'] as String,
     teamIdentifier: json['teamIdentifier'] as String,
