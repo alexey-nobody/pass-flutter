@@ -7,6 +7,7 @@ part 'pass_json.g.dart';
 class PassJson {
   int formatVersion;
   PassStructureDictionary storeCard;
+  PassStructureDictionary generic;
   String passTypeIdentifier;
   String description;
   String teamIdentifier;
