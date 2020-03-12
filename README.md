@@ -24,7 +24,7 @@ List<PassFile> passes = await new Pass().getAllSaved();
 import 'package:pass_flutter/pass_flutter.dart';
 
 Pass pass = new Pass();
-PassFile passFile = await pass.getFromUrl('url');
+PassFile passFile = await pass.getFromUrl('https://link_to_pass/pass.pkpass');
 await pass.delete(passFile);
 ```
 
