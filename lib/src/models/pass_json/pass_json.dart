@@ -20,11 +20,14 @@ class PassJson {
   String authenticationToken;
 
   // Visual Appearance Keys
+  Barcodes barcode;
   List<Barcodes> barcodes;
   String backgroundColor;
   String foregroundColor;
   String labelColor;
   String groupingIdentifier;
+  String logoText;
+  bool suppressStripShine;
 
   // Style Keys
   PassStructureDictionary storeCard;
@@ -62,6 +65,10 @@ class PassJson {
     this.expirationDate,
     this.voided,
     this.groupingIdentifier,
+    this.logoText,
+    this.suppressStripShine,
+    this.barcodes,
+    this.barcode,
   });
 
   factory PassJson.fromJson(Map<String, dynamic> json) =>

@@ -30,11 +30,16 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     expirationDate: json['expirationDate'] as String,
     voided: json['voided'] as bool,
     groupingIdentifier: json['groupingIdentifier'] as String,
-  )
-    ..barcodes = (json['barcodes'] as List)
+    logoText: json['logoText'] as String,
+    suppressStripShine: json['suppressStripShine'] as bool,
+    barcodes: (json['barcodes'] as List)
         ?.map((e) =>
             e == null ? null : Barcodes.fromJson(e as Map<String, dynamic>))
-        ?.toList()
+        ?.toList(),
+    barcode: json['barcode'] == null
+        ? null
+        : Barcodes.fromJson(json['barcode'] as Map<String, dynamic>),
+  )
     ..generic = json['generic'] == null
         ? null
         : PassStructureDictionary.fromJson(
@@ -66,11 +71,14 @@ Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'organizationName': instance.organizationName,
       'webServiceURL': instance.webServiceURL,
       'authenticationToken': instance.authenticationToken,
+      'barcode': instance.barcode,
       'barcodes': instance.barcodes,
       'backgroundColor': instance.backgroundColor,
       'foregroundColor': instance.foregroundColor,
       'labelColor': instance.labelColor,
       'groupingIdentifier': instance.groupingIdentifier,
+      'logoText': instance.logoText,
+      'suppressStripShine': instance.suppressStripShine,
       'storeCard': instance.storeCard,
       'generic': instance.generic,
       'eventTicket': instance.eventTicket,
