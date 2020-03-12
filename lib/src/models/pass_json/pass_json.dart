@@ -45,7 +45,6 @@ class PassJson {
     this.associatedStoreIdentifiers,
     this.appLaunchURL,
     this.expirationDate,
-    this.voided,
   });
 
   factory PassJson.fromJson(Map<String, dynamic> json) =>
