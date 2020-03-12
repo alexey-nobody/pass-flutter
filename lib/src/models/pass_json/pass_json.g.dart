@@ -30,6 +30,10 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     expirationDate: json['expirationDate'] as String,
     voided: json['voided'] as bool,
   )
+    ..barcodes = (json['barcodes'] as List)
+        ?.map((e) =>
+            e == null ? null : Barcodes.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..generic = json['generic'] == null
         ? null
         : PassStructureDictionary.fromJson(
@@ -46,10 +50,6 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
         ? null
         : PassStructureDictionary.fromJson(
             json['boardingPass'] as Map<String, dynamic>)
-    ..barcodes = (json['barcodes'] as List)
-        ?.map((e) =>
-            e == null ? null : Barcodes.fromJson(e as Map<String, dynamic>))
-        ?.toList()
     ..locations = (json['locations'] as List)
         ?.map((e) =>
             e == null ? null : Locations.fromJson(e as Map<String, dynamic>))
@@ -58,22 +58,22 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'formatVersion': instance.formatVersion,
+      'passTypeIdentifier': instance.passTypeIdentifier,
+      'description': instance.description,
+      'teamIdentifier': instance.teamIdentifier,
+      'serialNumber': instance.serialNumber,
+      'organizationName': instance.organizationName,
+      'webServiceURL': instance.webServiceURL,
+      'authenticationToken': instance.authenticationToken,
+      'barcodes': instance.barcodes,
+      'backgroundColor': instance.backgroundColor,
+      'foregroundColor': instance.foregroundColor,
+      'labelColor': instance.labelColor,
       'storeCard': instance.storeCard,
       'generic': instance.generic,
       'eventTicket': instance.eventTicket,
       'coupon': instance.coupon,
       'boardingPass': instance.boardingPass,
-      'passTypeIdentifier': instance.passTypeIdentifier,
-      'description': instance.description,
-      'teamIdentifier': instance.teamIdentifier,
-      'labelColor': instance.labelColor,
-      'backgroundColor': instance.backgroundColor,
-      'foregroundColor': instance.foregroundColor,
-      'organizationName': instance.organizationName,
-      'webServiceURL': instance.webServiceURL,
-      'serialNumber': instance.serialNumber,
-      'authenticationToken': instance.authenticationToken,
-      'barcodes': instance.barcodes,
       'locations': instance.locations,
       'associatedStoreIdentifiers': instance.associatedStoreIdentifiers,
       'appLaunchURL': instance.appLaunchURL,

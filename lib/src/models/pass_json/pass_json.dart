@@ -7,23 +7,32 @@ part 'pass_json.g.dart';
 
 @JsonSerializable()
 class PassJson {
+  // Standard Keys
   int formatVersion;
+  String passTypeIdentifier;
+  String description;
+  String teamIdentifier;
+  String serialNumber;
+  String organizationName;
+
+  // Web Service Keys
+  String webServiceURL;
+  String authenticationToken;
+
+  // Visual Appearance Keys
+  List<Barcodes> barcodes;
+  String backgroundColor;
+  String foregroundColor;
+  String labelColor;
+
+  // Style Keys
   PassStructureDictionary storeCard;
   PassStructureDictionary generic;
   PassStructureDictionary eventTicket;
   PassStructureDictionary coupon;
   PassStructureDictionary boardingPass;
-  String passTypeIdentifier;
-  String description;
-  String teamIdentifier;
-  String labelColor;
-  String backgroundColor;
-  String foregroundColor;
-  String organizationName;
-  String webServiceURL;
-  String serialNumber;
-  String authenticationToken;
-  List<Barcodes> barcodes;
+
+  // Relevance Keys
   List<Locations> locations;
 
   // Associated App Keys
