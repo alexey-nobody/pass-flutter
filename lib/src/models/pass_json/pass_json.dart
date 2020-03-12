@@ -24,6 +24,7 @@ class PassJson {
   String backgroundColor;
   String foregroundColor;
   String labelColor;
+  String groupingIdentifier;
 
   // Style Keys
   PassStructureDictionary storeCard;
@@ -60,6 +61,7 @@ class PassJson {
     this.appLaunchURL,
     this.expirationDate,
     this.voided,
+    this.groupingIdentifier,
   });
 
   factory PassJson.fromJson(Map<String, dynamic> json) =>

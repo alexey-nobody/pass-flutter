@@ -29,6 +29,7 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     appLaunchURL: json['appLaunchURL'] as String,
     expirationDate: json['expirationDate'] as String,
     voided: json['voided'] as bool,
+    groupingIdentifier: json['groupingIdentifier'] as String,
   )
     ..barcodes = (json['barcodes'] as List)
         ?.map((e) =>
@@ -69,6 +70,7 @@ Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'backgroundColor': instance.backgroundColor,
       'foregroundColor': instance.foregroundColor,
       'labelColor': instance.labelColor,
+      'groupingIdentifier': instance.groupingIdentifier,
       'storeCard': instance.storeCard,
       'generic': instance.generic,
       'eventTicket': instance.eventTicket,
