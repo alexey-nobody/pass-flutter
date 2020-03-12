@@ -45,7 +45,11 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     ..boardingPass = json['boardingPass'] == null
         ? null
         : PassStructureDictionary.fromJson(
-            json['boardingPass'] as Map<String, dynamic>);
+            json['boardingPass'] as Map<String, dynamic>)
+    ..barcodes = (json['barcodes'] as List)
+        ?.map((e) =>
+            e == null ? null : Barcodes.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
@@ -68,5 +72,6 @@ Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'associatedStoreIdentifiers': instance.associatedStoreIdentifiers,
       'appLaunchURL': instance.appLaunchURL,
       'expirationDate': instance.expirationDate,
+      'barcodes': instance.barcodes,
       'voided': instance.voided,
     };

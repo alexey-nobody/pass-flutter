@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pass_flutter/src/models/pass_json/barcodes/barcodes.dart';
 import 'package:pass_flutter/src/models/pass_json/store_card/pass_structure_dictionary.dart';
 
 part 'pass_json.g.dart';
@@ -24,6 +25,8 @@ class PassJson {
   List<int> associatedStoreIdentifiers;
   String appLaunchURL;
   String expirationDate;
+  List<Barcodes> barcodes;
+
   bool voided;
 
   PassJson({
