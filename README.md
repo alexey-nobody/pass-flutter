@@ -16,7 +16,7 @@ PassFile passes = await new Pass().getFromUrl('https://link_to_pass/pass.pkpass'
 ```dart
 import 'package:pass_flutter/pass_flutter.dart';
 
-List<PassFile> passes = await new Pass().getAllSaved();
+List<PassFile> passFile = await new Pass().getAllSaved();
 ```
 
 ### Delete pass file from internal memory
