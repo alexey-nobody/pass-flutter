@@ -13,6 +13,22 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
         ? null
         : PassStructureDictionary.fromJson(
             json['storeCard'] as Map<String, dynamic>),
+    coupon: json['coupon'] == null
+        ? null
+        : PassStructureDictionary.fromJson(
+            json['coupon'] as Map<String, dynamic>),
+    generic: json['generic'] == null
+        ? null
+        : PassStructureDictionary.fromJson(
+            json['generic'] as Map<String, dynamic>),
+    eventTicket: json['eventTicket'] == null
+        ? null
+        : PassStructureDictionary.fromJson(
+            json['eventTicket'] as Map<String, dynamic>),
+    boardingPass: json['boardingPass'] == null
+        ? null
+        : PassStructureDictionary.fromJson(
+            json['boardingPass'] as Map<String, dynamic>),
     passTypeIdentifier: json['passTypeIdentifier'] as String,
     description: json['description'] as String,
     teamIdentifier: json['teamIdentifier'] as String,
@@ -43,23 +59,7 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Location.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-  )
-    ..generic = json['generic'] == null
-        ? null
-        : PassStructureDictionary.fromJson(
-            json['generic'] as Map<String, dynamic>)
-    ..eventTicket = json['eventTicket'] == null
-        ? null
-        : PassStructureDictionary.fromJson(
-            json['eventTicket'] as Map<String, dynamic>)
-    ..coupon = json['coupon'] == null
-        ? null
-        : PassStructureDictionary.fromJson(
-            json['coupon'] as Map<String, dynamic>)
-    ..boardingPass = json['boardingPass'] == null
-        ? null
-        : PassStructureDictionary.fromJson(
-            json['boardingPass'] as Map<String, dynamic>);
+  );
 }
 
 Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{

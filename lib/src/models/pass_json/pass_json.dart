@@ -50,6 +50,10 @@ class PassJson {
   PassJson({
     this.formatVersion,
     this.storeCard,
+    this.coupon,
+    this.generic,
+    this.eventTicket,
+    this.boardingPass,
     this.passTypeIdentifier,
     this.description,
     this.teamIdentifier,
