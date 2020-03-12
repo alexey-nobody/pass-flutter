@@ -9,6 +9,7 @@ class _PassParser {
     if (!passJsonFile.existsSync()) {
       throw ('Pass file is bad! Not find pass.json in pass file!');
     }
+    this._passFile.passJson = passJsonFile;
     String passJson = await passJsonFile.readAsString();
     return PassJson.fromJson(json.decode(passJson));
   }
