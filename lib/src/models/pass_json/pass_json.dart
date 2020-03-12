@@ -29,8 +29,6 @@ class PassJson {
   List<Barcodes> barcodes;
   List<Locations> locations;
 
-  bool voided;
-
   PassJson({
     this.formatVersion,
     this.storeCard,
