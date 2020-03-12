@@ -4,4 +4,20 @@
 
 <p align="center">A Flutter library for work with Apple Wallet passes.</p>
 
-<br><br><br>
+<br><br><br><br><br><br><br>
+
+# How use it
+
+## Getting pass from URL
+```dart
+import 'package:pass_flutter/pass_flutter.dart';
+
+PassFile passes = await new Pass().getFromUrl('https://link_to_passes/pass.pkpass');
+```
+
+## Getting list of all saved passes
+```dart
+import 'package:pass_flutter/pass_flutter.dart';
+
+List<PassFile> passes = await new Pass().getAllSaved();
+```
