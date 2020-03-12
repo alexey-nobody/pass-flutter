@@ -28,6 +28,7 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
         ?.toList(),
     appLaunchURL: json['appLaunchURL'] as String,
     expirationDate: json['expirationDate'] as String,
+    voided: json['voided'] as bool,
   )
     ..generic = json['generic'] == null
         ? null
@@ -72,9 +73,10 @@ Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'webServiceURL': instance.webServiceURL,
       'serialNumber': instance.serialNumber,
       'authenticationToken': instance.authenticationToken,
+      'barcodes': instance.barcodes,
+      'locations': instance.locations,
       'associatedStoreIdentifiers': instance.associatedStoreIdentifiers,
       'appLaunchURL': instance.appLaunchURL,
       'expirationDate': instance.expirationDate,
-      'barcodes': instance.barcodes,
-      'locations': instance.locations,
+      'voided': instance.voided,
     };

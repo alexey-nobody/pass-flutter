@@ -23,11 +23,16 @@ class PassJson {
   String webServiceURL;
   String serialNumber;
   String authenticationToken;
-  List<int> associatedStoreIdentifiers;
-  String appLaunchURL;
-  String expirationDate;
   List<Barcodes> barcodes;
   List<Locations> locations;
+
+  // Associated App Keys
+  List<int> associatedStoreIdentifiers;
+  String appLaunchURL;
+
+  // Expiration Keys
+  String expirationDate;
+  bool voided;
 
   PassJson({
     this.formatVersion,
@@ -45,6 +50,7 @@ class PassJson {
     this.associatedStoreIdentifiers,
     this.appLaunchURL,
     this.expirationDate,
+    this.voided,
   });
 
   factory PassJson.fromJson(Map<String, dynamic> json) =>
