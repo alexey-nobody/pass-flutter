@@ -49,6 +49,10 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     ..barcodes = (json['barcodes'] as List)
         ?.map((e) =>
             e == null ? null : Barcodes.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..locations = (json['locations'] as List)
+        ?.map((e) =>
+            e == null ? null : Locations.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
@@ -73,5 +77,6 @@ Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'appLaunchURL': instance.appLaunchURL,
       'expirationDate': instance.expirationDate,
       'barcodes': instance.barcodes,
+      'locations': instance.locations,
       'voided': instance.voided,
     };
