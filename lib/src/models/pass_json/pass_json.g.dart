@@ -39,6 +39,10 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     barcode: json['barcode'] == null
         ? null
         : Barcode.fromJson(json['barcode'] as Map<String, dynamic>),
+    locations: (json['locations'] as List)
+        ?.map((e) =>
+            e == null ? null : Location.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   )
     ..generic = json['generic'] == null
         ? null
@@ -55,11 +59,7 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     ..boardingPass = json['boardingPass'] == null
         ? null
         : PassStructureDictionary.fromJson(
-            json['boardingPass'] as Map<String, dynamic>)
-    ..locations = (json['locations'] as List)
-        ?.map((e) =>
-            e == null ? null : Locations.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+            json['boardingPass'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{

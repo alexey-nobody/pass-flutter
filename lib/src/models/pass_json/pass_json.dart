@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pass_flutter/src/models/pass_json/barcode/barcode.dart';
-import 'package:pass_flutter/src/models/pass_json/locations/locations.dart';
+import 'package:pass_flutter/src/models/pass_json/location/location.dart';
 import 'package:pass_flutter/src/models/pass_json/structure_dictionary/pass_structure_dictionary.dart';
 
 part 'pass_json.g.dart';
@@ -37,7 +37,7 @@ class PassJson {
   PassStructureDictionary boardingPass;
 
   // Relevance Keys
-  List<Locations> locations;
+  List<Location> locations;
 
   // Associated App Keys
   List<int> associatedStoreIdentifiers;
@@ -69,6 +69,7 @@ class PassJson {
     this.suppressStripShine,
     this.barcodes,
     this.barcode,
+    this.locations,
   });
 
   factory PassJson.fromJson(Map<String, dynamic> json) =>
