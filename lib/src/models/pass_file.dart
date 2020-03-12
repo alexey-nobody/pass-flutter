@@ -7,7 +7,8 @@ class PassFile {
   String id;
 
   File file;
-  File json;
+  File passJson;
+
   Directory directory;
 
   PassImage background;
