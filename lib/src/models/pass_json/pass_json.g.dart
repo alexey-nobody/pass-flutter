@@ -34,11 +34,11 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     suppressStripShine: json['suppressStripShine'] as bool,
     barcodes: (json['barcodes'] as List)
         ?.map((e) =>
-            e == null ? null : Barcodes.fromJson(e as Map<String, dynamic>))
+            e == null ? null : Barcode.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     barcode: json['barcode'] == null
         ? null
-        : Barcodes.fromJson(json['barcode'] as Map<String, dynamic>),
+        : Barcode.fromJson(json['barcode'] as Map<String, dynamic>),
   )
     ..generic = json['generic'] == null
         ? null

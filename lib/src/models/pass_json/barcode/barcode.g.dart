@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'barcodes.dart';
+part of 'barcode.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Barcodes _$BarcodesFromJson(Map<String, dynamic> json) {
-  return Barcodes(
+Barcode _$BarcodeFromJson(Map<String, dynamic> json) {
+  return Barcode(
     altText: json['altText'] as String,
     format: json['format'] as String,
     message: json['message'] as String,
@@ -15,7 +15,7 @@ Barcodes _$BarcodesFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$BarcodesToJson(Barcodes instance) => <String, dynamic>{
+Map<String, dynamic> _$BarcodeToJson(Barcode instance) => <String, dynamic>{
       'altText': instance.altText,
       'format': instance.format,
       'message': instance.message,

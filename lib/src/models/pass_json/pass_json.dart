@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pass_flutter/src/models/pass_json/barcodes/barcodes.dart';
+import 'package:pass_flutter/src/models/pass_json/barcode/barcode.dart';
 import 'package:pass_flutter/src/models/pass_json/locations/locations.dart';
 import 'package:pass_flutter/src/models/pass_json/structure_dictionary/pass_structure_dictionary.dart';
 
@@ -20,8 +20,8 @@ class PassJson {
   String authenticationToken;
 
   // Visual Appearance Keys
-  Barcodes barcode;
-  List<Barcodes> barcodes;
+  Barcode barcode;
+  List<Barcode> barcodes;
   String backgroundColor;
   String foregroundColor;
   String labelColor;
