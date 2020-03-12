@@ -1,4 +1,4 @@
-<p align="center"><img src="https://docs-assets.developer.apple.com/published/c104c9bff0/841b02dd-b78c-4cad-8da4-700761d34e14.png" alt="Apple Wallet logo" width="30%"></p>
+<p align="center"><img src="https://docs-assets.developer.apple.com/published/c104c9bff0/841b02dd-b78c-4cad-8da4-700761d34e14.png" alt="Apple Wallet logo" width="20%"></p>
 
 # pass-flutter
 A Flutter library for work with Apple Wallet passes.
@@ -18,3 +18,8 @@ import 'package:pass_flutter/pass_flutter.dart';
 
 List<PassFile> passes = await new Pass().getAllSaved();
 ```
+
+## Contribute
+
+Please feel free to fork, improve, make pull requests or fill issues.
+I'll be glad to fix bugs you encountered or improve the extension.
