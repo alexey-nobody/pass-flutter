@@ -62,41 +62,31 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$PassJsonToJson(PassJson instance) {
-  final val = <String, dynamic>{
-    'formatVersion': instance.formatVersion,
-    'passTypeIdentifier': instance.passTypeIdentifier,
-    'description': instance.description,
-    'teamIdentifier': instance.teamIdentifier,
-    'serialNumber': instance.serialNumber,
-    'organizationName': instance.organizationName,
-    'webServiceURL': instance.webServiceURL,
-    'authenticationToken': instance.authenticationToken,
-    'barcode': instance.barcode,
-    'barcodes': instance.barcodes,
-    'backgroundColor': instance.backgroundColor,
-    'foregroundColor': instance.foregroundColor,
-    'labelColor': instance.labelColor,
-    'groupingIdentifier': instance.groupingIdentifier,
-    'logoText': instance.logoText,
-    'suppressStripShine': instance.suppressStripShine,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('storeCard', instance.storeCard);
-  writeNotNull('generic', instance.generic);
-  writeNotNull('eventTicket', instance.eventTicket);
-  writeNotNull('coupon', instance.coupon);
-  writeNotNull('boardingPass', instance.boardingPass);
-  val['locations'] = instance.locations;
-  val['associatedStoreIdentifiers'] = instance.associatedStoreIdentifiers;
-  val['appLaunchURL'] = instance.appLaunchURL;
-  val['expirationDate'] = instance.expirationDate;
-  val['voided'] = instance.voided;
-  return val;
-}
+Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
+      'formatVersion': instance.formatVersion,
+      'passTypeIdentifier': instance.passTypeIdentifier,
+      'description': instance.description,
+      'teamIdentifier': instance.teamIdentifier,
+      'serialNumber': instance.serialNumber,
+      'organizationName': instance.organizationName,
+      'webServiceURL': instance.webServiceURL,
+      'authenticationToken': instance.authenticationToken,
+      'barcode': instance.barcode,
+      'barcodes': instance.barcodes,
+      'backgroundColor': instance.backgroundColor,
+      'foregroundColor': instance.foregroundColor,
+      'labelColor': instance.labelColor,
+      'groupingIdentifier': instance.groupingIdentifier,
+      'logoText': instance.logoText,
+      'suppressStripShine': instance.suppressStripShine,
+      'storeCard': instance.storeCard,
+      'generic': instance.generic,
+      'eventTicket': instance.eventTicket,
+      'coupon': instance.coupon,
+      'boardingPass': instance.boardingPass,
+      'locations': instance.locations,
+      'associatedStoreIdentifiers': instance.associatedStoreIdentifiers,
+      'appLaunchURL': instance.appLaunchURL,
+      'expirationDate': instance.expirationDate,
+      'voided': instance.voided,
+    };

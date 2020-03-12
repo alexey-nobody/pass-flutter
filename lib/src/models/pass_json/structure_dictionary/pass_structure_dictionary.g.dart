@@ -34,20 +34,12 @@ PassStructureDictionary _$PassStructureDictionaryFromJson(
 }
 
 Map<String, dynamic> _$PassStructureDictionaryToJson(
-    PassStructureDictionary instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('auxiliaryFields', instance.auxiliaryFields);
-  writeNotNull('headerFields', instance.headerFields);
-  writeNotNull('secondaryFields', instance.secondaryFields);
-  writeNotNull('backFields', instance.backFields);
-  writeNotNull('primaryFields', instance.primaryFields);
-  writeNotNull('transitType', instance.transitType);
-  return val;
-}
+        PassStructureDictionary instance) =>
+    <String, dynamic>{
+      'auxiliaryFields': instance.auxiliaryFields,
+      'headerFields': instance.headerFields,
+      'secondaryFields': instance.secondaryFields,
+      'backFields': instance.backFields,
+      'primaryFields': instance.primaryFields,
+      'transitType': instance.transitType,
+    };
