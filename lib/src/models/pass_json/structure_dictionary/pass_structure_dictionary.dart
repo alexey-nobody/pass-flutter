@@ -3,7 +3,7 @@ import 'package:pass_flutter/src/models/pass_json/structure_dictionary/fields/fi
 
 part 'pass_structure_dictionary.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class PassStructureDictionary {
   List<Fields> auxiliaryFields;
   List<Fields> headerFields;

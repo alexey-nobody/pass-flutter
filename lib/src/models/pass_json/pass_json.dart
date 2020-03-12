@@ -30,15 +30,15 @@ class PassJson {
   bool suppressStripShine;
 
   // Style Keys
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, nullable: true)
   PassStructureDictionary storeCard;
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, nullable: true)
   PassStructureDictionary generic;
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, nullable: true)
   PassStructureDictionary eventTicket;
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, nullable: true)
   PassStructureDictionary coupon;
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, nullable: true)
   PassStructureDictionary boardingPass;
 
   // Relevance Keys
