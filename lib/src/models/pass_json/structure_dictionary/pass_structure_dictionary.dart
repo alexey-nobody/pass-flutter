@@ -13,7 +13,8 @@ class PassStructureDictionary {
 
   String transitType;
 
-  PassStructureDictionary({this.headerFields, this.secondaryFields, this.backFields});
+  PassStructureDictionary(
+      {this.headerFields, this.secondaryFields, this.backFields});
 
   factory PassStructureDictionary.fromJson(Map<String, dynamic> json) =>
       _$PassStructureDictionaryFromJson(json);

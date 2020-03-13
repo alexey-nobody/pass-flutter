@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'fields.g.dart';
 
-
 @JsonSerializable()
 class Fields {
   Fields(this.key, this.label, this.value, this.changeMessage);
