@@ -74,15 +74,26 @@ class PassJson {
   /// Optional. Text displayed next to the logo on the pass.
   String logoText;
 
-  /// Optional. If true, the strip image is displayed without a shine effect. The default value prior to iOS 7.0 is false.
+  /// Optional. If true, the strip image is displayed without a shine effect.
+  /// The default value prior to iOS 7.0 is false.
   /// In iOS 7.0, a shine effect is never applied, and this key is deprecated.
   bool suppressStripShine;
 
   // Style Keys
+
+  /// Information specific to a store card.
   PassStructureDictionary storeCard;
+
+  /// Information specific to a generic pass.
   PassStructureDictionary generic;
+
+  /// Information specific to an event ticket.
   PassStructureDictionary eventTicket;
+
+  /// Information specific to a coupon.
   PassStructureDictionary coupon;
+
+  /// Information specific to a boarding pass.
   PassStructureDictionary boardingPass;
 
   // Relevance Keys
@@ -90,7 +101,8 @@ class PassJson {
   /// Optional. Locations where the pass is relevant. For example, the location of your store.
   List<Location> locations;
 
-  /// Optional. Maximum distance in meters from a relevant latitude and longitude that the pass is relevant. This number is compared to the pass’s default distance and the smaller value is used.
+  /// Optional. Maximum distance in meters from a relevant latitude and longitude that the pass is relevant.
+  /// This number is compared to the pass’s default distance and the smaller value is used.
   /// Available in iOS 7.0.
   int maxDistance;
 
@@ -100,11 +112,28 @@ class PassJson {
   String relevantDate;
 
   // Associated App Keys
+
+  /// Optional. A list of iTunes Store item identifiers for the associated apps.
+  /// Only one item in the list is used—the first item identifier for an app compatible with the current device.
+  /// If the app is not installed, the link opens the App Store and shows the app.
+  /// If the app is already installed, the link launches the app.
   List<int> associatedStoreIdentifiers;
+
+  /// Optional. A URL to be passed to the associated app when launching it.
+  /// The app receives this URL in the application:didFinishLaunchingWithOptions: and application:openURL:options:
+  /// methods of its app delegate.
+  /// If this key is present, the associatedStoreIdentifiers key must also be present.
   String appLaunchURL;
 
   // Expiration Keys
+
+  /// Optional. Date and time when the pass expires.
+  /// The value must be a complete date with hours and minutes, and may optionally include seconds.
+  /// Available in iOS 7.0.
   String expirationDate;
+
+  /// Optional. Indicates that the pass is void—for example, a one time use coupon that has been redeemed. The default value is false.
+  /// Available in iOS 7.0.
   bool voided;
 
   PassJson({
