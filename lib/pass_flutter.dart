@@ -1,6 +1,5 @@
 library pass_flutter;
 
-
 export 'src/models/pass_file.dart';
 export 'src/models/pass_image.dart';
 export 'src/models/pass_json/pass_json.dart';
