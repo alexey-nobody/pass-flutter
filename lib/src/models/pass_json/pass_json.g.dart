@@ -63,12 +63,12 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
-      'formatVersion': instance.formatVersion,
-      'passTypeIdentifier': instance.passTypeIdentifier,
       'description': instance.description,
-      'teamIdentifier': instance.teamIdentifier,
-      'serialNumber': instance.serialNumber,
+      'formatVersion': instance.formatVersion,
       'organizationName': instance.organizationName,
+      'passTypeIdentifier': instance.passTypeIdentifier,
+      'serialNumber': instance.serialNumber,
+      'teamIdentifier': instance.teamIdentifier,
       'webServiceURL': instance.webServiceURL,
       'authenticationToken': instance.authenticationToken,
       'barcode': instance.barcode,

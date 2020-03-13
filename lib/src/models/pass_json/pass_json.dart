@@ -7,13 +7,25 @@ part 'pass_json.g.dart';
 
 @JsonSerializable()
 class PassJson {
-  // Standard Keys
-  int formatVersion;
-  String passTypeIdentifier;
+  /// Required. Brief description of the pass, used by the iOS accessibility technologies.
+  /// Don’t try to include all of the data on the pass in its description,
+  /// just include enough detail to distinguish passes of the same type.
   String description;
-  String teamIdentifier;
-  String serialNumber;
+
+  /// Required. Version of the file format. The value must be 1.
+  int formatVersion;
+
+  /// Required. Display name of the organization that originated and signed the pass.
   String organizationName;
+
+  /// Required. Pass type identifier, as issued by Apple. The value must correspond with your signing certificate.
+  String passTypeIdentifier;
+
+  /// Required. Serial number that uniquely identifies the pass. No two passes with the same pass type identifier may have the same serial number.
+  String serialNumber;
+
+  /// Required. Team identifier of the organization that originated and signed the pass, as issued by Apple.
+  String teamIdentifier;
 
   // Web Service Keys
   String webServiceURL;
