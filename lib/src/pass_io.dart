@@ -32,7 +32,7 @@ class _PassIo {
 
   delete(Directory passDirectory, File passFile) async {
     passFile.deleteSync();
-    passDirectory.deleteSync();
+    passDirectory.deleteSync(recursive: true);
   }
 
   Future unpack(PassFile passFile) async {
