@@ -30,7 +30,12 @@ class PassJson {
   String teamIdentifier;
 
   // Web Service Keys
+
+  /// The URL of a web service that conforms to the API described in PassKit Web Service Reference.
+  /// The web service must use the HTTPS protocol; the leading https:// is included in the value of this key.
+  /// On devices configured for development, there is UI in Settings to allow HTTP web services.
   String webServiceURL;
+  /// The authentication token to use with the web service. The token must be 16 characters or longer.
   String authenticationToken;
 
   // Visual Appearance Keys
