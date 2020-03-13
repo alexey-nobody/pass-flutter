@@ -85,6 +85,8 @@ class PassJson {
   PassStructureDictionary boardingPass;
 
   // Relevance Keys
+
+  /// Optional. Locations where the pass is relevant. For example, the location of your store.
   List<Location> locations;
 
   // Associated App Keys
