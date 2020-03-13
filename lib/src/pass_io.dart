@@ -1,7 +1,7 @@
 part of 'pass_core.dart';
 
 class _PassIo {
-  Directory _pathToPass;
+  Directory _passDirectory;
 
   static final _PassIo _singleton = _PassIo._internal();
 
@@ -23,11 +23,11 @@ class _PassIo {
   }
 
   Future<Directory> getPassesDir() async {
-    if (this._pathToPass != null) return this._pathToPass;
+    if (this._passDirectory != null) return this._passDirectory;
     Directory appDir = await getApplicationDocumentsDirectory();
-    Directory passesDir = Directory('${appDir.path}/passes');
-    this._pathToPass = await passesDir.create(recursive: true);
-    return this._pathToPass;
+    this._passDirectory = Directory('${appDir.path}/passes');
+    this._passDirectory.createSync(recursive: true);
+    return this._passDirectory;
   }
 
   delete(Directory passDirectory, File passFile) async {
