@@ -7,6 +7,8 @@ part 'pass_json.g.dart';
 
 @JsonSerializable()
 class PassJson {
+  // Standart keys
+
   /// Required. Brief description of the pass, used by the iOS accessibility technologies.
   /// Don’t try to include all of the data on the pass in its description,
   /// just include enough detail to distinguish passes of the same type.
@@ -32,13 +34,42 @@ class PassJson {
   String authenticationToken;
 
   // Visual Appearance Keys
+
+  /// Optional. Information specific to the pass’s barcode. For this dictionary’s keys, see Barcode Dictionary Keys.
+  /// Note:Deprecated in iOS 9.0 and later; use barcodes instead.
   Barcode barcode;
+
+  /// Optional. Information specific to the pass’s barcode.
+  /// The system uses the first valid barcode dictionary in the array.
+  /// Additional dictionaries can be added as fallbacks. For this dictionary’s keys,
+  /// see Barcode Dictionary Keys.
+  /// Note: Available only in iOS 9.0 and later.
   List<Barcode> barcodes;
+
+  /// Optional. Background color of the pass, specified as an CSS-style RGB triple. For example, rgb(23, 187, 82).
   String backgroundColor;
+
+  /// Optional. Foreground color of the pass, specified as a CSS-style RGB triple. For example, rgb(100, 10, 110).
   String foregroundColor;
+
+  /// Optional. Color of the label text, specified as a CSS-style RGB triple. For example, rgb(255, 255, 255).
+  /// If omitted, the label color is determined automatically.
   String labelColor;
+
+  /// Optional for event tickets and boarding passes; otherwise not allowed.
+  /// Identifier used to group related passes. If a grouping identifier is specified,
+  /// passes with the same style, pass type identifier, and grouping identifier are displayed as a group.
+  /// Otherwise, passes are grouped automatically.
+  /// Use this to group passes that are tightly related, such as the boarding passes for different
+  /// connections of the same trip.
+  /// Available in iOS 7.0.
   String groupingIdentifier;
+
+  /// Optional. Text displayed next to the logo on the pass.
   String logoText;
+
+  /// Optional. If true, the strip image is displayed without a shine effect. The default value prior to iOS 7.0 is false.
+  /// In iOS 7.0, a shine effect is never applied, and this key is deprecated.
   bool suppressStripShine;
 
   // Style Keys
