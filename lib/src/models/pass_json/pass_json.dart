@@ -35,6 +35,7 @@ class PassJson {
   /// The web service must use the HTTPS protocol; the leading https:// is included in the value of this key.
   /// On devices configured for development, there is UI in Settings to allow HTTP web services.
   String webServiceURL;
+
   /// The authentication token to use with the web service. The token must be 16 characters or longer.
   String authenticationToken;
 
@@ -88,6 +89,10 @@ class PassJson {
 
   /// Optional. Locations where the pass is relevant. For example, the location of your store.
   List<Location> locations;
+
+  /// Optional. Maximum distance in meters from a relevant latitude and longitude that the pass is relevant. This number is compared to the pass’s default distance and the smaller value is used.
+  /// Available in iOS 7.0.
+  int maxDistance;
 
   // Associated App Keys
   List<int> associatedStoreIdentifiers;
