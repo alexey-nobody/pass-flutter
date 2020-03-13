@@ -94,6 +94,11 @@ class PassJson {
   /// Available in iOS 7.0.
   int maxDistance;
 
+  /// Recommended for event tickets and boarding passes; otherwise optional.
+  /// Date and time when the pass becomes relevant. For example, the start time of a movie.
+  /// The value must be a complete date with hours and minutes, and may optionally include seconds.
+  String relevantDate;
+
   // Associated App Keys
   List<int> associatedStoreIdentifiers;
   String appLaunchURL;
