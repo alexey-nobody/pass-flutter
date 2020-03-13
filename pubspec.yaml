@@ -1,6 +1,6 @@
 name: pass_flutter
 description: A Flutter library for getting and reading Apple Wallet passes.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/alexeynobody/pass-flutter
 
 environment:
