@@ -26,8 +26,14 @@ class PassStructureDictionary {
   /// PKTransitTypeAir, PKTransitTypeBoat, PKTransitTypeBus, PKTransitTypeGeneric,PKTransitTypeTrain.
   String transitType;
 
-  PassStructureDictionary(
-      {this.headerFields, this.secondaryFields, this.backFields});
+  PassStructureDictionary({
+    this.headerFields,
+    this.secondaryFields,
+    this.backFields,
+    this.auxiliaryFields,
+    this.primaryFields,
+    this.transitType,
+  });
 
   factory PassStructureDictionary.fromJson(Map<String, dynamic> json) =>
       _$PassStructureDictionaryFromJson(json);
