@@ -164,6 +164,8 @@ class PassJson extends Equatable {
     this.barcodes,
     this.barcode,
     this.locations,
+    this.maxDistance,
+    this.relevantDate,
   });
 
   factory PassJson.fromJson(Map<String, dynamic> json) =>
