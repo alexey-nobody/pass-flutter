@@ -1,3 +1,7 @@
+## 1.0.2 - 
+ - fix bug with maxDistance and relevantDate in pass json
+ - add equtable for comparisons pass files
+
 ## 1.0.1
  - fix code format
  - add altitude to Location Dictionary Keys
