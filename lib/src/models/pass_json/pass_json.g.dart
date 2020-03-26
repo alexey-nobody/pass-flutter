@@ -59,9 +59,7 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Location.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-  )
-    ..maxDistance = json['maxDistance'] as int
-    ..relevantDate = json['relevantDate'] as String;
+  );
 }
 
 Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
@@ -87,8 +85,6 @@ Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'coupon': instance.coupon,
       'boardingPass': instance.boardingPass,
       'locations': instance.locations,
-      'maxDistance': instance.maxDistance,
-      'relevantDate': instance.relevantDate,
       'associatedStoreIdentifiers': instance.associatedStoreIdentifiers,
       'appLaunchURL': instance.appLaunchURL,
       'expirationDate': instance.expirationDate,
