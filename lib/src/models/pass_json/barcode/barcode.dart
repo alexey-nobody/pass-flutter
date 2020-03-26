@@ -22,7 +22,12 @@ class Barcode extends Equatable {
   /// use another encoding that is supported by your barcode scanning infrastructure.
   final String messageEncoding;
 
-  Barcode({this.altText, this.format, this.message, this.messageEncoding});
+  Barcode({
+    this.altText,
+    this.format,
+    this.message,
+    this.messageEncoding,
+  });
 
   factory Barcode.fromJson(Map<String, dynamic> json) =>
       _$BarcodeFromJson(json);
@@ -30,6 +35,10 @@ class Barcode extends Equatable {
   Map<String, dynamic> toJson() => _$BarcodeToJson(this);
 
   @override
-  List<Object> get props =>
-      [this.altText, this.format, this.message, this.messageEncoding];
+  List<Object> get props => [
+        this.altText,
+        this.format,
+        this.message,
+        this.messageEncoding,
+      ];
 }

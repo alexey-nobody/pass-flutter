@@ -18,7 +18,12 @@ class Location extends Equatable {
   /// For example, a description of the nearby location such as “Store nearby on 1st and Main.”
   final String relevantText;
 
-  Location({this.altitude, this.latitude, this.longitude, this.relevantText});
+  Location({
+    this.altitude,
+    this.latitude,
+    this.longitude,
+    this.relevantText,
+  });
 
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
@@ -26,6 +31,10 @@ class Location extends Equatable {
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 
   @override
-  List<Object> get props =>
-      [this.altitude, this.latitude, this.longitude, this.relevantText];
+  List<Object> get props => [
+        this.altitude,
+        this.latitude,
+        this.longitude,
+        this.relevantText,
+      ];
 }
