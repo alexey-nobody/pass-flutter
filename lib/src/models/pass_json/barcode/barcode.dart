@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'barcode.g.dart';
 
+/// Information specific to the pass’s barcode. 
 @JsonSerializable()
 class Barcode extends Equatable {
   /// Optional. Text displayed near the barcode.
@@ -29,9 +30,11 @@ class Barcode extends Equatable {
     this.messageEncoding,
   });
 
+  /// Convert from json
   factory Barcode.fromJson(Map<String, dynamic> json) =>
       _$BarcodeFromJson(json);
 
+  /// Convert to json
   Map<String, dynamic> toJson() => _$BarcodeToJson(this);
 
   @override

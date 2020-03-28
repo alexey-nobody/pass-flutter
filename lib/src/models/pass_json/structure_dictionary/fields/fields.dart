@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'fields.g.dart';
 
+/// These keys are used for all dictionaries that define a field.
 @JsonSerializable()
 class Fields extends Equatable {
   /// Required. The key must be unique within the scope of the entire pass. For example, “departure-gate.”
@@ -27,8 +28,10 @@ class Fields extends Equatable {
     this.changeMessage,
   });
 
+  /// Convert from json
   factory Fields.fromJson(Map<String, dynamic> json) => _$FieldsFromJson(json);
 
+  /// Convert to json
   Map<String, dynamic> toJson() => _$FieldsToJson(this);
 
   @override

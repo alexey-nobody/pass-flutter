@@ -4,6 +4,7 @@ import 'package:pass_flutter/src/models/pass_json/structure_dictionary/fields/fi
 
 part 'pass_structure_dictionary.g.dart';
 
+/// Keys that define the structure of the pass.
 @JsonSerializable()
 class PassStructureDictionary extends Equatable {
   /// Optional. Additional fields to be displayed on the front of the pass.
@@ -36,9 +37,11 @@ class PassStructureDictionary extends Equatable {
     this.transitType,
   });
 
+  /// Convert from json
   factory PassStructureDictionary.fromJson(Map<String, dynamic> json) =>
       _$PassStructureDictionaryFromJson(json);
 
+  /// Convert to json
   Map<String, dynamic> toJson() => _$PassStructureDictionaryToJson(this);
 
   @override

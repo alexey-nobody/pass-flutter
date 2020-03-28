@@ -6,6 +6,7 @@ import 'package:pass_flutter/src/models/pass_json/structure_dictionary/pass_stru
 
 part 'pass_json.g.dart';
 
+/// A JSON dictionary that defines the pass. 
 @JsonSerializable()
 class PassJson extends Equatable {
   // Standart keys
@@ -168,9 +169,11 @@ class PassJson extends Equatable {
     this.relevantDate,
   });
 
+  /// Convert from json
   factory PassJson.fromJson(Map<String, dynamic> json) =>
       _$PassJsonFromJson(json);
 
+  /// Convert to json
   Map<String, dynamic> toJson() => _$PassJsonToJson(this);
 
   @override

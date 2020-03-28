@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'location.g.dart';
 
+/// Locations where the pass is relevant.
 @JsonSerializable()
 class Location extends Equatable {
   /// Optional. Altitude, in meters, of the location.
@@ -25,9 +26,11 @@ class Location extends Equatable {
     this.relevantText,
   });
 
+  /// Convert from json
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
 
+  /// Convert to json
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 
   @override
