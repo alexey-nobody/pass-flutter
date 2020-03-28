@@ -53,7 +53,7 @@ class _PassIo {
           File outFile = await File(filename).create(recursive: true);
           await outFile.writeAsBytes(file.content);
         } else {
-          await new Directory(filename).create(recursive: true);
+          await Directory(filename).create(recursive: true);
         }
       }
     } catch (e) {
