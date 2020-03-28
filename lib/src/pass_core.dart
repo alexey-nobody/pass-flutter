@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:pass_flutter/src/models/pass_image.dart';
 import 'package:pass_flutter/src/models/pass_file.dart';
@@ -42,14 +43,15 @@ class Pass {
     List<FileSystemEntity> passes = await passesDir.list().toList();
     for (var entity in passes) {
       if (entity is File) {
+        String passId = path.basenameWithoutExtension(entity.path);
+        PassFile passFile = await _PassIo().createOrGetPass(passId: passId);
         try {
-          String passId = path.basenameWithoutExtension(entity.path);
-
-          PassFile passFile = await _PassIo().createOrGetPass(passId: passId);
           passFile = await _PassParser().parse(passFile);
-
           parsedPasses.add(passFile);
-        } catch (e) {}
+        } catch (e) {
+          debugPrint('Error parse pass file - ${passFile.file.path}');
+          this.delete(passFile);
+        }
       }
     }
     return parsedPasses;
