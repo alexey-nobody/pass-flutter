@@ -15,14 +15,16 @@ import 'package:uuid/uuid.dart';
 part 'pass_io.dart';
 part 'pass_parser.dart';
 
+/// The Android implementation of Apple Passkit.
+///
+/// This class implements the `package:pass_flutter` functionality for
+/// the Android platform.
 class Pass {
   static const String _channelName = 'pass_flutter';
   static const MethodChannel _channel = MethodChannel(_channelName);
 
-  ///
   /// Save pass file from [url] to internal memory,
   /// parse and return [PassFile]
-  ///
   Future<PassFile> getFromUrl(String url) async {
     PassFile passFile = await _PassIo().createOrGetPass();
     String pathToSave = passFile.file.path;
@@ -33,10 +35,7 @@ class Pass {
     throw ('Unable to download pass file at specified url');
   }
 
-  ///
-  /// Return all saved pass files from internal memory
-  /// in List of [PassFile]
-  ///
+  /// Return all saved pass files from internal memory in List of [PassFile]
   Future<List<PassFile>> getAllSaved() async {
     List<PassFile> parsedPasses = [];
     Directory passesDir = await _PassIo().getPassesDir();
@@ -56,14 +55,12 @@ class Pass {
     return parsedPasses;
   }
 
-  ///
-  /// Delete all files and folders for [passFile]
-  /// from internal memory
-  ///
+  /// Delete all files and folders for [passFile] from internal memory
   delete(PassFile passFile) {
     _PassIo().delete(passFile.directory, passFile.file);
   }
 
+  /// Platform version
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
