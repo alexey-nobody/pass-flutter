@@ -1,5 +1,7 @@
 <p align="center"><img src="https://docs-assets.developer.apple.com/published/c104c9bff0/841b02dd-b78c-4cad-8da4-700761d34e14.png" alt="Apple Wallet logo" width="20%"></p>
 
+![Flutter GitHub Actions](https://github.com/alexeynobody/pass-flutter/workflows/Flutter%20GitHub%20Actions/badge.svg)
+
 # pass-flutter
 A Flutter library for work with Apple Wallet passes.
 
