@@ -1,4 +1,4 @@
-name: Passkit Flutter CI
+name: Flutter GitHub Actions
 
 on: [push]
 

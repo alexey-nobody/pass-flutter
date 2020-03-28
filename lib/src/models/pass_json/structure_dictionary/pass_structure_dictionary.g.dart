@@ -21,16 +21,16 @@ PassStructureDictionary _$PassStructureDictionaryFromJson(
         ?.map((e) =>
             e == null ? null : Fields.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-  )
-    ..auxiliaryFields = (json['auxiliaryFields'] as List)
+    auxiliaryFields: (json['auxiliaryFields'] as List)
         ?.map((e) =>
             e == null ? null : Fields.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..primaryFields = (json['primaryFields'] as List)
+        ?.toList(),
+    primaryFields: (json['primaryFields'] as List)
         ?.map((e) =>
             e == null ? null : Fields.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..transitType = json['transitType'] as String;
+        ?.toList(),
+    transitType: json['transitType'] as String,
+  );
 }
 
 Map<String, dynamic> _$PassStructureDictionaryToJson(

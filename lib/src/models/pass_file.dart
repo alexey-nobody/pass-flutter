@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:pass_flutter/src/models/pass_image.dart';
 import 'package:pass_flutter/src/models/pass_json/pass_json.dart';
 
+/// Parsed Apple Wallet pass file
 class PassFile {
   /// Pass file id
   String id;
@@ -35,6 +36,7 @@ class PassFile {
   /// An additional image displayed on the front of the pass. For example, on a membership card, the thumbnail could be used to a picture of the cardholder.
   PassImage thumbnail;
 
+  /// A JSON dictionary that defines the pass. 
   PassJson pass;
 
   PassFile(String id, File passFile, Directory passDirectory) {
