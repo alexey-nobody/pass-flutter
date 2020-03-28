@@ -16,9 +16,8 @@ part 'pass_io.dart';
 part 'pass_parser.dart';
 
 class Pass {
-  static const HTTP_RESPONSE_OK = 200;
   static const String _channelName = 'pass_flutter';
-  static const MethodChannel _channel = const MethodChannel(_channelName);
+  static const MethodChannel _channel = MethodChannel(_channelName);
 
   ///
   /// Save pass file from [url] to internal memory,
@@ -28,7 +27,7 @@ class Pass {
     PassFile passFile = await _PassIo().createOrGetPass();
     String pathToSave = passFile.file.path;
     Response<ResponseBody> responce = await Dio().download(url, pathToSave);
-    if (responce.statusCode == HTTP_RESPONSE_OK) {
+    if (responce.statusCode == 200) {
       return await _PassParser().parse(passFile);
     }
     throw ('Unable to download pass file at specified url');
