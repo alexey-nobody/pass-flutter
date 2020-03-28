@@ -7,3 +7,5 @@
 .pub/
 
 build/
+
+pubspec.lock
