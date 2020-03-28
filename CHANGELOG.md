@@ -1,4 +1,4 @@
-## 1.0.2 - 
+## 1.0.2 - 28.03.2020
  - fix bug with maxDistance and relevantDate in pass json
  - fix bug with auxiliaryFields, primaryFields, transitType
  - add equtable for comparisons pass files
