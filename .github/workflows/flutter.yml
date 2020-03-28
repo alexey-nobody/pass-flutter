@@ -1,4 +1,4 @@
-name: Passkit Flutter CI
+name: flutter_main
 
 on: [push]
 
