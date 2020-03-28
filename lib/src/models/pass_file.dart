@@ -36,7 +36,7 @@ class PassFile {
   /// An additional image displayed on the front of the pass. For example, on a membership card, the thumbnail could be used to a picture of the cardholder.
   PassImage thumbnail;
 
-  /// A JSON dictionary that defines the pass. 
+  /// A JSON dictionary that defines the pass.
   PassJson pass;
 
   PassFile(String id, File passFile, Directory passDirectory) {
