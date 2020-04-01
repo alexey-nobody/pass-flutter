@@ -14,9 +14,8 @@ class _PassIo {
   Future<PassFile> createOrGetPass({String passId}) async {
     Directory passesDir = await this.getPassesDir();
     if (passId == null) passId = Uuid().v1();
-    String passFileName = '$passId.passkit';
 
-    File passFile = File('${passesDir.path}/$passFileName');
+    File passFile = File('${passesDir.path}/$passId.passkit');
     Directory passDirectory = Directory('${passesDir.path}/$passId');
 
     return PassFile(passId, passFile, passDirectory);
