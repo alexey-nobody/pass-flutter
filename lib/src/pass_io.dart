@@ -45,9 +45,6 @@ class _PassIo {
     String passId,
     String externalPassPath,
   }) async {
-    if (externalPassPath != null) {
-      return this.saveFromPath(path: externalPassPath);
-    }
     Directory passesDir = await this.getPassesDir();
     if (passId == null) passId = this._generatePassId();
 
@@ -65,6 +62,26 @@ class _PassIo {
     return this._passDirectory;
   }
 
+  Future<List<PassFile>> getAllSaved() async {
+    List<PassFile> parsedPasses = [];
+    Directory passesDir = await _PassIo().getPassesDir();
+    List<FileSystemEntity> passes = await passesDir.list().toList();
+    for (var entity in passes) {
+      if (entity is File) {
+        String passId = path.basenameWithoutExtension(entity.path);
+        PassFile passFile = await _PassIo().createOrGetPass(passId: passId);
+        try {
+          passFile = await _PassParser().parse(passFile);
+          parsedPasses.add(passFile);
+        } catch (e) {
+          debugPrint('Error parse pass file - ${passFile.file.path}');
+          this.delete(passFile.directory, passFile.file);
+        }
+      }
+    }
+    return parsedPasses;
+  }
+
   void delete(Directory passDirectory, File passFile) async {
     passFile.deleteSync();
     passDirectory.deleteSync(recursive: true);
@@ -74,9 +91,7 @@ class _PassIo {
     if (!(passFile.file.existsSync())) {
       throw ('Pass file not found!');
     }
-    if (passFile.directory.existsSync()) {
-      return;
-    }
+    if (passFile.directory.existsSync()) return;
     passFile.directory.createSync();
 
     try {

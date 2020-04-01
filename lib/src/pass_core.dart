@@ -32,22 +32,7 @@ class Pass {
 
   /// Return all saved pass files from internal memory in List of [PassFile]
   Future<List<PassFile>> getAllSaved() async {
-    List<PassFile> parsedPasses = [];
-    Directory passesDir = await _PassIo().getPassesDir();
-    List<FileSystemEntity> passes = await passesDir.list().toList();
-    for (var entity in passes) {
-      if (entity is File) {
-        String passId = path.basenameWithoutExtension(entity.path);
-        PassFile passFile = await _PassIo().createOrGetPass(passId: passId);
-        try {
-          passFile = await _PassParser().parse(passFile);
-          parsedPasses.add(passFile);
-        } catch (e) {
-          debugPrint('Error parse pass file - ${passFile.file.path}');
-          this.delete(passFile);
-        }
-      }
-    }
+    List<PassFile> parsedPasses = await _PassIo().getAllSaved();
     return parsedPasses;
   }
 
