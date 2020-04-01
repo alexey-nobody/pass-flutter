@@ -1,3 +1,7 @@
+## 1.0.3 - 
+ - add documentation for all public api members
+ - enable stricter type checks
+
 ## 1.0.2 - 28.03.2020
  - fix bug with maxDistance and relevantDate in pass json
  - fix bug with auxiliaryFields, primaryFields, transitType
