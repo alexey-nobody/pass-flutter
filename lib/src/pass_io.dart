@@ -31,7 +31,7 @@ class _PassIo {
     throw ('Unable to fetch pass file at specified path');
   }
 
-  Future<PassFile> saveFromUrl(String url) async {
+  Future<PassFile> saveFromUrl({@required String url}) async {
     PassFile passFile = await _PassIo().createOrGetPass();
     String pathToSave = passFile.file.path;
     Response responce = await Dio().download(url, pathToSave);

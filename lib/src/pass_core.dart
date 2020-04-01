@@ -25,8 +25,8 @@ class Pass {
   static const MethodChannel _channel = MethodChannel(_channelName);
 
   /// Save pass file from [url] to internal memory, parse and return [PassFile]
-  Future<PassFile> saveFromUrl(String url) async {
-    PassFile savedPass = await _PassIo().saveFromUrl(url);
+  Future<PassFile> saveFromUrl(String urlToPass) async {
+    PassFile savedPass = await _PassIo().saveFromUrl(url: urlToPass);
     return savedPass;
   }
 
