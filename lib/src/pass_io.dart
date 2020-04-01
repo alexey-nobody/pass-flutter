@@ -15,7 +15,7 @@ class _PassIo {
     return Uuid().v1();
   }
 
-  Future<PassFile> _saveFromPath({@required String path}) async {
+  Future<PassFile> saveFromPath({@required String path}) async {
     String passId = this._generatePassId();
     Directory passesDir = await this.getPassesDir();
     File externalPassFile = File(path);
@@ -46,7 +46,7 @@ class _PassIo {
     String externalPassPath,
   }) async {
     if (externalPassPath != null) {
-      return this._saveFromPath(path: externalPassPath);
+      return this.saveFromPath(path: externalPassPath);
     }
     Directory passesDir = await this.getPassesDir();
     if (passId == null) passId = this._generatePassId();
