@@ -11,6 +11,10 @@ class _PassIo {
 
   _PassIo._internal();
 
+  String _generatePassId() {
+    return Uuid().v1();
+  }
+
   Future<PassFile> _savePass(String pathToPass, String passId) async {
     Directory passesDir = await this.getPassesDir();
     File externalPassFile = File(pathToPass);
@@ -28,7 +32,7 @@ class _PassIo {
 
   Future<PassFile> createOrGetPass({String passId}) async {
     Directory passesDir = await this.getPassesDir();
-    if (passId == null) passId = Uuid().v1();
+    if (passId == null) passId = this._generatePassId();
 
     File passFile = File('${passesDir.path}/$passId.passkit');
     Directory passDirectory = Directory('${passesDir.path}/$passId');
