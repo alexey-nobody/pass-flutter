@@ -21,6 +21,7 @@ class Fields extends Equatable {
   /// If you don’t specify a change message, the user isn’t notified when the field changes.
   final String changeMessage;
 
+  /// Creates a new [Fields]
   Fields({
     this.key,
     this.label,
