@@ -30,7 +30,7 @@ class _PassIo {
     return this._passDirectory;
   }
 
-  delete(Directory passDirectory, File passFile) async {
+  void delete(Directory passDirectory, File passFile) async {
     passFile.deleteSync();
     passDirectory.deleteSync(recursive: true);
   }
@@ -51,7 +51,7 @@ class _PassIo {
         final filename = '${passFile.directory.path}/${file.name}';
         if (file.isFile) {
           File outFile = await File(filename).create(recursive: true);
-          await outFile.writeAsBytes(file.content);
+          await outFile.writeAsBytes(file.content as List<int>);
         } else {
           await Directory(filename).create(recursive: true);
         }

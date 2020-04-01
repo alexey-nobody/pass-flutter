@@ -29,7 +29,7 @@ class Pass {
   Future<PassFile> getFromUrl(String url) async {
     PassFile passFile = await _PassIo().createOrGetPass();
     String pathToSave = passFile.file.path;
-    Response<ResponseBody> responce = await Dio().download(url, pathToSave);
+    Response responce = await Dio().download(url, pathToSave);
     if (responce.statusCode == 200) {
       return await _PassParser().parse(passFile);
     }
@@ -58,7 +58,7 @@ class Pass {
   }
 
   /// Delete all files and folders for [passFile] from internal memory
-  delete(PassFile passFile) {
+  void delete(PassFile passFile) {
     _PassIo().delete(passFile.directory, passFile.file);
   }
 

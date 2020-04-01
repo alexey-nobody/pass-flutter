@@ -11,7 +11,7 @@ class _PassParser {
     }
     this._passFile.passJson = passJsonFile;
     String passJson = await passJsonFile.readAsString();
-    return PassJson.fromJson(json.decode(passJson));
+    return PassJson.fromJson(json.decode(passJson) as Map<String, dynamic>);
   }
 
   PassImage _getImage({String name}) {
