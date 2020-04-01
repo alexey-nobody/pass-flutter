@@ -22,6 +22,16 @@ class _PassIo {
     return PassFile(passId, passFile, passDirectory);
   }
 
+  Future<PassFile> saveFromUrl(String url) async {
+    PassFile passFile = await _PassIo().createOrGetPass();
+    String pathToSave = passFile.file.path;
+    Response responce = await Dio().download(url, pathToSave);
+    if (responce.statusCode == 200) {
+      return await _PassParser().parse(passFile);
+    }
+    throw ('Unable to download pass file at specified url');
+  }
+
   Future<Directory> getPassesDir() async {
     if (this._passDirectory != null) return this._passDirectory;
     Directory appDir = await getApplicationDocumentsDirectory();

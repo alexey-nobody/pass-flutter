@@ -24,16 +24,10 @@ class Pass {
   static const String _channelName = 'pass_flutter';
   static const MethodChannel _channel = MethodChannel(_channelName);
 
-  /// Save pass file from [url] to internal memory,
-  /// parse and return [PassFile]
+  /// Save pass file from [url] to internal memory, parse and return [PassFile]
   Future<PassFile> saveFromUrl(String url) async {
-    PassFile passFile = await _PassIo().createOrGetPass();
-    String pathToSave = passFile.file.path;
-    Response responce = await Dio().download(url, pathToSave);
-    if (responce.statusCode == 200) {
-      return await _PassParser().parse(passFile);
-    }
-    throw ('Unable to download pass file at specified url');
+    PassFile savedPass = await _PassIo().saveFromUrl(url);
+    return savedPass;
   }
 
   /// Return all saved pass files from internal memory in List of [PassFile]
