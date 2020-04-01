@@ -24,16 +24,16 @@ class Pass {
   static const String _channelName = 'pass_flutter';
   static const MethodChannel _channel = MethodChannel(_channelName);
 
-  /// Save pass file from [url] to internal memory, parse and return [PassFile]
-  Future<PassFile> saveFromUrl(String urlToPass) async {
-    PassFile savedPass = await _PassIo().saveFromUrl(url: urlToPass);
-    return savedPass;
-  }
-
   /// Return all saved pass files from internal memory in List of [PassFile]
   Future<List<PassFile>> getAllSaved() async {
     List<PassFile> parsedPasses = await _PassIo().getAllSaved();
     return parsedPasses;
+  }
+
+  /// Save pass file from [url] to internal memory, parse and return [PassFile]
+  Future<PassFile> saveFromUrl(String urlToPass) async {
+    PassFile savedPass = await _PassIo().saveFromUrl(url: urlToPass);
+    return savedPass;
   }
 
   /// Delete all files and folders for [passFile] from internal memory
