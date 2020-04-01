@@ -15,11 +15,11 @@ class _PassIo {
     return Uuid().v1();
   }
 
-  Future<PassFile> _saveFromPath(String pathToPass) async {
+  Future<PassFile> _saveFromPath({@required String path}) async {
     String passId = this._generatePassId();
     Directory passesDir = await this.getPassesDir();
-    File externalPassFile = File(pathToPass);
-    if (File(pathToPass).existsSync()) {
+    File externalPassFile = File(path);
+    if (File(path).existsSync()) {
       String newPassFilePath = '${passesDir.path}/$passId.passkit';
       String passFileDirectoryPath = '${passesDir.path}/$passId';
 
@@ -41,7 +41,13 @@ class _PassIo {
     throw ('Unable to download pass file at specified url');
   }
 
-  Future<PassFile> createOrGetPass({String passId}) async {
+  Future<PassFile> createOrGetPass({
+    String passId,
+    String externalPassPath,
+  }) async {
+    if (externalPassPath != null) {
+      return this._saveFromPath(path: externalPassPath);
+    }
     Directory passesDir = await this.getPassesDir();
     if (passId == null) passId = this._generatePassId();
 
