@@ -39,6 +39,7 @@ class PassFile {
   /// A JSON dictionary that defines the pass.
   PassJson pass;
 
+  /// Creates a new [PassFile]
   PassFile(String id, File passFile, Directory passDirectory) {
     this.id = id;
     this.file = passFile;

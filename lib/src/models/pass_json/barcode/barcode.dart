@@ -23,6 +23,7 @@ class Barcode extends Equatable {
   /// use another encoding that is supported by your barcode scanning infrastructure.
   final String messageEncoding;
 
+  /// Creates a new [Barcode]
   Barcode({
     this.altText,
     this.format,

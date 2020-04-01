@@ -138,6 +138,7 @@ class PassJson extends Equatable {
   /// Available in iOS 7.0.
   final bool voided;
 
+  /// Creates a new [PassJson]
   PassJson({
     this.formatVersion,
     this.storeCard,

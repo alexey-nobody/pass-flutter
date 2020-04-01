@@ -28,6 +28,7 @@ class PassStructureDictionary extends Equatable {
   /// PKTransitTypeAir, PKTransitTypeBoat, PKTransitTypeBus, PKTransitTypeGeneric,PKTransitTypeTrain.
   final String transitType;
 
+  /// Creates a new [PassStructureDictionary]
   PassStructureDictionary({
     this.headerFields,
     this.secondaryFields,
