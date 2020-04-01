@@ -15,7 +15,8 @@ class _PassIo {
     return Uuid().v1();
   }
 
-  Future<PassFile> _savePass(String pathToPass, String passId) async {
+  Future<PassFile> _saveFromPath(String pathToPass) async {
+    String passId = this._generatePassId();
     Directory passesDir = await this.getPassesDir();
     File externalPassFile = File(pathToPass);
     if (File(pathToPass).existsSync()) {
@@ -30,16 +31,6 @@ class _PassIo {
     throw ('Unable to fetch pass file at specified path');
   }
 
-  Future<PassFile> createOrGetPass({String passId}) async {
-    Directory passesDir = await this.getPassesDir();
-    if (passId == null) passId = this._generatePassId();
-
-    File passFile = File('${passesDir.path}/$passId.passkit');
-    Directory passDirectory = Directory('${passesDir.path}/$passId');
-
-    return PassFile(passId, passFile, passDirectory);
-  }
-
   Future<PassFile> saveFromUrl(String url) async {
     PassFile passFile = await _PassIo().createOrGetPass();
     String pathToSave = passFile.file.path;
@@ -48,6 +39,16 @@ class _PassIo {
       return await _PassParser().parse(passFile);
     }
     throw ('Unable to download pass file at specified url');
+  }
+
+  Future<PassFile> createOrGetPass({String passId}) async {
+    Directory passesDir = await this.getPassesDir();
+    if (passId == null) passId = this._generatePassId();
+
+    File passFile = File('${passesDir.path}/$passId.passkit');
+    Directory passDirectory = Directory('${passesDir.path}/$passId');
+
+    return PassFile(passId, passFile, passDirectory);
   }
 
   Future<Directory> getPassesDir() async {
