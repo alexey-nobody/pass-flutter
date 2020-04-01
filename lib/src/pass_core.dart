@@ -26,7 +26,7 @@ class Pass {
 
   /// Save pass file from [url] to internal memory,
   /// parse and return [PassFile]
-  Future<PassFile> getFromUrl(String url) async {
+  Future<PassFile> saveFromUrl(String url) async {
     PassFile passFile = await _PassIo().createOrGetPass();
     String pathToSave = passFile.file.path;
     Response responce = await Dio().download(url, pathToSave);
