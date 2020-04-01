@@ -11,6 +11,21 @@ class _PassIo {
 
   _PassIo._internal();
 
+  Future<PassFile> _savePass(String pathToPass, String passId) async {
+    Directory passesDir = await this.getPassesDir();
+    File externalPassFile = File(pathToPass);
+    if (File(pathToPass).existsSync()) {
+      String newPassFilePath = '${passesDir.path}/$passId.passkit';
+      String passFileDirectoryPath = '${passesDir.path}/$passId';
+
+      File passFile = externalPassFile.copySync(newPassFilePath);
+      Directory passDirectory = Directory(passFileDirectoryPath);
+
+      return PassFile(passId, passFile, passDirectory);
+    }
+    throw ('Unable to fetch pass file at specified path');
+  }
+
   Future<PassFile> createOrGetPass({String passId}) async {
     Directory passesDir = await this.getPassesDir();
     if (passId == null) passId = Uuid().v1();
