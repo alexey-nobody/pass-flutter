@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:pass_flutter/src/models/pass_image.dart';
 import 'package:pass_flutter/src/models/pass_json/pass_json.dart';
+import 'package:pass_flutter/src/pass_core.dart';
 
 /// Parsed Apple Wallet pass file
 class PassFile {
@@ -44,5 +45,10 @@ class PassFile {
     this.id = id;
     this.file = passFile;
     this.directory = passDirectory;
+  }
+
+  /// Delete current pass file from memory
+  void delete() {
+    PassIo().delete(this.directory, this.file);
   }
 }
