@@ -72,6 +72,7 @@ class PassIo {
     String pathToSave = passFile.file.path;
     Response responce = await Dio().download(url, pathToSave);
     if (responce.statusCode == 200) {
+      await this.unpack(passFile);
       return await PassParser().parse(passFile);
     }
     throw ('Unable to download pass file at specified url');
@@ -88,6 +89,7 @@ class PassIo {
       PassFile passFile =
           await this._createOrGetPass(passId: passId) as PassFile;
       try {
+        await this.unpack(passFile);
         passFile = await PassParser().parse(passFile);
         parsedPasses.add(passFile);
       } catch (e) {

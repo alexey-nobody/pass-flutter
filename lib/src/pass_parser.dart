@@ -29,8 +29,6 @@ class PassParser {
   Future<PassFile> parse(PassFile passFile) async {
     this._passFile = passFile;
 
-    await PassIo().unpack(passFile);
-
     passFile.pass = await this._parsePassJson();
     passFile.logo = this._getImage(name: 'logo');
     passFile.background = this._getImage(name: 'background');
