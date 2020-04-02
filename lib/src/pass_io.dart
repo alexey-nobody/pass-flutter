@@ -85,7 +85,9 @@ class PassIo {
     Directory passesDir = await this._getPassesDir();
     if (externalPassFile.existsSync()) {
       externalPassFile.copySync('${passesDir.path}/$passId.passkit');
-      return await this._createOrGetPass(passId: passId) as PassFile;
+      PassFile pass = await this._createOrGetPass(passId: passId) as PassFile;
+      await this._unpackPass(pass);
+      return await PassParser().parse(pass);
     }
     throw ('Unable to fetch pass file at specified path');
   }
