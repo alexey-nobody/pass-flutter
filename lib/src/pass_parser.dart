@@ -1,5 +1,6 @@
 part of 'pass_core.dart';
 
+// ignore: public_member_api_docs
 class PassParser {
   PassFile _passFile;
 
@@ -24,6 +25,7 @@ class PassParser {
     return PassImage(image, image2x, image3x);
   }
 
+  // ignore: public_member_api_docs
   Future<PassFile> parse(PassFile passFile) async {
     this._passFile = passFile;
 

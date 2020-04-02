@@ -1,5 +1,6 @@
 part of 'pass_core.dart';
 
+// ignore: public_member_api_docs
 class PassIo {
   Directory _passDir;
   Directory _previewPassDir;
@@ -9,6 +10,7 @@ class PassIo {
 
   static final PassIo _singleton = PassIo._internal();
 
+  // ignore: public_member_api_docs
   factory PassIo() {
     return _singleton;
   }
@@ -52,6 +54,7 @@ class PassIo {
     return Uuid().v1();
   }
 
+  // ignore: public_member_api_docs
   Future<PassFile> saveFromPath({@required String path}) async {
     String passId = this._generatePassId();
     Directory passesDir = await this._getPassesDir();
@@ -63,6 +66,7 @@ class PassIo {
     throw ('Unable to fetch pass file at specified path');
   }
 
+  // ignore: public_member_api_docs
   Future<PassFile> saveFromUrl({@required String url}) async {
     PassFile passFile = await this._createOrGetPass() as PassFile;
     String pathToSave = passFile.file.path;
@@ -73,6 +77,7 @@ class PassIo {
     throw ('Unable to download pass file at specified url');
   }
 
+  // ignore: public_member_api_docs
   Future<List<PassFile>> getAllSaved() async {
     List<PassFile> parsedPasses = [];
     Directory passesDir = await this._getPassesDir();
@@ -93,11 +98,13 @@ class PassIo {
     return parsedPasses;
   }
 
+  // ignore: public_member_api_docs
   void delete(Directory passDirectory, File passFile) async {
     passFile.deleteSync();
     passDirectory.deleteSync(recursive: true);
   }
 
+  // ignore: public_member_api_docs
   Future unpack(PassFile passFile) async {
     if (!(passFile.file.existsSync())) {
       throw ('Pass file not found!');
