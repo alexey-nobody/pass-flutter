@@ -48,7 +48,7 @@ class _PassIo {
   }
 
   Future<PassFile> saveFromUrl({@required String url}) async {
-    PassFile passFile = await _PassIo()._createOrGetPass();
+    PassFile passFile = await this._createOrGetPass();
     String pathToSave = passFile.file.path;
     Response responce = await Dio().download(url, pathToSave);
     if (responce.statusCode == 200) {
