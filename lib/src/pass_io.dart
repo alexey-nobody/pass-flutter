@@ -1,15 +1,15 @@
 part of 'pass_core.dart';
 
-class _PassIo {
+class PassIo {
   Directory _passDirectory;
 
-  static final _PassIo _singleton = _PassIo._internal();
+  static final PassIo _singleton = PassIo._internal();
 
-  factory _PassIo() {
+  factory PassIo() {
     return _singleton;
   }
 
-  _PassIo._internal();
+  PassIo._internal();
 
   Future<PassFile> _createOrGetPass({
     String passId,
@@ -52,7 +52,7 @@ class _PassIo {
     String pathToSave = passFile.file.path;
     Response responce = await Dio().download(url, pathToSave);
     if (responce.statusCode == 200) {
-      return await _PassParser().parse(passFile);
+      return await PassParser().parse(passFile);
     }
     throw ('Unable to download pass file at specified url');
   }
@@ -66,7 +66,7 @@ class _PassIo {
       String passId = path.basenameWithoutExtension(entity.path);
       PassFile passFile = await this._createOrGetPass(passId: passId);
       try {
-        passFile = await _PassParser().parse(passFile);
+        passFile = await PassParser().parse(passFile);
         parsedPasses.add(passFile);
       } catch (e) {
         debugPrint('Error parse pass file - ${passFile.file.path}');

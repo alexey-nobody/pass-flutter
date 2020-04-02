@@ -26,19 +26,19 @@ class Pass {
 
   /// Return all saved pass files from internal memory in List of [PassFile]
   Future<List<PassFile>> getAllSaved() async {
-    List<PassFile> parsedPasses = await _PassIo().getAllSaved();
+    List<PassFile> parsedPasses = await PassIo().getAllSaved();
     return parsedPasses;
   }
 
   /// Save pass file from [urlToPass] to internal memory, parse and return [PassFile]
   Future<PassFile> saveFromUrl({@required String urlToPass}) async {
-    PassFile savedPass = await _PassIo().saveFromUrl(url: urlToPass);
+    PassFile savedPass = await PassIo().saveFromUrl(url: urlToPass);
     return savedPass;
   }
 
   /// Delete all files and folders for [passFile] from internal memory
   void delete(PassFile passFile) {
-    _PassIo().delete(passFile.directory, passFile.file);
+    PassIo().delete(passFile.directory, passFile.file);
   }
 
   /// Platform version
