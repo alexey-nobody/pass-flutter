@@ -1,7 +1,11 @@
 part of 'pass_core.dart';
 
 class PassIo {
-  Directory _passDirectory;
+  Directory _passDir;
+  Directory _previewPassDir;
+
+  String _passDirName = 'passes';
+  String _previewPassDirName = 'preview_passes';
 
   static final PassIo _singleton = PassIo._internal();
 
@@ -25,11 +29,19 @@ class PassIo {
   }
 
   Future<Directory> _getPassesDir() async {
-    if (this._passDirectory != null) return this._passDirectory;
+    if (this._passDir != null) return this._passDir;
     Directory appDir = await getApplicationDocumentsDirectory();
-    this._passDirectory = Directory('${appDir.path}/passes');
-    this._passDirectory.createSync(recursive: true);
-    return this._passDirectory;
+    this._passDir = Directory('${appDir.path}/$_passDirName');
+    this._passDir.createSync(recursive: true);
+    return this._passDir;
+  }
+
+  Future<Directory> _getPreviewPassesDir() async {
+    if (this._previewPassDir != null) return this._previewPassDir;
+    Directory appDir = await getApplicationDocumentsDirectory();
+    this._previewPassDir = Directory('${appDir.path}/$_previewPassDirName');
+    this._previewPassDir.createSync(recursive: true);
+    return this._previewPassDir;
   }
 
   String _generatePassId() {
