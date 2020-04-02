@@ -80,10 +80,9 @@ class PassIo {
   }
 
   // ignore: public_member_api_docs
-  Future<PassFile> saveFromPath({@required String path}) async {
+  Future<PassFile> saveFromPath({@required File externalPassFile}) async {
     String passId = this._generatePassId();
     Directory passesDir = await this._getPassesDir();
-    File externalPassFile = File(path);
     if (externalPassFile.existsSync()) {
       externalPassFile.copySync('${passesDir.path}/$passId.passkit');
       return await this._createOrGetPass(passId: passId) as PassFile;
