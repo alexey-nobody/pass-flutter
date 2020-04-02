@@ -54,61 +54,8 @@ class PassIo {
     return Uuid().v1();
   }
 
-  // ignore: public_member_api_docs
-  Future<PassFile> saveFromPath({@required String path}) async {
-    String passId = this._generatePassId();
-    Directory passesDir = await this._getPassesDir();
-    File externalPassFile = File(path);
-    if (externalPassFile.existsSync()) {
-      externalPassFile.copySync('${passesDir.path}/$passId.passkit');
-      return await this._createOrGetPass(passId: passId) as PassFile;
-    }
-    throw ('Unable to fetch pass file at specified path');
-  }
-
-  // ignore: public_member_api_docs
-  Future<PassFile> saveFromUrl({@required String url}) async {
-    PassFile passFile = await this._createOrGetPass() as PassFile;
-    String pathToSave = passFile.file.path;
-    Response responce = await Dio().download(url, pathToSave);
-    if (responce.statusCode == 200) {
-      await this.unpack(passFile);
-      return await PassParser().parse(passFile);
-    }
-    throw ('Unable to download pass file at specified url');
-  }
-
-  // ignore: public_member_api_docs
-  Future<List<PassFile>> getAllSaved() async {
-    List<PassFile> parsedPasses = [];
-    Directory passesDir = await this._getPassesDir();
-    List<FileSystemEntity> passesEntities = await passesDir.list().toList();
-    Iterable<FileSystemEntity> passFiles = passesEntities.whereType<File>();
-    for (FileSystemEntity entity in passFiles) {
-      String passId = path.basenameWithoutExtension(entity.path);
-      PassFile passFile =
-          await this._createOrGetPass(passId: passId) as PassFile;
-      try {
-        await this.unpack(passFile);
-        passFile = await PassParser().parse(passFile);
-        parsedPasses.add(passFile);
-      } catch (e) {
-        debugPrint('Error parse pass file - ${passFile.file.path}');
-        this.delete(passFile.directory, passFile.file);
-      }
-    }
-    return parsedPasses;
-  }
-
-  // ignore: public_member_api_docs
-  void delete(Directory passDirectory, File passFile) async {
-    passFile.deleteSync();
-    passDirectory.deleteSync(recursive: true);
-  }
-
-  // ignore: public_member_api_docs
-  Future unpack(PassFile passFile) async {
-    if (!(passFile.file.existsSync())) {
+  Future _unpackPass(PassFile passFile) async {
+    if (!passFile.file.existsSync()) {
       throw ('Pass file not found!');
     }
     if (passFile.directory.existsSync()) return;
@@ -130,5 +77,57 @@ class PassIo {
       this.delete(passFile.directory, passFile.file);
       throw ('Error in unpack passkit file!');
     }
+  }
+
+  // ignore: public_member_api_docs
+  Future<PassFile> saveFromPath({@required String path}) async {
+    String passId = this._generatePassId();
+    Directory passesDir = await this._getPassesDir();
+    File externalPassFile = File(path);
+    if (externalPassFile.existsSync()) {
+      externalPassFile.copySync('${passesDir.path}/$passId.passkit');
+      return await this._createOrGetPass(passId: passId) as PassFile;
+    }
+    throw ('Unable to fetch pass file at specified path');
+  }
+
+  // ignore: public_member_api_docs
+  Future<PassFile> saveFromUrl({@required String url}) async {
+    PassFile passFile = await this._createOrGetPass() as PassFile;
+    String pathToSave = passFile.file.path;
+    Response responce = await Dio().download(url, pathToSave);
+    if (responce.statusCode == 200) {
+      await this._unpackPass(passFile);
+      return await PassParser().parse(passFile);
+    }
+    throw ('Unable to download pass file at specified url');
+  }
+
+  // ignore: public_member_api_docs
+  Future<List<PassFile>> getAllSaved() async {
+    List<PassFile> parsedPasses = [];
+    Directory passesDir = await this._getPassesDir();
+    List<FileSystemEntity> passesEntities = await passesDir.list().toList();
+    Iterable<FileSystemEntity> passFiles = passesEntities.whereType<File>();
+    for (FileSystemEntity entity in passFiles) {
+      String passId = path.basenameWithoutExtension(entity.path);
+      PassFile passFile =
+          await this._createOrGetPass(passId: passId) as PassFile;
+      try {
+        await this._unpackPass(passFile);
+        passFile = await PassParser().parse(passFile);
+        parsedPasses.add(passFile);
+      } catch (e) {
+        debugPrint('Error parse pass file - ${passFile.file.path}');
+        this.delete(passFile.directory, passFile.file);
+      }
+    }
+    return parsedPasses;
+  }
+
+  // ignore: public_member_api_docs
+  void delete(Directory passDirectory, File passFile) async {
+    passFile.deleteSync();
+    passDirectory.deleteSync(recursive: true);
   }
 }
