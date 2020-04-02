@@ -15,10 +15,7 @@ class PassIo {
 
   PassIo._internal();
 
-  Future<PassFile> _createOrGetPass({
-    String passId,
-    String externalPassPath,
-  }) async {
+  Future<PassFile> _createOrGetPass({String passId}) async {
     Directory passesDir = await this._getPassesDir();
     if (passId == null) passId = this._generatePassId();
 
