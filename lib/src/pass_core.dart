@@ -6,8 +6,8 @@ import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:pass_flutter/src/models/pass_image.dart';
 import 'package:pass_flutter/src/models/pass_file.dart';
+import 'package:pass_flutter/src/models/pass_image.dart';
 import 'package:pass_flutter/src/models/pass_json/pass_json.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
@@ -30,8 +30,8 @@ class Pass {
     return parsedPasses;
   }
 
-  /// Save pass file from [url] to internal memory, parse and return [PassFile]
-  Future<PassFile> saveFromUrl(String urlToPass) async {
+  /// Save pass file from [urlToPass] to internal memory, parse and return [PassFile]
+  Future<PassFile> saveFromUrl({@required String urlToPass}) async {
     PassFile savedPass = await _PassIo().saveFromUrl(url: urlToPass);
     return savedPass;
   }
