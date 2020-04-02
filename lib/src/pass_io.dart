@@ -15,16 +15,6 @@ class PassIo {
 
   PassIo._internal();
 
-  Future<PassFile> _createOrGetPass({String passId, bool preview}) async {
-    Directory passesDir = await this._getPassesDir();
-    if (passId == null) passId = this._generatePassId();
-
-    File passFile = File('${passesDir.path}/$passId.passkit');
-    Directory passDirectory = Directory('${passesDir.path}/$passId');
-
-    return PassFile(passId, passFile, passDirectory);
-  }
-
   Future<Directory> _getPassesDir() async {
     if (this._passDir != null) return this._passDir;
     Directory appDir = await getApplicationDocumentsDirectory();
@@ -41,6 +31,23 @@ class PassIo {
     return this._previewPassDir;
   }
 
+  Future<dynamic> _createOrGetPass({
+    String passId,
+    bool preview = false,
+  }) async {
+    Directory passesDir = preview
+        ? await this._getPreviewPassesDir()
+        : await this._getPassesDir();
+    passId = passId ?? this._generatePassId();
+
+    File passFile = File('${passesDir.path}/$passId.passkit');
+    Directory passDirectory = Directory('${passesDir.path}/$passId');
+
+    return preview
+        ? PreviewPassFile(passId, passFile, passDirectory)
+        : PassFile(passId, passFile, passDirectory);
+  }
+
   String _generatePassId() {
     return Uuid().v1();
   }
@@ -51,13 +58,13 @@ class PassIo {
     File externalPassFile = File(path);
     if (externalPassFile.existsSync()) {
       externalPassFile.copySync('${passesDir.path}/$passId.passkit');
-      return await this._createOrGetPass(passId: passId);
+      return await this._createOrGetPass(passId: passId) as PassFile;
     }
     throw ('Unable to fetch pass file at specified path');
   }
 
   Future<PassFile> saveFromUrl({@required String url}) async {
-    PassFile passFile = await this._createOrGetPass();
+    PassFile passFile = await this._createOrGetPass() as PassFile;
     String pathToSave = passFile.file.path;
     Response responce = await Dio().download(url, pathToSave);
     if (responce.statusCode == 200) {
@@ -73,7 +80,8 @@ class PassIo {
     Iterable<FileSystemEntity> passFiles = passesEntities.whereType<File>();
     for (FileSystemEntity entity in passFiles) {
       String passId = path.basenameWithoutExtension(entity.path);
-      PassFile passFile = await this._createOrGetPass(passId: passId);
+      PassFile passFile =
+          await this._createOrGetPass(passId: passId) as PassFile;
       try {
         passFile = await PassParser().parse(passFile);
         parsedPasses.add(passFile);
