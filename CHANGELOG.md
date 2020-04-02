@@ -1,5 +1,6 @@
 ## 1.0.3 - 
  - add documentation for all public api members
+ - add method for deleting current pass file to class PassFile and PreviewPassFile
  - enable stricter type checks
  - change method name getFromUrl -> saveFromUrl
  - refactoring and optimization
