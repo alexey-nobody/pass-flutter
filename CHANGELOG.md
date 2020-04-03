@@ -1,5 +1,7 @@
-## 1.0.3 - 
+## 1.0.3 - 03.04.2020
  - **BREAKING:** change method name getFromUrl -> saveFromUrl and url now passes in `urlToPass`
+ - add method `fetchPreviewFromUrl` for get preview from url
+ - add method `PreviewPassFile.save` for save preview to app internal memory and deleting from temp directory
  - add documentation for all public api members
  - add `delete` method for deleting current pass file to class PassFile and PreviewPassFile
  - update return in `Pass.delete` method, after deleting now return list of saved pass files
