@@ -8,7 +8,9 @@ import 'package:pass_flutter/src/pass_core.dart';
 class PreviewPassFile extends PassFile {
   /// Save current [PassFile] to internal memory
   Future<PassFile> save() async {
-    return await PassIo().saveFromPath(externalPassFile: this.file);
+    PassFile passFile = await PassIo().saveFromPath(externalPassFile: this.file);
+    PassIo().delete(this.directory, this.file);
+    return passFile;
   }
 
   /// Create a new [PreviewPassFile]
