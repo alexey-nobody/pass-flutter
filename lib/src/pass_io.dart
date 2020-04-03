@@ -95,8 +95,7 @@ class PassIo {
   // ignore: public_member_api_docs
   Future<PassFile> saveFromUrl({@required String url}) async {
     PassFile passFile = await this._createOrGetPass() as PassFile;
-    String pathToSave = passFile.file.path;
-    Response responce = await Dio().download(url, pathToSave);
+    Response responce = await Dio().download(url, passFile.file.path);
     if (responce.statusCode == 200) {
       await this._unpackPass(passFile);
       return await PassParser().parse(passFile);
