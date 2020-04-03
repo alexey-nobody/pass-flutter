@@ -6,7 +6,7 @@ import 'package:pass_flutter/src/pass_core.dart';
 
 /// Preview of parsed Apple Wallet pass file
 class PreviewPassFile extends PassFile {
-  /// Save current [PassFile] to internal memory
+  /// Save current [PassFile] to internal memory and delete previewed pass file
   Future<PassFile> save() async {
     PassFile passFile = await PassIo().saveFromPath(externalPassFile: this.file);
     PassIo().delete(this.directory, this.file);
