@@ -1,47 +1,64 @@
 part of 'pass_core.dart';
 
-class _PassIo {
-  Directory _passDirectory;
+// ignore: public_member_api_docs
+class PassIo {
+  Directory _passDir;
+  Directory _previewPassDir;
 
-  static final _PassIo _singleton = _PassIo._internal();
+  String _passDirName = 'passes';
+  String _previewPassDirName = 'preview_passes';
 
-  factory _PassIo() {
+  static final PassIo _singleton = PassIo._internal();
+
+  // ignore: public_member_api_docs
+  factory PassIo() {
     return _singleton;
   }
 
-  _PassIo._internal();
+  PassIo._internal();
 
-  Future<PassFile> createOrGetPass({String passId}) async {
-    Directory passesDir = await this.getPassesDir();
-    if (passId == null) passId = Uuid().v1();
-    String passFileName = '$passId.passkit';
+  Future<Directory> _getPassesDir() async {
+    if (this._passDir != null) return this._passDir;
+    Directory appDir = await getApplicationDocumentsDirectory();
+    this._passDir = Directory('${appDir.path}/$_passDirName');
+    this._passDir.createSync(recursive: true);
+    return this._passDir;
+  }
 
-    File passFile = File('${passesDir.path}/$passFileName');
+  Future<Directory> _getPreviewPassesDir() async {
+    if (this._previewPassDir != null) return this._previewPassDir;
+    Directory appDir = await getApplicationDocumentsDirectory();
+    this._previewPassDir = Directory('${appDir.path}/$_previewPassDirName');
+    this._previewPassDir.createSync(recursive: true);
+    return this._previewPassDir;
+  }
+
+  Future<dynamic> _createOrGetPass({
+    String passId,
+    bool preview = false,
+  }) async {
+    Directory passesDir = preview
+        ? await this._getPreviewPassesDir()
+        : await this._getPassesDir();
+    passId = passId ?? this._generatePassId();
+
+    File passFile = File('${passesDir.path}/$passId.passkit');
     Directory passDirectory = Directory('${passesDir.path}/$passId');
 
-    return PassFile(passId, passFile, passDirectory);
+    return preview
+        ? PreviewPassFile(passId, passFile, passDirectory)
+        : PassFile(passId, passFile, passDirectory);
   }
 
-  Future<Directory> getPassesDir() async {
-    if (this._passDirectory != null) return this._passDirectory;
-    Directory appDir = await getApplicationDocumentsDirectory();
-    this._passDirectory = Directory('${appDir.path}/passes');
-    this._passDirectory.createSync(recursive: true);
-    return this._passDirectory;
+  String _generatePassId() {
+    return Uuid().v1();
   }
 
-  delete(Directory passDirectory, File passFile) async {
-    passFile.deleteSync();
-    passDirectory.deleteSync(recursive: true);
-  }
-
-  Future unpack(PassFile passFile) async {
-    if (!(passFile.file.existsSync())) {
+  Future _unpackPass(PassFile passFile) async {
+    if (!passFile.file.existsSync()) {
       throw ('Pass file not found!');
     }
-    if (passFile.directory.existsSync()) {
-      return;
-    }
+    if (passFile.directory.existsSync()) return;
     passFile.directory.createSync();
 
     try {
@@ -51,7 +68,7 @@ class _PassIo {
         final filename = '${passFile.directory.path}/${file.name}';
         if (file.isFile) {
           File outFile = await File(filename).create(recursive: true);
-          await outFile.writeAsBytes(file.content);
+          await outFile.writeAsBytes(file.content as List<int>);
         } else {
           await Directory(filename).create(recursive: true);
         }
@@ -60,5 +77,70 @@ class _PassIo {
       this.delete(passFile.directory, passFile.file);
       throw ('Error in unpack passkit file!');
     }
+  }
+
+  // ignore: public_member_api_docs
+  Future<PassFile> saveFromPath({@required File externalPassFile}) async {
+    String passId = this._generatePassId();
+    Directory passesDir = await this._getPassesDir();
+    if (externalPassFile.existsSync()) {
+      externalPassFile.copySync('${passesDir.path}/$passId.passkit');
+      PassFile pass = await this._createOrGetPass(passId: passId) as PassFile;
+      await this._unpackPass(pass);
+      return await PassParser().parse(pass);
+    }
+    throw ('Unable to fetch pass file at specified path');
+  }
+
+  // ignore: public_member_api_docs
+  Future<PassFile> saveFromUrl({@required String url}) async {
+    PassFile pass = await this._createOrGetPass() as PassFile;
+    Response responce = await Dio().download(url, pass.file.path);
+    if (responce.statusCode == 200) {
+      await this._unpackPass(pass);
+      return await PassParser().parse(pass);
+    }
+    throw ('Unable to download pass file at specified url');
+  }
+
+  // ignore: public_member_api_docs
+  Future<PreviewPassFile> fetchPreviewFromUrl({@required String url}) async {
+    PreviewPassFile pass = await this._createOrGetPass(
+      preview: true,
+    ) as PreviewPassFile;
+    Response responce = await Dio().download(url, pass.file.path);
+    if (responce.statusCode == 200) {
+      await this._unpackPass(pass);
+      return await PassParser().parse(pass) as PreviewPassFile;
+    }
+    throw ('Unable to fetch preview of pass file at specified url');
+  }
+
+  // ignore: public_member_api_docs
+  Future<List<PassFile>> getAllSaved() async {
+    List<PassFile> parsedPasses = [];
+    Directory passesDir = await this._getPassesDir();
+    List<FileSystemEntity> passesEntities = await passesDir.list().toList();
+    Iterable<FileSystemEntity> passFiles = passesEntities.whereType<File>();
+    for (FileSystemEntity entity in passFiles) {
+      String passId = path.basenameWithoutExtension(entity.path);
+      PassFile passFile =
+          await this._createOrGetPass(passId: passId) as PassFile;
+      try {
+        await this._unpackPass(passFile);
+        passFile = await PassParser().parse(passFile);
+        parsedPasses.add(passFile);
+      } catch (e) {
+        debugPrint('Error parse pass file - ${passFile.file.path}');
+        this.delete(passFile.directory, passFile.file);
+      }
+    }
+    return parsedPasses;
+  }
+
+  // ignore: public_member_api_docs
+  void delete(Directory passDirectory, File passFile) async {
+    passFile.deleteSync();
+    passDirectory.deleteSync(recursive: true);
   }
 }

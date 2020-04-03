@@ -19,6 +19,7 @@ class Location extends Equatable {
   /// For example, a description of the nearby location such as “Store nearby on 1st and Main.”
   final String relevantText;
 
+  /// Creates a new [Location]
   Location({
     this.altitude,
     this.latitude,

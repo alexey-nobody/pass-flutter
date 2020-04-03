@@ -1,6 +1,7 @@
 part of 'pass_core.dart';
 
-class _PassParser {
+// ignore: public_member_api_docs
+class PassParser {
   PassFile _passFile;
 
   Future<PassJson> _parsePassJson() async {
@@ -11,7 +12,7 @@ class _PassParser {
     }
     this._passFile.passJson = passJsonFile;
     String passJson = await passJsonFile.readAsString();
-    return PassJson.fromJson(json.decode(passJson));
+    return PassJson.fromJson(json.decode(passJson) as Map<String, dynamic>);
   }
 
   PassImage _getImage({String name}) {
@@ -24,10 +25,9 @@ class _PassParser {
     return PassImage(image, image2x, image3x);
   }
 
+  // ignore: public_member_api_docs
   Future<PassFile> parse(PassFile passFile) async {
     this._passFile = passFile;
-
-    await _PassIo().unpack(passFile);
 
     passFile.pass = await this._parsePassJson();
     passFile.logo = this._getImage(name: 'logo');

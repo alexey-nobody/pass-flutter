@@ -12,7 +12,7 @@ A Flutter library for work with Apple Wallet passes.
 ```dart
 import 'package:pass_flutter/pass_flutter.dart';
 
-PassFile passFile = await Pass().getFromUrl('https://link_to_pass/pass.pkpass');
+PassFile passFile = await Pass().saveFromUrl(urlToPass: 'https://link_to_pass/pass.pkpass');
 ```
 
 ### Getting list of all saved passes
@@ -22,13 +22,35 @@ import 'package:pass_flutter/pass_flutter.dart';
 List<PassFile> passes = await Pass().getAllSaved();
 ```
 
+### Fetch preview from url and save it
+```dart
+import 'package:pass_flutter/pass_flutter.dart';
+
+PreviewPassFile passFile = await Pass().fetchPreviewFromUrl(urlToPass: 'https://link_to_pass/pass.pkpass');
+passFile.save();
+```
+
+or delete it
+```dart
+import 'package:pass_flutter/pass_flutter.dart';
+
+PreviewPassFile passFile = await Pass().fetchPreviewFromUrl(urlToPass: 'https://link_to_pass/pass.pkpass');
+passFile.delete();
+```
+
 ### Delete pass file from internal memory
 ```dart
 import 'package:pass_flutter/pass_flutter.dart';
 
 Pass pass = Pass();
-PassFile passFile = await pass.getFromUrl('https://link_to_pass/pass.pkpass');
+PassFile passFile = await pass.saveFromUrl(urlToPass: 'https://link_to_pass/pass.pkpass');
 await pass.delete(passFile);
+```
+
+OR
+
+```dart
+passFile.delete();
 ```
 
 ## Contribute
