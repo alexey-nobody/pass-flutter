@@ -30,8 +30,18 @@ class Pass {
 
   /// Save pass file from [urlToPass] to internal memory, parse and return [PassFile]
   Future<PassFile> saveFromUrl({@required String urlToPass}) async {
-    PassFile savedPass = await PassIo().saveFromUrl(url: urlToPass);
-    return savedPass;
+    PassFile pass = await PassIo().saveFromUrl(url: urlToPass);
+    return pass;
+  }
+
+  /// Fetch preview of pass file from [urlToPass], parse and return [PassFile]
+  Future<PreviewPassFile> fetchPreviewFromUrl({
+    @required String urlToPass,
+  }) async {
+    PreviewPassFile pass = await PassIo().fetchPreviewFromUrl(
+      url: urlToPass,
+    );
+    return pass;
   }
 
   /// Delete all files and folders for [passFile] from internal memory and return saved passes

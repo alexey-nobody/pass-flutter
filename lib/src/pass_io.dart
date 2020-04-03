@@ -94,13 +94,26 @@ class PassIo {
 
   // ignore: public_member_api_docs
   Future<PassFile> saveFromUrl({@required String url}) async {
-    PassFile passFile = await this._createOrGetPass() as PassFile;
-    Response responce = await Dio().download(url, passFile.file.path);
+    PassFile pass = await this._createOrGetPass() as PassFile;
+    Response responce = await Dio().download(url, pass.file.path);
     if (responce.statusCode == 200) {
-      await this._unpackPass(passFile);
-      return await PassParser().parse(passFile);
+      await this._unpackPass(pass);
+      return await PassParser().parse(pass);
     }
     throw ('Unable to download pass file at specified url');
+  }
+
+  // ignore: public_member_api_docs
+  Future<PreviewPassFile> fetchPreviewFromUrl({@required String url}) async {
+    PreviewPassFile pass = await this._createOrGetPass(
+      preview: true,
+    ) as PreviewPassFile;
+    Response responce = await Dio().download(url, pass.file.path);
+    if (responce.statusCode == 200) {
+      await this._unpackPass(pass);
+      return await PassParser().parse(pass) as PreviewPassFile;
+    }
+    throw ('Unable to fetch preview of pass file at specified url');
   }
 
   // ignore: public_member_api_docs
