@@ -55,15 +55,15 @@ class PassJson extends Equatable {
   /// Note: Available only in iOS 9.0 and later.
   final List<Barcode> barcodes;
 
-  /// Optional. Background color of the pass, specified as an CSS-style RGB triple. For example, rgb(23, 187, 82).
+  /// Optional. Background [Color] of the pass.
   @JsonKey(fromJson: _convertToColor, toJson: _convertFromColor)
   final Color backgroundColor;
 
-  /// Optional. Foreground color of the pass, specified as a CSS-style RGB triple. For example, rgb(100, 10, 110).
+  /// Optional. Foreground [Color] of the pass.
   @JsonKey(fromJson: _convertToColor, toJson: _convertFromColor)
   final Color foregroundColor;
 
-  /// Optional. Color of the label text, specified as a CSS-style RGB triple. For example, rgb(255, 255, 255).
+  /// Optional. [Color] of the label text.
   /// If omitted, the label color is determined automatically.
   @JsonKey(fromJson: _convertToColor, toJson: _convertFromColor)
   final Color labelColor;
