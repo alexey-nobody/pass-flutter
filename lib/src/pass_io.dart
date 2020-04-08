@@ -113,7 +113,7 @@ class PassIo {
       await this._unpackPass(pass);
       return await PassParser().parse(pass) as PreviewPassFile;
     }
-    throw ('Unable to fetch preview of pass file at specified url');
+    throw ('Unable to download preview of pass file at specified url');
   }
 
   // ignore: public_member_api_docs
