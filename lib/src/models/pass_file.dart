@@ -12,9 +12,6 @@ class PassFile {
   /// passkit [File]
   File file;
 
-  /// pass.json [File]
-  File passJson;
-
   /// [Directory] with unpacked pass files
   Directory directory;
 
