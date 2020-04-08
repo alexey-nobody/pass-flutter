@@ -40,7 +40,7 @@ class PassIo {
     Directory passesDir = preview
         ? await this._getPreviewPassesDir()
         : await this._getPassesDir();
-    passId = passId ?? this._generatePassId();
+    passId = passId ?? Utils.generatePassId();
 
     File passFile = File('${passesDir.path}/$passId.passkit');
     Directory passDirectory = Directory('${passesDir.path}/$passId');
@@ -48,10 +48,6 @@ class PassIo {
     return preview
         ? PreviewPassFile(passId, passFile, passDirectory)
         : PassFile(passId, passFile, passDirectory);
-  }
-
-  String _generatePassId() {
-    return Uuid().v1();
   }
 
   Future _unpackPass(PassFile passFile) async {
@@ -81,7 +77,7 @@ class PassIo {
 
   // ignore: public_member_api_docs
   Future<PassFile> saveFromPath({@required File externalPassFile}) async {
-    String passId = this._generatePassId();
+    String passId = Utils.generatePassId();
     Directory passesDir = await this._getPassesDir();
     if (externalPassFile.existsSync()) {
       externalPassFile.copySync('${passesDir.path}/$passId.passkit');
