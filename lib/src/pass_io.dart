@@ -50,18 +50,25 @@ class PassIo {
         : PassFile(passId, passFile, passDirectory);
   }
 
-  Future _unpackPass(PassFile passFile) async {
-    if (!passFile.file.existsSync()) {
+  Future _unpackPass({@required String passPath}) async {
+    assert(passPath != null);
+
+    File passFile = File(passPath);
+    Directory passDirectory = Directory(path.withoutExtension(passPath));
+
+    if (!passFile.existsSync()) {
       throw ('Pass file not found!');
     }
-    if (passFile.directory.existsSync()) return;
-    passFile.directory.createSync();
+    if (passDirectory.existsSync()) {
+      return;
+    }
 
+    passDirectory.createSync();
     try {
-      final passArchive = passFile.file.readAsBytesSync();
+      final passArchive = passFile.readAsBytesSync();
       final passFiles = ZipDecoder().decodeBytes(passArchive);
       for (var file in passFiles) {
-        final filename = '${passFile.directory.path}/${file.name}';
+        final filename = '${passDirectory.path}/${file.name}';
         if (file.isFile) {
           File outFile = await File(filename).create(recursive: true);
           await outFile.writeAsBytes(file.content as List<int>);
@@ -70,8 +77,8 @@ class PassIo {
         }
       }
     } catch (e) {
-      this.delete(passFile.directory, passFile.file);
-      throw ('Error in unpack passkit file!');
+      this.delete(passDirectory, passFile);
+      throw ('Unpack passkit file failed!');
     }
   }
 
@@ -82,7 +89,7 @@ class PassIo {
     if (externalPassFile.existsSync()) {
       externalPassFile.copySync('${passesDir.path}/$passId.passkit');
       PassFile pass = await this._createOrGetPass(passId: passId) as PassFile;
-      await this._unpackPass(pass);
+      await this._unpackPass(passPath: '${passesDir.path}/$passId.passkit');
       return await PassParser().parse(pass);
     }
     throw ('Unable to fetch pass file at specified path');
@@ -93,7 +100,7 @@ class PassIo {
     PassFile pass = await this._createOrGetPass() as PassFile;
     Response responce = await Dio().download(url, pass.file.path);
     if (responce.statusCode == 200) {
-      await this._unpackPass(pass);
+      await this._unpackPass(passPath: pass.file.path);
       return await PassParser().parse(pass);
     }
     throw ('Unable to download pass file at specified url');
@@ -106,7 +113,7 @@ class PassIo {
     ) as PreviewPassFile;
     Response responce = await Dio().download(url, pass.file.path);
     if (responce.statusCode == 200) {
-      await this._unpackPass(pass);
+      await this._unpackPass(passPath: pass.file.path);
       return await PassParser().parse(pass) as PreviewPassFile;
     }
     throw ('Unable to download preview of pass file at specified url');
@@ -123,7 +130,7 @@ class PassIo {
       PassFile passFile =
           await this._createOrGetPass(passId: passId) as PassFile;
       try {
-        await this._unpackPass(passFile);
+        await this._unpackPass(passPath: entity.path);
         passFile = await PassParser().parse(passFile);
         parsedPasses.add(passFile);
       } catch (e) {
