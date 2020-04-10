@@ -17,20 +17,22 @@ class PassIo {
 
   PassIo._internal();
 
-  Future<Directory> _getPassesDir() async {
-    if (this._passDir != null) return this._passDir;
+  Future<Directory> _createPassesDir({@required String passDir}) async {
+    assert(passDir != null);
     Directory appDir = await getApplicationDocumentsDirectory();
-    this._passDir = Directory('${appDir.path}/$_passDirName');
+    this._passDir = Directory('${appDir.path}/$passDir');
     this._passDir.createSync(recursive: true);
     return this._passDir;
   }
 
+  Future<Directory> _getPassesDir() async {
+    if (this._passDir != null) return this._passDir;
+    return await this._createPassesDir(passDir: this._passDirName);
+  }
+
   Future<Directory> _getPreviewPassesDir() async {
     if (this._previewPassDir != null) return this._previewPassDir;
-    Directory appDir = await getApplicationDocumentsDirectory();
-    this._previewPassDir = Directory('${appDir.path}/$_previewPassDirName');
-    this._previewPassDir.createSync(recursive: true);
-    return this._previewPassDir;
+    return await this._createPassesDir(passDir: this._previewPassDirName);
   }
 
   Future<dynamic> _createOrGetPass({
