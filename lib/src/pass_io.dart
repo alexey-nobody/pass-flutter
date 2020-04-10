@@ -52,7 +52,7 @@ class PassIo {
         : PassFile(passId, passFile, passDirectory);
   }
 
-  Future _unpackPass({@required String passPath}) async {
+  Future<void> _unpackPass({@required String passPath}) async {
     assert(passPath != null);
 
     File passFile = File(passPath);
