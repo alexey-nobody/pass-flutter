@@ -224,7 +224,7 @@ class PassJson extends Equatable {
     return Color.fromRGBO(red, green, blue, 1);
   }
 
-    static String _convertFromColor(Color color) {
+  static String _convertFromColor(Color color) {
     return 'rgb(${color.red}, ${color.green}, ${color.blue})';
   }
 }
