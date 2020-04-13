@@ -35,10 +35,10 @@ class Pass {
   }
 
   /// Fetch preview of pass file from [urlToPass], parse and return [PassFile]
-  Future<PreviewPassFile> fetchPreviewFromUrl({
+  Future<PassFile> fetchPreviewFromUrl({
     @required String urlToPass,
   }) async {
-    PreviewPassFile pass = await PassIo().fetchPreviewFromUrl(
+    PassFile pass = await PassIo().fetchPreviewFromUrl(
       url: urlToPass,
     );
     return pass;
