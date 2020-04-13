@@ -1,6 +1,7 @@
 ## 1.1.0 -
  - **BREAKING:** change method `fetchPreviewFromUrl` return type `PreviewPassFile` -> `PassFile`
  - **BREAKING:** remove `PreviewPassFile`
+ - **BREAKING** Params name in methods `fetchPreviewFromUrl` and  `saveFromUrl` changed `urlToPass` -> `url`
  - Now `PassFile` include method for saving it toNow `PassFile` includes a method for saving it in the internal memory 
  - Refactoring and optimisation
 
