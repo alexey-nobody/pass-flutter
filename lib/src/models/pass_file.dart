@@ -52,6 +52,12 @@ class PassFile {
     @required this.pass,
   }) : assert(id != null && file != null, directory != null && pass != null);
 
+  /// Save current [PassFile] to internal memory and delete previewed pass file
+  Future<void> save() async {
+    await PassIo().saveFromPath(externalPassFile: this.file);
+    PassIo().delete(this.directory, this.file);
+  }
+
   /// Delete current pass file from memory
   void delete() {
     PassIo().delete(this.directory, this.file);
