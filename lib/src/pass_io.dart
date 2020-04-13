@@ -17,39 +17,39 @@ class PassIo {
 
   PassIo._internal();
 
-  Future<Directory> _createPassesDir({@required String passDir}) async {
-    assert(passDir != null);
+  Future<Directory> _createPassesDir({@required String name}) async {
+    assert(name != null);
     Directory appDir = await getApplicationDocumentsDirectory();
-    this._passDir = Directory('${appDir.path}/$passDir');
-    this._passDir.createSync(recursive: true);
-    return this._passDir;
+    Directory passDir = Directory('${appDir.path}/$name');
+    passDir.createSync(recursive: true);
+    return passDir;
   }
 
   Future<Directory> _getPassesDir() async {
     if (this._passDir != null) return this._passDir;
-    return await this._createPassesDir(passDir: this._passDirName);
+    this._passDir = await this._createPassesDir(name: this._passDirName);
+    return this._passDir;
   }
 
   Future<Directory> _getPreviewPassesDir() async {
     if (this._previewPassDir != null) return this._previewPassDir;
-    return await this._createPassesDir(passDir: this._previewPassDirName);
+    this._previewPassDir = await this._createPassesDir(
+      name: this._previewPassDirName,
+    );
+    return this._previewPassDir;
   }
 
-  Future<dynamic> _createOrGetPass({
-    String passId,
-    bool preview = false,
+  Future<File> _createPass({
+    @required String passId,
+    bool isPreview = false,
   }) async {
-    Directory passesDir = preview
+    assert(passId != null);
+    Directory passesDir = isPreview
         ? await this._getPreviewPassesDir()
         : await this._getPassesDir();
-    passId = passId ?? Utils.generatePassId();
-
     File passFile = File('${passesDir.path}/$passId.passkit');
-    Directory passDirectory = Directory('${passesDir.path}/$passId');
-
-    return preview
-        ? PreviewPassFile(passId, passFile, passDirectory)
-        : PassFile(passId, passFile, passDirectory);
+    passFile.createSync();
+    return passFile;
   }
 
   Future<void> _unpackPass({@required String passPath}) async {
@@ -88,35 +88,49 @@ class PassIo {
   Future<PassFile> saveFromPath({@required File externalPassFile}) async {
     String passId = Utils.generatePassId();
     Directory passesDir = await this._getPassesDir();
+    Directory passDir = Directory(path.withoutExtension(externalPassFile.path));
     if (externalPassFile.existsSync()) {
       externalPassFile.copySync('${passesDir.path}/$passId.passkit');
-      PassFile pass = await this._createOrGetPass(passId: passId) as PassFile;
       await this._unpackPass(passPath: '${passesDir.path}/$passId.passkit');
-      return await PassParser().parse(pass);
+      return await PassParser(
+        passId: passId,
+        unpackedPassDirectory: passDir,
+        passFile: externalPassFile,
+      ).parse();
     }
     throw ('Unable to fetch pass file at specified path');
   }
 
   // ignore: public_member_api_docs
   Future<PassFile> saveFromUrl({@required String url}) async {
-    PassFile pass = await this._createOrGetPass() as PassFile;
-    Response responce = await Dio().download(url, pass.file.path);
+    String passId = Utils.generatePassId();
+    File passFile = await this._createPass(passId: passId);
+    Directory passDir = Directory(path.withoutExtension(passFile.path));
+    Response responce = await Dio().download(url, passFile.path);
     if (responce.statusCode == 200) {
-      await this._unpackPass(passPath: pass.file.path);
-      return await PassParser().parse(pass);
+      await this._unpackPass(passPath: passFile.path);
+      return await PassParser(
+        passId: passId,
+        unpackedPassDirectory: passDir,
+        passFile: passFile,
+      ).parse();
     }
     throw ('Unable to download pass file at specified url');
   }
 
   // ignore: public_member_api_docs
-  Future<PreviewPassFile> fetchPreviewFromUrl({@required String url}) async {
-    PreviewPassFile pass = await this._createOrGetPass(
-      preview: true,
-    ) as PreviewPassFile;
-    Response responce = await Dio().download(url, pass.file.path);
+  Future<PassFile> fetchPreviewFromUrl({@required String url}) async {
+    String passId = Utils.generatePassId();
+    File passFile = await this._createPass(passId: passId, isPreview: true);
+    Directory passDir = Directory(path.withoutExtension(passFile.path));
+    Response responce = await Dio().download(url, passFile.path);
     if (responce.statusCode == 200) {
-      await this._unpackPass(passPath: pass.file.path);
-      return await PassParser().parse(pass) as PreviewPassFile;
+      await this._unpackPass(passPath: passFile.path);
+      return await PassParser(
+        passId: passId,
+        unpackedPassDirectory: passDir,
+        passFile: passFile,
+      ).parse();
     }
     throw ('Unable to download preview of pass file at specified url');
   }
@@ -124,20 +138,24 @@ class PassIo {
   // ignore: public_member_api_docs
   Future<List<PassFile>> getAllSaved() async {
     List<PassFile> parsedPasses = [];
+
     Directory passesDir = await this._getPassesDir();
     List<FileSystemEntity> passesEntities = await passesDir.list().toList();
     Iterable<FileSystemEntity> passFiles = passesEntities.whereType<File>();
     for (FileSystemEntity entity in passFiles) {
       String passId = path.basenameWithoutExtension(entity.path);
-      PassFile passFile =
-          await this._createOrGetPass(passId: passId) as PassFile;
+      Directory passDir = Directory(path.withoutExtension(entity.path));
       try {
         await this._unpackPass(passPath: entity.path);
-        passFile = await PassParser().parse(passFile);
-        parsedPasses.add(passFile);
+        PassFile parsedPassFile = await PassParser(
+          passId: passId,
+          unpackedPassDirectory: passDir,
+          passFile: entity as File,
+        ).parse();
+        parsedPasses.add(parsedPassFile);
       } catch (e) {
-        debugPrint('Error parse pass file - ${passFile.file.path}');
-        this.delete(passFile.directory, passFile.file);
+        debugPrint('Error parse pass file - ${entity.path}');
+        this.delete(passDir, entity as File);
       }
     }
     return parsedPasses;
