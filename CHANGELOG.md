@@ -1,3 +1,9 @@
+## 1.1.0 -
+ - **BREAKING:** change method `fetchPreviewFromUrl` return type `PreviewPassFile` -> `PassFile`
+ - **BREAKING:** remove `PreviewPassFile`
+ - Now `PassFile` include method for saving it toNow `PassFile` includes a method for saving it in the internal memory 
+ - Refactoring and optimisation
+
 ## 1.0.4 - 07.04.2020
  - Now all colors value in pass.json converted from CSS-style RGB triple to Color
 
