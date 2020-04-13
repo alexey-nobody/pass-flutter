@@ -89,6 +89,9 @@ class PassIo {
     String passId = Utils.generatePassId();
     Directory passesDir = await this._getPassesDir();
     Directory passDir = Directory(path.withoutExtension(externalPassFile.path));
+    if (passesDir.path == path.dirname(externalPassFile.path)) {
+      throw ('This file has already been saved.');
+    }
     if (externalPassFile.existsSync()) {
       externalPassFile.copySync('${passesDir.path}/$passId.passkit');
       await this._unpackPass(passPath: '${passesDir.path}/$passId.passkit');
