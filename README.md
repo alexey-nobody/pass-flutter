@@ -26,7 +26,7 @@ List<PassFile> passes = await Pass().getAllSaved();
 ```dart
 import 'package:pass_flutter/pass_flutter.dart';
 
-PreviewPassFile passFile = await Pass().fetchPreviewFromUrl(urlToPass: 'https://link_to_pass/pass.pkpass');
+PassFile passFile = await Pass().fetchPreviewFromUrl(urlToPass: 'https://link_to_pass/pass.pkpass');
 passFile.save();
 ```
 
@@ -34,7 +34,7 @@ or delete it
 ```dart
 import 'package:pass_flutter/pass_flutter.dart';
 
-PreviewPassFile passFile = await Pass().fetchPreviewFromUrl(urlToPass: 'https://link_to_pass/pass.pkpass');
+PassFile passFile = await Pass().fetchPreviewFromUrl(urlToPass: 'https://link_to_pass/pass.pkpass');
 passFile.delete();
 ```
 
