@@ -53,6 +53,9 @@ class PassFile extends Equatable {
     @required this.pass,
   }) : assert(id != null && file != null, directory != null && pass != null);
 
+  @override
+  List<Object> get props => [pass];
+
   /// Save current [PassFile] to internal memory and delete previewed pass file
   Future<void> save() async {
     await PassIo().saveFromPath(externalPassFile: this.file);
@@ -63,7 +66,4 @@ class PassFile extends Equatable {
   void delete() {
     PassIo().delete(this.directory, this.file);
   }
-
-  @override
-  List<Object> get props => [pass];
 }
