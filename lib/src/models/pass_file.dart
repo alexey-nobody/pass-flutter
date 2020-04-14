@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pass_flutter/src/models/pass_image.dart';
 import 'package:pass_flutter/src/models/pass_json/pass_json.dart';
 import 'package:pass_flutter/src/pass_core.dart';
 
 /// Parsed Apple Wallet pass file
-class PassFile {
+class PassFile extends Equatable {
   /// Pass file id
   final String id;
 
@@ -62,4 +63,7 @@ class PassFile {
   void delete() {
     PassIo().delete(this.directory, this.file);
   }
+
+  @override
+  List<Object> get props => [pass];
 }
