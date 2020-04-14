@@ -1,4 +1,4 @@
-## 1.1.0 -
+## 1.1.0 - 14.04.2020
  - **BREAKING:** change method `fetchPreviewFromUrl` return type `PreviewPassFile` -> `PassFile`
  - **BREAKING:** remove `PreviewPassFile`
  - **BREAKING:** params name in methods `fetchPreviewFromUrl` and  `saveFromUrl` changed `urlToPass` -> `url`
