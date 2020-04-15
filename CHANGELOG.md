@@ -1,3 +1,6 @@
+## 1.1.1 - 15.04.2020
+- Update README.md after release 1.1.0 
+
 ## 1.1.0 - 14.04.2020
  - **BREAKING:** change method `fetchPreviewFromUrl` return type `PreviewPassFile` -> `PassFile`
  - **BREAKING:** remove `PreviewPassFile`
