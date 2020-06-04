@@ -1,3 +1,6 @@
+## 1.1.2 - 
+- Fix bug with use plugin in ios application
+
 ## 1.1.1 - 15.04.2020
 - Update README.md after release 1.1.0 
 
