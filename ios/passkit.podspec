@@ -4,14 +4,14 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'pass_flutter'
-  s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.version          = '1.1.1'
+  s.summary          = 'A Flutter library for getting and reading Apple Wallet passes.'
   s.description      = <<-DESC
-A new flutter plugin project.
+  A Flutter library for getting and reading Apple Wallet passes.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/alexeynobody/pass-flutter'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Alexey Lepskii' => 'alexey.lepskii@gmail.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
