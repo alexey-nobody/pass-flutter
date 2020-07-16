@@ -39,10 +39,5 @@ class Barcode extends Equatable {
   Map<String, dynamic> toJson() => _$BarcodeToJson(this);
 
   @override
-  List<Object> get props => [
-        this.altText,
-        this.format,
-        this.message,
-        this.messageEncoding,
-      ];
+  List<Object> get props => [altText, format, message, messageEncoding];
 }

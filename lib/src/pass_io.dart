@@ -5,8 +5,8 @@ class PassIo {
   Directory _passDir;
   Directory _previewPassDir;
 
-  String _passDirName = 'passes';
-  String _previewPassDirName = 'preview_passes';
+  final String _passDirName = 'passes';
+  final String _previewPassDirName = 'preview_passes';
 
   static final PassIo _singleton = PassIo._internal();
 
@@ -19,24 +19,22 @@ class PassIo {
 
   Future<Directory> _createPassesDir({@required String name}) async {
     assert(name != null);
-    Directory appDir = await getApplicationDocumentsDirectory();
-    Directory passDir = Directory('${appDir.path}/$name');
+    var appDir = await getApplicationDocumentsDirectory();
+    var passDir = Directory('${appDir.path}/$name');
     passDir.createSync(recursive: true);
     return passDir;
   }
 
   Future<Directory> _getPassesDir() async {
-    if (this._passDir != null) return this._passDir;
-    this._passDir = await this._createPassesDir(name: this._passDirName);
-    return this._passDir;
+    if (_passDir != null) return _passDir;
+    _passDir = await _createPassesDir(name: _passDirName);
+    return _passDir;
   }
 
   Future<Directory> _getPreviewPassesDir() async {
-    if (this._previewPassDir != null) return this._previewPassDir;
-    this._previewPassDir = await this._createPassesDir(
-      name: this._previewPassDirName,
-    );
-    return this._previewPassDir;
+    if (_previewPassDir != null) return _previewPassDir;
+    _previewPassDir = await _createPassesDir(name: _previewPassDirName);
+    return _previewPassDir;
   }
 
   Future<File> _createPass({
@@ -44,10 +42,9 @@ class PassIo {
     bool isPreview = false,
   }) async {
     assert(passId != null);
-    Directory passesDir = isPreview
-        ? await this._getPreviewPassesDir()
-        : await this._getPassesDir();
-    File passFile = File('${passesDir.path}/$passId.passkit');
+    var passesDir =
+        isPreview ? await _getPreviewPassesDir() : await _getPassesDir();
+    var passFile = File('${passesDir.path}/$passId.passkit');
     passFile.createSync();
     return passFile;
   }
@@ -55,8 +52,8 @@ class PassIo {
   Future<void> _unpackPass({@required String passPath}) async {
     assert(passPath != null);
 
-    File passFile = File(passPath);
-    Directory passDirectory = Directory(path.withoutExtension(passPath));
+    var passFile = File(passPath);
+    var passDirectory = Directory(path.withoutExtension(passPath));
 
     if (!passFile.existsSync()) {
       throw ('Pass file not found!');
@@ -72,29 +69,29 @@ class PassIo {
       for (var file in passFiles) {
         final filename = '${passDirectory.path}/${file.name}';
         if (file.isFile) {
-          File outFile = await File(filename).create(recursive: true);
+          var outFile = await File(filename).create(recursive: true);
           await outFile.writeAsBytes(file.content as List<int>);
         } else {
           await Directory(filename).create(recursive: true);
         }
       }
     } catch (e) {
-      this.delete(passDirectory, passFile);
+      delete(passDirectory, passFile);
       throw ('Unpack passkit file failed!');
     }
   }
 
   // ignore: public_member_api_docs
   Future<PassFile> saveFromPath({@required File externalPassFile}) async {
-    String passId = Utils.generatePassId();
-    Directory passesDir = await this._getPassesDir();
-    Directory passDir = Directory(path.withoutExtension(externalPassFile.path));
+    var passId = Utils.generatePassId();
+    var passesDir = await _getPassesDir();
+    var passDir = Directory(path.withoutExtension(externalPassFile.path));
     if (passesDir.path == path.dirname(externalPassFile.path)) {
       throw ('This file has already been saved.');
     }
     if (externalPassFile.existsSync()) {
       externalPassFile.copySync('${passesDir.path}/$passId.passkit');
-      await this._unpackPass(passPath: '${passesDir.path}/$passId.passkit');
+      await _unpackPass(passPath: '${passesDir.path}/$passId.passkit');
       return await PassParser(
         passId: passId,
         unpackedPassDirectory: passDir,
@@ -106,12 +103,12 @@ class PassIo {
 
   // ignore: public_member_api_docs
   Future<PassFile> saveFromUrl({@required String url}) async {
-    String passId = Utils.generatePassId();
-    File passFile = await this._createPass(passId: passId);
-    Directory passDir = Directory(path.withoutExtension(passFile.path));
-    Response responce = await Dio().download(url, passFile.path);
+    var passId = Utils.generatePassId();
+    var passFile = await _createPass(passId: passId);
+    var passDir = Directory(path.withoutExtension(passFile.path));
+    var responce = await Dio().download(url, passFile.path);
     if (responce.statusCode == 200) {
-      await this._unpackPass(passPath: passFile.path);
+      await _unpackPass(passPath: passFile.path);
       return await PassParser(
         passId: passId,
         unpackedPassDirectory: passDir,
@@ -123,12 +120,12 @@ class PassIo {
 
   // ignore: public_member_api_docs
   Future<PassFile> fetchPreviewFromUrl({@required String url}) async {
-    String passId = Utils.generatePassId();
-    File passFile = await this._createPass(passId: passId, isPreview: true);
-    Directory passDir = Directory(path.withoutExtension(passFile.path));
-    Response responce = await Dio().download(url, passFile.path);
+    var passId = Utils.generatePassId();
+    var passFile = await _createPass(passId: passId, isPreview: true);
+    var passDir = Directory(path.withoutExtension(passFile.path));
+    var responce = await Dio().download(url, passFile.path);
     if (responce.statusCode == 200) {
-      await this._unpackPass(passPath: passFile.path);
+      await _unpackPass(passPath: passFile.path);
       return await PassParser(
         passId: passId,
         unpackedPassDirectory: passDir,
@@ -140,17 +137,18 @@ class PassIo {
 
   // ignore: public_member_api_docs
   Future<List<PassFile>> getAllSaved() async {
-    List<PassFile> parsedPasses = [];
+    var parsedPasses = <PassFile>[];
+    var passesDir = await _getPassesDir();
+    var passesEntities = await passesDir.list().toList();
 
-    Directory passesDir = await this._getPassesDir();
-    List<FileSystemEntity> passesEntities = await passesDir.list().toList();
     Iterable<FileSystemEntity> passFiles = passesEntities.whereType<File>();
-    for (FileSystemEntity entity in passFiles) {
-      String passId = path.basenameWithoutExtension(entity.path);
-      Directory passDir = Directory(path.withoutExtension(entity.path));
+
+    for (var entity in passFiles) {
+      var passId = path.basenameWithoutExtension(entity.path);
+      var passDir = Directory(path.withoutExtension(entity.path));
       try {
-        await this._unpackPass(passPath: entity.path);
-        PassFile parsedPassFile = await PassParser(
+        await _unpackPass(passPath: entity.path);
+        var parsedPassFile = await PassParser(
           passId: passId,
           unpackedPassDirectory: passDir,
           passFile: entity as File,
@@ -158,7 +156,7 @@ class PassIo {
         parsedPasses.add(parsedPassFile);
       } catch (e) {
         debugPrint('Error parse pass file - ${entity.path}');
-        this.delete(passDir, entity as File);
+        delete(passDir, entity as File);
       }
     }
     return parsedPasses;

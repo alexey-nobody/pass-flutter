@@ -58,12 +58,12 @@ class PassFile extends Equatable {
 
   /// Save current [PassFile] to internal memory and delete previewed pass file
   Future<void> save() async {
-    await PassIo().saveFromPath(externalPassFile: this.file);
-    PassIo().delete(this.directory, this.file);
+    await PassIo().saveFromPath(externalPassFile: file);
+    PassIo().delete(directory, file);
   }
 
   /// Delete current pass file from memory
   void delete() {
-    PassIo().delete(this.directory, this.file);
+    PassIo().delete(directory, file);
   }
 }

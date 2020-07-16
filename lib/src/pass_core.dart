@@ -40,13 +40,13 @@ class Pass {
   /// Delete all files and folders for [passFile] from internal memory and return saved passes
   Future<List<PassFile>> delete(PassFile passFile) async {
     PassIo().delete(passFile.directory, passFile.file);
-    List<PassFile> parsedPasses = await PassIo().getAllSaved();
+    var parsedPasses = await PassIo().getAllSaved();
     return parsedPasses;
   }
 
   /// Platform version
   static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
+    var version = await _channel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 }

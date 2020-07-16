@@ -21,19 +21,19 @@ class PassParser {
             passFile != null);
 
   Future<PassJson> _parsePassJson() async {
-    String pathToPassJson = '${this.unpackedPassDirectory.path}/pass.json';
-    File passJsonFile = File(pathToPassJson);
+    var pathToPassJson = '${unpackedPassDirectory.path}/pass.json';
+    var passJsonFile = File(pathToPassJson);
     if (!passJsonFile.existsSync()) {
       throw ('Pass file is bad! Not find pass.json in pass file!');
     }
-    String passJson = await passJsonFile.readAsString();
+    var passJson = await passJsonFile.readAsString();
     return PassJson.fromJson(json.decode(passJson) as Map<String, dynamic>);
   }
 
   PassImage _getImage({String name}) {
-    File image = File('${this.unpackedPassDirectory.path}/$name.png');
-    File image2x = File('${this.unpackedPassDirectory.path}/$name@2x.png');
-    File image3x = File('${this.unpackedPassDirectory.path}/$name@3x.png');
+    var image = File('${unpackedPassDirectory.path}/$name.png');
+    var image2x = File('${unpackedPassDirectory.path}/$name@2x.png');
+    var image3x = File('${unpackedPassDirectory.path}/$name@3x.png');
     if (!image.existsSync() || !image2x.existsSync() || !image3x.existsSync()) {
       return null;
     }
@@ -42,19 +42,19 @@ class PassParser {
 
   /// Parse unpacked pass file
   Future<PassFile> parse() async {
-    PassJson passJson = await this._parsePassJson();
+    var passJson = await _parsePassJson();
 
-    PassImage logo = this._getImage(name: 'logo');
-    PassImage background = this._getImage(name: 'background');
-    PassImage footer = this._getImage(name: 'footer');
-    PassImage strip = this._getImage(name: 'strip');
-    PassImage icon = this._getImage(name: 'icon');
-    PassImage thumbnail = this._getImage(name: 'thumbnail');
+    var logo = _getImage(name: 'logo');
+    var background = _getImage(name: 'background');
+    var footer = _getImage(name: 'footer');
+    var strip = _getImage(name: 'strip');
+    var icon = _getImage(name: 'icon');
+    var thumbnail = _getImage(name: 'thumbnail');
 
     return PassFile(
-      id: this.passId,
-      file: this.passFile,
-      directory: this.unpackedPassDirectory,
+      id: passId,
+      file: passFile,
+      directory: unpackedPassDirectory,
       pass: passJson,
       logo: logo,
       background: background,
