@@ -1,3 +1,7 @@
+## 1.1.2 - 16.07.2020
+- Fix bug with use plugin in ios application
+- Specifying a plugin’s supported platforms - ios and android
+
 ## 1.1.1 - 15.04.2020
 - Update README.md after release 1.1.0 
 

@@ -1,10 +1,10 @@
 import Flutter
 import UIKit
 
-public class SwiftPasskitPlugin: NSObject, FlutterPlugin {
+public class SwiftPassFlutterPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "pass_flutter", binaryMessenger: registrar.messenger())
-    let instance = SwiftPasskitPlugin()
+    let instance = SwiftPassFlutterPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

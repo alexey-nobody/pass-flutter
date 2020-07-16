@@ -183,43 +183,43 @@ class PassJson extends Equatable {
 
   @override
   List<Object> get props => [
-        this.formatVersion,
-        this.storeCard,
-        this.coupon,
-        this.generic,
-        this.eventTicket,
-        this.boardingPass,
-        this.passTypeIdentifier,
-        this.description,
-        this.teamIdentifier,
-        this.labelColor,
-        this.backgroundColor,
-        this.foregroundColor,
-        this.organizationName,
-        this.webServiceURL,
-        this.serialNumber,
-        this.authenticationToken,
-        this.associatedStoreIdentifiers,
-        this.appLaunchURL,
-        this.expirationDate,
-        this.voided,
-        this.groupingIdentifier,
-        this.logoText,
-        this.suppressStripShine,
-        this.barcodes,
-        this.barcode,
-        this.locations,
+        formatVersion,
+        storeCard,
+        coupon,
+        generic,
+        eventTicket,
+        boardingPass,
+        passTypeIdentifier,
+        description,
+        teamIdentifier,
+        labelColor,
+        backgroundColor,
+        foregroundColor,
+        organizationName,
+        webServiceURL,
+        serialNumber,
+        authenticationToken,
+        associatedStoreIdentifiers,
+        appLaunchURL,
+        expirationDate,
+        voided,
+        groupingIdentifier,
+        logoText,
+        suppressStripShine,
+        barcodes,
+        barcode,
+        locations,
       ];
 
   static Color _convertToColor(String rgbCssColor) {
-    RegExp regExp = RegExp(r'(\d+),(\d+),(\d+)');
-    RegExpMatch colorsMatch = regExp.firstMatch(rgbCssColor);
+    var regExp = RegExp(r'(\d+),(\d+),(\d+)');
+    var colorsMatch = regExp.firstMatch(rgbCssColor);
     if (colorsMatch == null) {
       return Color.fromRGBO(255, 255, 255, 1);
     }
-    int red = int.parse(colorsMatch.group(1));
-    int green = int.parse(colorsMatch.group(2));
-    int blue = int.parse(colorsMatch.group(3));
+    var red = int.parse(colorsMatch.group(1));
+    var green = int.parse(colorsMatch.group(2));
+    var blue = int.parse(colorsMatch.group(3));
 
     return Color.fromRGBO(red, green, blue, 1);
   }

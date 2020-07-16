@@ -47,11 +47,11 @@ class PassStructureDictionary extends Equatable {
 
   @override
   List<Object> get props => [
-        this.headerFields,
-        this.secondaryFields,
-        this.backFields,
-        this.auxiliaryFields,
-        this.primaryFields,
-        this.transitType,
+        headerFields,
+        secondaryFields,
+        backFields,
+        auxiliaryFields,
+        primaryFields,
+        transitType,
       ];
 }

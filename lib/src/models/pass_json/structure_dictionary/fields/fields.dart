@@ -36,10 +36,5 @@ class Fields extends Equatable {
   Map<String, dynamic> toJson() => _$FieldsToJson(this);
 
   @override
-  List<Object> get props => [
-        this.key,
-        this.label,
-        this.value,
-        this.changeMessage,
-      ];
+  List<Object> get props => [key, label, value, changeMessage];
 }

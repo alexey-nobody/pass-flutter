@@ -36,9 +36,9 @@ class Location extends Equatable {
 
   @override
   List<Object> get props => [
-        this.altitude,
-        this.latitude,
-        this.longitude,
-        this.relevantText,
+        altitude,
+        latitude,
+        longitude,
+        relevantText,
       ];
 }
