@@ -1,3 +1,6 @@
+## 1.1.2+hotfix1 - 16.07.2020
+- Fix version in pubspec
+
 ## 1.1.2 - 16.07.2020
 - Fix bug with use plugin in ios application
 - Specifying a plugin’s supported platforms - ios and android
