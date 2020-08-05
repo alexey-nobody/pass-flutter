@@ -212,6 +212,10 @@ class PassJson extends Equatable {
       ];
 
   static Color _convertToColor(String rgbCssColor) {
+    //solving null issue on any color
+    if (rgbCssColor == null) {
+      return Color.fromRGBO(255, 255, 255, 1);
+    }
     var regExp = RegExp(r'(\d+),(\d+),(\d+)');
     var colorsMatch = regExp.firstMatch(rgbCssColor);
     if (colorsMatch == null) {
