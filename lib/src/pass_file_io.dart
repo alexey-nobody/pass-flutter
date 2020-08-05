@@ -1,21 +1,21 @@
 part of 'pass_core.dart';
 
 // ignore: public_member_api_docs
-class PassIo {
+class PassFileIO {
   Directory _passDir;
   Directory _previewPassDir;
 
   final String _passDirName = 'passes';
   final String _previewPassDirName = 'preview_passes';
 
-  static final PassIo _singleton = PassIo._internal();
+  static final PassFileIO _singleton = PassFileIO._internal();
 
   // ignore: public_member_api_docs
-  factory PassIo() {
+  factory PassFileIO() {
     return _singleton;
   }
 
-  PassIo._internal();
+  PassFileIO._internal();
 
   Future<Directory> _createPassesDir({@required String name}) async {
     assert(name != null);

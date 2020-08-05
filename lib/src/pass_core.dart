@@ -11,7 +11,7 @@ import 'package:pass_flutter/src/utils.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
-part 'pass_io.dart';
+part 'pass_file_io.dart';
 part 'pass_parser.dart';
 
 /// The Android implementation of Apple Passkit.
@@ -24,23 +24,23 @@ class Pass {
 
   /// Return all saved pass files from internal memory in List of [PassFile]
   Future<List<PassFile>> getAllSaved() async {
-    return await PassIo().getAllSaved();
+    return await PassFileIO().getAllSaved();
   }
 
   /// Save pass file from [urlToPass] to internal memory, parse and return [PassFile]
   Future<PassFile> saveFromUrl({@required String url}) async {
-    return await PassIo().saveFromUrl(url: url);
+    return await PassFileIO().saveFromUrl(url: url);
   }
 
   /// Fetch preview of pass file from [urlToPass], parse and return [PassFile]
   Future<PassFile> fetchPreviewFromUrl({@required String url}) async {
-    return await PassIo().fetchPreviewFromUrl(url: url);
+    return await PassFileIO().fetchPreviewFromUrl(url: url);
   }
 
   /// Delete all files and folders for [passFile] from internal memory and return saved passes
   Future<List<PassFile>> delete(PassFile passFile) async {
-    PassIo().delete(passFile.directory, passFile.file);
-    var parsedPasses = await PassIo().getAllSaved();
+    PassFileIO().delete(passFile.directory, passFile.file);
+    var parsedPasses = await PassFileIO().getAllSaved();
     return parsedPasses;
   }
 
