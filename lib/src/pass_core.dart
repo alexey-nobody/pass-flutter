@@ -14,10 +14,7 @@ import 'package:path_provider/path_provider.dart';
 part 'pass_file_io.dart';
 part 'pass_parser.dart';
 
-/// The Android implementation of Apple Passkit.
-///
-/// This class implements the `package:pass_flutter` functionality for
-/// the Android platform.
+/// Implementation of Apple Passkit.
 class Pass {
   static const String _channelName = 'pass_flutter';
   static const MethodChannel _channel = MethodChannel(_channelName);
