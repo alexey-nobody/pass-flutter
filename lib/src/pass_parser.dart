@@ -12,7 +12,7 @@ class PassParser {
   final Directory unpackedPassDirectory;
 
   /// Creates a new instance of [PassParser]
-  PassParser({
+  const PassParser({
     @required this.passId,
     @required this.passFile,
     @required this.unpackedPassDirectory,
@@ -34,10 +34,11 @@ class PassParser {
     var image = File('${unpackedPassDirectory.path}/$name.png');
     var image2x = File('${unpackedPassDirectory.path}/$name@2x.png');
     var image3x = File('${unpackedPassDirectory.path}/$name@3x.png');
-    if (!image.existsSync() || !image2x.existsSync() || !image3x.existsSync()) {
-      return null;
-    }
-    return PassImage(image, image2x, image3x);
+    return PassImage(
+      image: image.existsSync() ? image : null,
+      image2x: image2x.existsSync() ? image2x : null,
+      image3x: image3x.existsSync() ? image3x : null,
+    );
   }
 
   /// Parse unpacked pass file
