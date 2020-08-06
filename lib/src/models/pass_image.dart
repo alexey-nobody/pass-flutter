@@ -1,20 +1,22 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+
 /// Element of images in passkit
 class PassImage {
   /// [File] png image for standard-resolution display
-  File image;
+  final File image;
 
   /// [File] png image for retina-resolution display
-  File image2x;
+  final File image2x;
 
   /// [File] png original image
-  File image3x;
+  final File image3x;
 
   /// Creates a new [PassImage]
-  PassImage(File image, File image2x, File image3x) {
-    this.image = image;
-    this.image2x = image2x;
-    this.image3x = image3x;
-  }
+  const PassImage({
+    @required this.image,
+    @required this.image2x,
+    @required this.image3x,
+  });
 }
