@@ -1,3 +1,6 @@
+## 1.1.3 - 05.08.2020
+- Fix bug with empty color in pass.json (Thanks for report about bug and fix to https://github.com/srcnysf).
+
 ## 1.1.2+hotfix1 - 16.07.2020
 - Fix version in pubspec
 
