@@ -212,7 +212,6 @@ class PassJson extends Equatable {
       ];
 
   static Color _convertToColor(String rgbCssColor) {
-    //solving null issue on any color
     if (rgbCssColor == null) {
       return Color.fromRGBO(255, 255, 255, 1);
     }
