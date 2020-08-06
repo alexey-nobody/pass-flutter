@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pass_flutter/src/common/color_helper.dart';
 import 'package:pass_flutter/src/models/pass_json/barcode/barcode.dart';
 import 'package:pass_flutter/src/models/pass_json/location/location.dart';
 import 'package:pass_flutter/src/models/pass_json/structure_dictionary/pass_structure_dictionary.dart';
@@ -56,16 +57,22 @@ class PassJson extends Equatable {
   final List<Barcode> barcodes;
 
   /// Optional. Background [Color] of the pass.
-  @JsonKey(fromJson: _convertToColor, toJson: _convertFromColor)
+  @JsonKey(
+      fromJson: ColorHelper.convertToColor,
+      toJson: ColorHelper.convertFromColor)
   final Color backgroundColor;
 
   /// Optional. Foreground [Color] of the pass.
-  @JsonKey(fromJson: _convertToColor, toJson: _convertFromColor)
+  @JsonKey(
+      fromJson: ColorHelper.convertToColor,
+      toJson: ColorHelper.convertFromColor)
   final Color foregroundColor;
 
   /// Optional. [Color] of the label text.
   /// If omitted, the label color is determined automatically.
-  @JsonKey(fromJson: _convertToColor, toJson: _convertFromColor)
+  @JsonKey(
+      fromJson: ColorHelper.convertToColor,
+      toJson: ColorHelper.convertFromColor)
   final Color labelColor;
 
   /// Optional for event tickets and boarding passes; otherwise not allowed.
@@ -210,24 +217,4 @@ class PassJson extends Equatable {
         barcode,
         locations,
       ];
-
-  static Color _convertToColor(String rgbCssColor) {
-    if (rgbCssColor == null) {
-      return Color.fromRGBO(255, 255, 255, 1);
-    }
-    var regExp = RegExp(r'(\d+),(\d+),(\d+)');
-    var colorsMatch = regExp.firstMatch(rgbCssColor);
-    if (colorsMatch == null) {
-      return Color.fromRGBO(255, 255, 255, 1);
-    }
-    var red = int.parse(colorsMatch.group(1));
-    var green = int.parse(colorsMatch.group(2));
-    var blue = int.parse(colorsMatch.group(3));
-
-    return Color.fromRGBO(red, green, blue, 1);
-  }
-
-  static String _convertFromColor(Color color) {
-    return 'rgb(${color.red}, ${color.green}, ${color.blue})';
-  }
 }
