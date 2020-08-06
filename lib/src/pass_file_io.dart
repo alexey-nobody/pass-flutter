@@ -17,6 +17,10 @@ class PassFileIO {
 
   PassFileIO._internal();
 
+  String _generatePassId() {
+    return Uuid().v1();
+  }
+
   Future<Directory> _createPassesDir({@required String name}) async {
     assert(name != null);
     var appDir = await getApplicationDocumentsDirectory();
@@ -83,7 +87,7 @@ class PassFileIO {
 
   // ignore: public_member_api_docs
   Future<PassFile> saveFromPath({@required File externalPassFile}) async {
-    var passId = Utils.generatePassId();
+    var passId = _generatePassId();
     var passesDir = await _getPassesDir();
     var passDir = Directory(path.withoutExtension(externalPassFile.path));
     if (passesDir.path == path.dirname(externalPassFile.path)) {
@@ -103,7 +107,7 @@ class PassFileIO {
 
   // ignore: public_member_api_docs
   Future<PassFile> saveFromUrl({@required String url}) async {
-    var passId = Utils.generatePassId();
+    var passId = _generatePassId();
     var passFile = await _createPass(passId: passId);
     var passDir = Directory(path.withoutExtension(passFile.path));
     var responce = await Dio().download(url, passFile.path);
@@ -120,7 +124,7 @@ class PassFileIO {
 
   // ignore: public_member_api_docs
   Future<PassFile> fetchPreviewFromUrl({@required String url}) async {
-    var passId = Utils.generatePassId();
+    var passId = _generatePassId();
     var passFile = await _createPass(passId: passId, isPreview: true);
     var passDir = Directory(path.withoutExtension(passFile.path));
     var responce = await Dio().download(url, passFile.path);

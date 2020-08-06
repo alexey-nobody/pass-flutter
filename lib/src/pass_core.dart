@@ -7,9 +7,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:pass_flutter/pass_flutter.dart';
-import 'package:pass_flutter/src/utils.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 part 'pass_file_io.dart';
 part 'pass_parser.dart';
