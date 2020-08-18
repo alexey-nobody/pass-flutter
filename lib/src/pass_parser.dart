@@ -27,7 +27,8 @@ class PassParser {
       throw ('Pass file is bad! Not find pass.json in pass file!');
     }
     var passJson = await passJsonFile.readAsString();
-    return PassJson.fromJson(json.decode(passJson) as Map<String, dynamic>);
+    var json = jsonDecode(passJson) as Map<String, dynamic>;
+    return PassJson.fromJson(json);
   }
 
   PassImage _getImage({String name}) {
