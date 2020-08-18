@@ -94,9 +94,6 @@ class PassJson extends Equatable {
 
   // Style Keys
 
-  /// Information specific to a store card.
-  final PassStructureDictionary storeCard;
-
   /// Information specific to a generic pass.
   final PassStructureDictionary generic;
 
@@ -150,9 +147,8 @@ class PassJson extends Equatable {
   final bool voided;
 
   /// Creates a new [PassJson]
-  PassJson({
+  const PassJson({
     this.formatVersion,
-    this.storeCard,
     this.coupon,
     this.generic,
     this.eventTicket,
@@ -191,7 +187,6 @@ class PassJson extends Equatable {
   @override
   List<Object> get props => [
         formatVersion,
-        storeCard,
         coupon,
         generic,
         eventTicket,
