@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pass_json.dart';
+part of 'pass_coupon_card.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
-  return PassJson(
-    formatVersion: json['formatVersion'] as int,
-    boardingPass: json['boardingPass'] == null
+PassCouponCard _$PassCouponCardFromJson(Map<String, dynamic> json) {
+  return PassCouponCard(
+    passData: json['coupon'] == null
         ? null
         : PassStructureDictionary.fromJson(
-            json['boardingPass'] as Map<String, dynamic>),
+            json['coupon'] as Map<String, dynamic>),
+    formatVersion: json['formatVersion'] as int,
     passTypeIdentifier: json['passTypeIdentifier'] as String,
     description: json['description'] as String,
     teamIdentifier: json['teamIdentifier'] as String,
@@ -50,7 +50,8 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
+Map<String, dynamic> _$PassCouponCardToJson(PassCouponCard instance) =>
+    <String, dynamic>{
       'description': instance.description,
       'formatVersion': instance.formatVersion,
       'organizationName': instance.organizationName,
@@ -67,7 +68,6 @@ Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'groupingIdentifier': instance.groupingIdentifier,
       'logoText': instance.logoText,
       'suppressStripShine': instance.suppressStripShine,
-      'boardingPass': instance.boardingPass,
       'locations': instance.locations,
       'maxDistance': instance.maxDistance,
       'relevantDate': instance.relevantDate,
@@ -75,4 +75,5 @@ Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'appLaunchURL': instance.appLaunchURL,
       'expirationDate': instance.expirationDate,
       'voided': instance.voided,
+      'coupon': instance.passData,
     };
