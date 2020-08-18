@@ -69,7 +69,6 @@ class PassStoreCard extends PassJson {
         passData,
         formatVersion,
         coupon,
-        eventTicket,
         boardingPass,
         passTypeIdentifier,
         description,

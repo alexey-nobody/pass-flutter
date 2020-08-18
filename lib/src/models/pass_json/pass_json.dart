@@ -92,11 +92,6 @@ class PassJson extends Equatable {
   /// In iOS 7.0, a shine effect is never applied, and this key is deprecated.
   final bool suppressStripShine;
 
-  // Style Keys
-
-  /// Information specific to an event ticket.
-  final PassStructureDictionary eventTicket;
-
   /// Information specific to a coupon.
   final PassStructureDictionary coupon;
 
@@ -147,7 +142,6 @@ class PassJson extends Equatable {
   const PassJson({
     this.formatVersion,
     this.coupon,
-    this.eventTicket,
     this.boardingPass,
     this.passTypeIdentifier,
     this.description,
@@ -184,7 +178,6 @@ class PassJson extends Equatable {
   List<Object> get props => [
         formatVersion,
         coupon,
-        eventTicket,
         boardingPass,
         passTypeIdentifier,
         description,
