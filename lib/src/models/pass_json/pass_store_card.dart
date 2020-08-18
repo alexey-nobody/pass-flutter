@@ -64,7 +64,6 @@ class PassStoreCard extends PassJson {
           relevantDate: relevantDate,
         );
 
-
   @override
   List<Object> get props => [
         passData,
