@@ -4,7 +4,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:pass_flutter/src/common/color_helper.dart';
 import 'package:pass_flutter/src/models/pass_json/barcode/barcode.dart';
 import 'package:pass_flutter/src/models/pass_json/location/location.dart';
-import 'package:pass_flutter/src/models/pass_json/structure_dictionary/pass_structure_dictionary.dart';
 
 part 'pass_json.g.dart';
 
@@ -92,9 +91,6 @@ class PassJson extends Equatable {
   /// In iOS 7.0, a shine effect is never applied, and this key is deprecated.
   final bool suppressStripShine;
 
-  /// Information specific to a boarding pass.
-  final PassStructureDictionary boardingPass;
-
   // Relevance Keys
 
   /// Optional. Locations where the pass is relevant. For example, the location of your store.
@@ -138,7 +134,6 @@ class PassJson extends Equatable {
   /// Creates a new [PassJson]
   const PassJson({
     this.formatVersion,
-    this.boardingPass,
     this.passTypeIdentifier,
     this.description,
     this.teamIdentifier,
@@ -173,7 +168,6 @@ class PassJson extends Equatable {
   @override
   List<Object> get props => [
         formatVersion,
-        boardingPass,
         passTypeIdentifier,
         description,
         teamIdentifier,

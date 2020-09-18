@@ -1,13 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pass_json.dart';
+part of 'pass_boarding_pass.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
-  return PassJson(
+PassBoardingPass _$PassBoardingPassFromJson(Map<String, dynamic> json) {
+  return PassBoardingPass(
+    passData: json['boardingPass'] == null
+        ? null
+        : PassStructureDictionary.fromJson(
+            json['boardingPass'] as Map<String, dynamic>),
     formatVersion: json['formatVersion'] as int,
     passTypeIdentifier: json['passTypeIdentifier'] as String,
     description: json['description'] as String,
@@ -46,7 +50,8 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
+Map<String, dynamic> _$PassBoardingPassToJson(PassBoardingPass instance) =>
+    <String, dynamic>{
       'description': instance.description,
       'formatVersion': instance.formatVersion,
       'organizationName': instance.organizationName,
@@ -70,4 +75,5 @@ Map<String, dynamic> _$PassJsonToJson(PassJson instance) => <String, dynamic>{
       'appLaunchURL': instance.appLaunchURL,
       'expirationDate': instance.expirationDate,
       'voided': instance.voided,
+      'boardingPass': instance.passData,
     };

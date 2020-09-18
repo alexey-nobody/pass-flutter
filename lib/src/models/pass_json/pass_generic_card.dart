@@ -68,7 +68,6 @@ class PassGenericCard extends PassJson {
   List<Object> get props => [
         passData,
         formatVersion,
-        boardingPass,
         passTypeIdentifier,
         description,
         teamIdentifier,

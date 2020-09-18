@@ -3,17 +3,17 @@ import 'package:pass_flutter/pass_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:pass_flutter/src/common/color_helper.dart';
 
-part 'pass_event_ticket_card.g.dart';
+part 'pass_boarding_pass.g.dart';
 
-/// A JSON dictionary that defines the pass with type event ticket card
+/// A JSON dictionary that defines the pass with type coupon card
 @JsonSerializable()
-class PassEventTicketCard extends PassJson {
-  /// Information specific to a event ticket card.
-  @JsonKey(name: 'eventTicket')
+class PassBoardingPass extends PassJson {
+  /// Information specific to a coupon card.
+  @JsonKey(name: 'boardingPass')
   final PassStructureDictionary passData;
 
-  /// Creates a new [PassEventTicketCard]
-  const PassEventTicketCard({
+  /// Creates a new [PassCouponCard]
+  const PassBoardingPass({
     this.passData,
     int formatVersion,
     String passTypeIdentifier,
@@ -91,10 +91,10 @@ class PassEventTicketCard extends PassJson {
       ];
 
   /// Convert from json
-  factory PassEventTicketCard.fromJson(Map<String, dynamic> json) =>
-      _$PassEventTicketCardFromJson(json);
+  factory PassBoardingPass.fromJson(Map<String, dynamic> json) =>
+      _$PassBoardingPassFromJson(json);
 
   /// Convert to json
   @override
-  Map<String, dynamic> toJson() => _$PassEventTicketCardToJson(this);
+  Map<String, dynamic> toJson() => _$PassBoardingPassToJson(this);
 }

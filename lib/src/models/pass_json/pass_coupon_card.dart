@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pass_flutter/pass_flutter.dart';
-import 'package:flutter/material.dart';
 import 'package:pass_flutter/src/common/color_helper.dart';
 
 part 'pass_coupon_card.g.dart';
@@ -68,7 +68,6 @@ class PassCouponCard extends PassJson {
   List<Object> get props => [
         passData,
         formatVersion,
-        boardingPass,
         passTypeIdentifier,
         description,
         teamIdentifier,
