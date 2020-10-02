@@ -6,4 +6,4 @@ export 'src/models/pass_json/barcode/barcode.dart';
 export 'src/models/pass_json/location/location.dart';
 export 'src/models/pass_json/pass_json.dart';
 export 'src/models/pass_json/structure_dictionary/pass_structure_dictionary.dart';
-export 'src/pass_core.dart' hide PassIo, PassParser;
+export 'src/pass_core.dart' hide PassFileIO, PassParser;

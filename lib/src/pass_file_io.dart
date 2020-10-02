@@ -1,21 +1,25 @@
 part of 'pass_core.dart';
 
 // ignore: public_member_api_docs
-class PassIo {
+class PassFileIO {
   Directory _passDir;
   Directory _previewPassDir;
 
   final String _passDirName = 'passes';
   final String _previewPassDirName = 'preview_passes';
 
-  static final PassIo _singleton = PassIo._internal();
+  static final PassFileIO _singleton = PassFileIO._internal();
 
   // ignore: public_member_api_docs
-  factory PassIo() {
+  factory PassFileIO() {
     return _singleton;
   }
 
-  PassIo._internal();
+  PassFileIO._internal();
+
+  String _generatePassId() {
+    return Uuid().v1();
+  }
 
   Future<Directory> _createPassesDir({@required String name}) async {
     assert(name != null);
@@ -83,7 +87,7 @@ class PassIo {
 
   // ignore: public_member_api_docs
   Future<PassFile> saveFromPath({@required File externalPassFile}) async {
-    var passId = Utils.generatePassId();
+    var passId = _generatePassId();
     var passesDir = await _getPassesDir();
     var passDir = Directory(path.withoutExtension(externalPassFile.path));
     if (passesDir.path == path.dirname(externalPassFile.path)) {
@@ -103,7 +107,7 @@ class PassIo {
 
   // ignore: public_member_api_docs
   Future<PassFile> saveFromUrl({@required String url}) async {
-    var passId = Utils.generatePassId();
+    var passId = _generatePassId();
     var passFile = await _createPass(passId: passId);
     var passDir = Directory(path.withoutExtension(passFile.path));
     var responce = await Dio().download(url, passFile.path);
@@ -120,7 +124,7 @@ class PassIo {
 
   // ignore: public_member_api_docs
   Future<PassFile> fetchPreviewFromUrl({@required String url}) async {
-    var passId = Utils.generatePassId();
+    var passId = _generatePassId();
     var passFile = await _createPass(passId: passId, isPreview: true);
     var passDir = Directory(path.withoutExtension(passFile.path));
     var responce = await Dio().download(url, passFile.path);
