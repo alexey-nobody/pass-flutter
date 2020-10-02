@@ -3,28 +3,6 @@ version: 1.2.0
 description: A Flutter library for getting and reading Apple Wallet passes.
 homepage: https://github.com/alexeynobody/pass-flutter
 
-environment:
-  sdk: ">=2.1.0 <3.0.0"
-  flutter: ">=1.12.0 <2.0.0"
-
-dependencies:
-  flutter:
-    sdk: flutter
-  archive: ^2.0.13
-  dio: ^3.0.9
-  path_provider: ^1.6.11
-  uuid: ^2.2.0
-  path: ^1.6.4
-  equatable: ^1.2.3
-  json_annotation: ^3.0.1
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  json_serializable: ^3.3.0
-  build_runner: ^1.10.0
-  pedantic: ^1.9.0
-
 flutter:
   plugin:
     platforms:
@@ -33,3 +11,25 @@ flutter:
         pluginClass: PassFlutterPlugin
       ios:
         pluginClass: PassFlutterPlugin
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.12.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  archive: ^2.0.13
+  dio: ^3.0.10
+  path_provider: ^1.6.18
+  uuid: ^2.2.2
+  path: ^1.6.4
+  equatable: ^1.2.5
+  json_annotation: ^3.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  json_serializable: ^3.3.0
+  build_runner: ^1.10.3
+  pedantic: ^1.9.2

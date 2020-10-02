@@ -1,8 +1,8 @@
 package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
-import com.alexeynobody.pass_flutter.PassFlutterPlugin;
 import io.flutter.plugins.pathprovider.PathProviderPlugin;
+import com.alexeynobody.pass_flutter.PassFlutterPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -12,8 +12,8 @@ public final class GeneratedPluginRegistrant {
     if (alreadyRegisteredWith(registry)) {
       return;
     }
-    PassFlutterPlugin.registerWith(registry.registrarFor("com.alexeynobody.pass_flutter.PassFlutterPlugin"));
     PathProviderPlugin.registerWith(registry.registrarFor("io.flutter.plugins.pathprovider.PathProviderPlugin"));
+    PassFlutterPlugin.registerWith(registry.registrarFor("com.alexeynobody.pass_flutter.PassFlutterPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {
