@@ -1,4 +1,4 @@
-## 1.2.0 - 
+## 1.2.0 - 02.11.2020
 - Fix bug with images is null in PassJson model (Thanks for report about bug to https://github.com/srcnysf).
 
 ## 1.1.3 - 05.08.2020
