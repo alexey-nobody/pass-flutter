@@ -7,7 +7,7 @@ class ColorHelper {
     if (rgbCssColor == null) {
       return Color.fromRGBO(255, 255, 255, 1);
     }
-    var regExp = RegExp(r'(\d+),(\d+),(\d+)');
+    var regExp = RegExp(r'rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)');
     var colorsMatch = regExp.firstMatch(rgbCssColor);
     if (colorsMatch == null) {
       return Color.fromRGBO(255, 255, 255, 1);
