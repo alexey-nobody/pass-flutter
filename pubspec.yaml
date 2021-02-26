@@ -19,17 +19,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  archive: 2.0.13
-  dio: 3.0.10
-  path_provider: 1.6.18
-  uuid: 2.2.2
-  path: 1.8.0-nullsafety.1
-  equatable: 1.2.6
-  json_annotation: 3.1.1
+  archive: ^2.0.13
+  dio: ^3.0.10
+  path_provider: ^1.6.18
+  uuid: ^2.2.2
+  path: ^1.7.0
+  equatable: ^1.2.6
+  json_annotation: ^3.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  json_serializable: 3.5.1
-  build_runner: 1.10.3
-  pedantic: 1.9.2
+  json_serializable: ^3.5.1
+  build_runner: ^1.10.3
+  pedantic: ^1.9.2
