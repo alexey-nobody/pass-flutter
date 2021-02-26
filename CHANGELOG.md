@@ -1,3 +1,6 @@
+## 1.2.1 - 26.03.2021
+- Fix bug with colors (Thanks for report and fix to https://github.com/eltiganiomar).
+
 ## 1.2.0 - 02.10.2020
 - Fix bug with images is null in PassJson model (Thanks for report about bug to https://github.com/srcnysf).
 
