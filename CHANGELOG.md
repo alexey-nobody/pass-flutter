@@ -1,3 +1,7 @@
+## 1.2.2 - 01.04.2021
+- Fix bug with compiling in Android and iOS
+- Allow use package in all platform
+
 ## 1.2.1 - 26.03.2021
 - Fix bug with colors (Thanks for report and fix to https://github.com/eltiganiomar).
 
