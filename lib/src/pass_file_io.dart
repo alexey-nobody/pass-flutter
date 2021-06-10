@@ -2,8 +2,8 @@ part of 'pass_core.dart';
 
 // ignore: public_member_api_docs
 class PassFileIO {
-  Directory _passDir;
-  Directory _previewPassDir;
+  Directory? _passDir;
+  Directory? _previewPassDir;
 
   final String _passDirName = 'passes';
   final String _previewPassDirName = 'preview_passes';
@@ -21,8 +21,7 @@ class PassFileIO {
     return Uuid().v1();
   }
 
-  Future<Directory> _createPassesDir({@required String name}) async {
-    assert(name != null);
+  Future<Directory> _createPassesDir({required String name}) async {
     var appDir = await getApplicationDocumentsDirectory();
     var passDir = Directory('${appDir.path}/$name');
     passDir.createSync(recursive: true);
@@ -30,32 +29,31 @@ class PassFileIO {
   }
 
   Future<Directory> _getPassesDir() async {
-    if (_passDir != null) return _passDir;
-    _passDir = await _createPassesDir(name: _passDirName);
-    return _passDir;
+    if (_passDir == null) {
+      return _createPassesDir(name: _passDirName);
+    }
+
+    return _passDir as Directory;
   }
 
   Future<Directory> _getPreviewPassesDir() async {
-    if (_previewPassDir != null) return _previewPassDir;
+    if (_previewPassDir != null) return _previewPassDir as Directory;
     _previewPassDir = await _createPassesDir(name: _previewPassDirName);
-    return _previewPassDir;
+    return _previewPassDir as Directory;
   }
 
   Future<File> _createPass({
-    @required String passId,
+    required String passId,
     bool isPreview = false,
   }) async {
-    assert(passId != null);
     var passesDir =
-        isPreview ? await _getPreviewPassesDir() : await _getPassesDir();
+        isPreview ? await (_getPreviewPassesDir()) : await (_getPassesDir());
     var passFile = File('${passesDir.path}/$passId.passkit');
     passFile.createSync();
     return passFile;
   }
 
-  Future<void> _unpackPass({@required String passPath}) async {
-    assert(passPath != null);
-
+  Future<void> _unpackPass({required String passPath}) async {
     var passFile = File(passPath);
     var passDirectory = Directory(path.withoutExtension(passPath));
 
@@ -86,9 +84,9 @@ class PassFileIO {
   }
 
   // ignore: public_member_api_docs
-  Future<PassFile> saveFromPath({@required File externalPassFile}) async {
+  Future<PassFile> saveFromPath({required File externalPassFile}) async {
     var passId = _generatePassId();
-    var passesDir = await _getPassesDir();
+    var passesDir = await (_getPassesDir());
     var passDir = Directory(path.withoutExtension(externalPassFile.path));
     if (passesDir.path == path.dirname(externalPassFile.path)) {
       throw ('This file has already been saved.');
@@ -106,12 +104,12 @@ class PassFileIO {
   }
 
   // ignore: public_member_api_docs
-  Future<PassFile> saveFromUrl({@required String url}) async {
+  Future<PassFile> saveFromUrl({required String url}) async {
     var passId = _generatePassId();
     var passFile = await _createPass(passId: passId);
     var passDir = Directory(path.withoutExtension(passFile.path));
-    var responce = await Dio().download(url, passFile.path);
-    if (responce.statusCode == 200) {
+    var response = await Dio().download(url, passFile.path);
+    if (response.statusCode == 200) {
       await _unpackPass(passPath: passFile.path);
       return await PassParser(
         passId: passId,
@@ -123,12 +121,12 @@ class PassFileIO {
   }
 
   // ignore: public_member_api_docs
-  Future<PassFile> fetchPreviewFromUrl({@required String url}) async {
+  Future<PassFile> fetchPreviewFromUrl({required String url}) async {
     var passId = _generatePassId();
     var passFile = await _createPass(passId: passId, isPreview: true);
     var passDir = Directory(path.withoutExtension(passFile.path));
-    var responce = await Dio().download(url, passFile.path);
-    if (responce.statusCode == 200) {
+    var response = await Dio().download(url, passFile.path);
+    if (response.statusCode == 200) {
       await _unpackPass(passPath: passFile.path);
       return await PassParser(
         passId: passId,
@@ -142,7 +140,7 @@ class PassFileIO {
   // ignore: public_member_api_docs
   Future<List<PassFile>> getAllSaved() async {
     var parsedPasses = <PassFile>[];
-    var passesDir = await _getPassesDir();
+    var passesDir = await (_getPassesDir());
     var passesEntities = await passesDir.list().toList();
 
     Iterable<FileSystemEntity> passFiles = passesEntities.whereType<File>();

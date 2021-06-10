@@ -13,12 +13,10 @@ class PassParser {
 
   /// Creates a new instance of [PassParser]
   const PassParser({
-    @required this.passId,
-    @required this.passFile,
-    @required this.unpackedPassDirectory,
-  }) : assert(passId != null &&
-            unpackedPassDirectory != null &&
-            passFile != null);
+    required this.passId,
+    required this.passFile,
+    required this.unpackedPassDirectory,
+  });
 
   Future<PassJson> _parsePassJson() async {
     var pathToPassJson = '${unpackedPassDirectory.path}/pass.json';
@@ -31,7 +29,7 @@ class PassParser {
     return PassJson.fromJson(json);
   }
 
-  PassImage _getImage({String name}) {
+  PassImage _getImage({String? name}) {
     var image = File('${unpackedPassDirectory.path}/$name.png');
     var image2x = File('${unpackedPassDirectory.path}/$name@2x.png');
     var image3x = File('${unpackedPassDirectory.path}/$name@3x.png');

@@ -38,31 +38,30 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     foregroundColor:
         ColorHelper.convertToColor(json['foregroundColor'] as String),
     organizationName: json['organizationName'] as String,
-    webServiceURL: json['webServiceURL'] as String,
+    webServiceURL: json['webServiceURL'] as String?,
     serialNumber: json['serialNumber'] as String,
-    authenticationToken: json['authenticationToken'] as String,
-    associatedStoreIdentifiers: (json['associatedStoreIdentifiers'] as List)
-        ?.map((e) => e as int)
-        ?.toList(),
-    appLaunchURL: json['appLaunchURL'] as String,
-    expirationDate: json['expirationDate'] as String,
-    voided: json['voided'] as bool,
-    groupingIdentifier: json['groupingIdentifier'] as String,
-    logoText: json['logoText'] as String,
-    suppressStripShine: json['suppressStripShine'] as bool,
-    barcodes: (json['barcodes'] as List)
-        ?.map((e) =>
-            e == null ? null : Barcode.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    authenticationToken: json['authenticationToken'] as String?,
+    associatedStoreIdentifiers:
+        (json['associatedStoreIdentifiers'] as List<dynamic>?)
+            ?.map((e) => e as int)
+            .toList(),
+    appLaunchURL: json['appLaunchURL'] as String?,
+    expirationDate: json['expirationDate'] as String?,
+    voided: json['voided'] as bool?,
+    groupingIdentifier: json['groupingIdentifier'] as String?,
+    logoText: json['logoText'] as String?,
+    suppressStripShine: json['suppressStripShine'] as bool?,
+    barcodes: (json['barcodes'] as List<dynamic>?)
+        ?.map((e) => Barcode.fromJson(e as Map<String, dynamic>))
+        .toList(),
     barcode: json['barcode'] == null
         ? null
         : Barcode.fromJson(json['barcode'] as Map<String, dynamic>),
-    locations: (json['locations'] as List)
-        ?.map((e) =>
-            e == null ? null : Location.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    maxDistance: json['maxDistance'] as int,
-    relevantDate: json['relevantDate'] as String,
+    locations: (json['locations'] as List<dynamic>?)
+        ?.map((e) => Location.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    maxDistance: json['maxDistance'] as int?,
+    relevantDate: json['relevantDate'] as String?,
   );
 }
 

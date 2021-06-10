@@ -8,10 +8,10 @@ part of 'location.dart';
 
 Location _$LocationFromJson(Map<String, dynamic> json) {
   return Location(
-    altitude: (json['altitude'] as num)?.toDouble(),
-    latitude: (json['latitude'] as num)?.toDouble(),
-    longitude: (json['longitude'] as num)?.toDouble(),
-    relevantText: json['relevantText'] as String,
+    altitude: (json['altitude'] as num?)?.toDouble(),
+    latitude: (json['latitude'] as num).toDouble(),
+    longitude: (json['longitude'] as num).toDouble(),
+    relevantText: json['relevantText'] as String?,
   );
 }
 

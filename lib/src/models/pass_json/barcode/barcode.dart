@@ -8,7 +8,7 @@ part 'barcode.g.dart';
 class Barcode extends Equatable {
   /// Optional. Text displayed near the barcode.
   /// For example, a human-readable version of the barcode data in case the barcode doesn’t scan.
-  final String altText;
+  final String? altText;
 
   /// Required. Barcode format. For the barcode dictionary, you can use only the following values:
   /// PKBarcodeFormatQR, PKBarcodeFormatPDF417, or PKBarcodeFormatAztec.
@@ -26,9 +26,9 @@ class Barcode extends Equatable {
   /// Creates a new [Barcode]
   Barcode({
     this.altText,
-    this.format,
-    this.message,
-    this.messageEncoding,
+    required this.format,
+    required this.message,
+    required this.messageEncoding,
   });
 
   /// Convert from json
@@ -39,5 +39,5 @@ class Barcode extends Equatable {
   Map<String, dynamic> toJson() => _$BarcodeToJson(this);
 
   @override
-  List<Object> get props => [altText, format, message, messageEncoding];
+  List<Object?> get props => [altText, format, message, messageEncoding];
 }
