@@ -6,10 +6,11 @@ import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:pass_flutter/pass_flutter.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
+
+import '../pass_flutter.dart';
 
 part 'pass_file_io.dart';
 part 'pass_parser.dart';
@@ -25,12 +26,12 @@ class Pass {
   }
 
   /// Save pass file from [urlToPass] to internal memory, parse and return [PassFile]
-  Future<PassFile> saveFromUrl({@required String url}) async {
+  Future<PassFile> saveFromUrl({required String url}) async {
     return await PassFileIO().saveFromUrl(url: url);
   }
 
   /// Fetch preview of pass file from [urlToPass], parse and return [PassFile]
-  Future<PassFile> fetchPreviewFromUrl({@required String url}) async {
+  Future<PassFile> fetchPreviewFromUrl({required String url}) async {
     return await PassFileIO().fetchPreviewFromUrl(url: url);
   }
 
@@ -41,8 +42,16 @@ class Pass {
     return parsedPasses;
   }
 
+  /// Delete all files and folders for passFiles from internal memory and return void
+  Future<void> deleteAll() async {
+    var parsedPasses = await PassFileIO().getAllSaved();
+    parsedPasses.forEach((PassFile pass) {
+      pass.delete();
+    });
+  }
+
   /// Platform version
-  static Future<String> get platformVersion async {
+  static Future<String?> get platformVersion async {
     var version = await _channel.invokeMethod<String>('getPlatformVersion');
     return version;
   }

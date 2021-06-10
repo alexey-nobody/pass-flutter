@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pass_flutter/src/models/pass_image.dart';
-import 'package:pass_flutter/src/models/pass_json/pass_json.dart';
-import 'package:pass_flutter/src/pass_core.dart';
+import './pass_image.dart';
+import './pass_json/pass_json.dart';
+import '../pass_core.dart';
 
 /// Parsed Apple Wallet pass file
 class PassFile extends Equatable {
@@ -18,40 +18,40 @@ class PassFile extends Equatable {
   final Directory directory;
 
   /// The image displayed as the background of the front of the pass.
-  final PassImage background;
+  final PassImage? background;
 
   /// The image displayed on the front of the pass near the barcode.
-  final PassImage footer;
+  final PassImage? footer;
 
   /// The pass’s icon. This is displayed in notifications and in emails that have a pass attached, and on the lock screen.
   /// When it is displayed, the icon gets a shine effect and rounded corners.
-  final PassImage icon;
+  final PassImage? icon;
 
   /// The image displayed on the front of the pass in the top left.
-  final PassImage logo;
+  final PassImage? logo;
 
   /// The image displayed behind the primary fields on the front of the pass.
-  final PassImage strip;
+  final PassImage? strip;
 
   /// An additional image displayed on the front of the pass. For example, on a membership card, the thumbnail could be used to a picture of the cardholder.
-  final PassImage thumbnail;
+  final PassImage? thumbnail;
 
   /// A JSON dictionary that defines the pass.
   final PassJson pass;
 
   /// Creates a new instance of [PassFile]
   PassFile({
-    @required this.id,
-    @required this.file,
-    @required this.directory,
+    required this.id,
+    required this.file,
+    required this.directory,
     this.background,
     this.footer,
     this.icon,
     this.logo,
     this.strip,
     this.thumbnail,
-    @required this.pass,
-  }) : assert(id != null && file != null, directory != null && pass != null);
+    required this.pass,
+  });
 
   @override
   List<Object> get props => [pass];

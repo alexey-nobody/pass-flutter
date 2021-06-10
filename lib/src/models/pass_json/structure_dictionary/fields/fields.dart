@@ -10,7 +10,7 @@ class Fields extends Equatable {
   final String key;
 
   /// Optional. Label text for the field.
-  final String label;
+  final String? label;
 
   /// Required. Value of the field, for example, 42.
   final String value;
@@ -19,13 +19,13 @@ class Fields extends Equatable {
   /// The format string must contain the escape %@, which is replaced with the field’s new value.
   /// For example, “Gate changed to %@.”
   /// If you don’t specify a change message, the user isn’t notified when the field changes.
-  final String changeMessage;
+  final String? changeMessage;
 
   /// Creates a new [Fields]
   Fields({
-    this.key,
+    required this.key,
     this.label,
-    this.value,
+    required this.value,
     this.changeMessage,
   });
 
@@ -36,5 +36,5 @@ class Fields extends Equatable {
   Map<String, dynamic> toJson() => _$FieldsToJson(this);
 
   @override
-  List<Object> get props => [key, label, value, changeMessage];
+  List<Object?> get props => [key, label, value, changeMessage];
 }

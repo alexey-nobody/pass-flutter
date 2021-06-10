@@ -7,7 +7,7 @@ part 'location.g.dart';
 @JsonSerializable()
 class Location extends Equatable {
   /// Optional. Altitude, in meters, of the location.
-  final double altitude;
+  final double? altitude;
 
   /// Required. Latitude, in degrees, of the location.
   final double latitude;
@@ -17,13 +17,13 @@ class Location extends Equatable {
 
   /// Optional. Text displayed on the lock screen when the pass is currently relevant.
   /// For example, a description of the nearby location such as “Store nearby on 1st and Main.”
-  final String relevantText;
+  final String? relevantText;
 
   /// Creates a new [Location]
   Location({
     this.altitude,
-    this.latitude,
-    this.longitude,
+    required this.latitude,
+    required this.longitude,
     this.relevantText,
   });
 
@@ -35,7 +35,7 @@ class Location extends Equatable {
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         altitude,
         latitude,
         longitude,
