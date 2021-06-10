@@ -1,4 +1,4 @@
-## 1.3.0 - 10.06.2021
+## 2.0.0 - 10.06.2021
 - Migrate package to null-safety, increase minimum SDK version to 2.12 (Thanks @WebEferen https://github.com/WebEferen)
 - Add method `deleteAll` for Delete all files and folders for passFiles from internal memory (Thanks @WebEferen https://github.com/WebEferen)
 - Optimisation
