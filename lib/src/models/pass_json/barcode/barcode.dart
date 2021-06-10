@@ -6,6 +6,18 @@ part 'barcode.g.dart';
 /// Information specific to the pass’s barcode.
 @JsonSerializable()
 class Barcode extends Equatable {
+  /// Creates a new [Barcode]
+  const Barcode({
+    required this.format,
+    required this.message,
+    required this.messageEncoding,
+    this.altText,
+  });
+
+  /// Convert from json
+  factory Barcode.fromJson(Map<String, dynamic> json) =>
+      _$BarcodeFromJson(json);
+
   /// Optional. Text displayed near the barcode.
   /// For example, a human-readable version of the barcode data in case the barcode doesn’t scan.
   final String? altText;
@@ -22,18 +34,6 @@ class Barcode extends Equatable {
   /// to a data representation to render the barcode. The value is typically iso-8859-1, but you may
   /// use another encoding that is supported by your barcode scanning infrastructure.
   final String messageEncoding;
-
-  /// Creates a new [Barcode]
-  Barcode({
-    this.altText,
-    required this.format,
-    required this.message,
-    required this.messageEncoding,
-  });
-
-  /// Convert from json
-  factory Barcode.fromJson(Map<String, dynamic> json) =>
-      _$BarcodeFromJson(json);
 
   /// Convert to json
   Map<String, dynamic> toJson() => _$BarcodeToJson(this);

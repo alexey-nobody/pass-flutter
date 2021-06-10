@@ -2,16 +2,52 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../common/color_helper.dart';
-import '../pass_json/barcode/barcode.dart';
-import '../pass_json/location/location.dart';
-import '../pass_json/structure_dictionary/pass_structure_dictionary.dart';
+import 'package:pass_flutter/src/common/color_helper.dart';
+import 'package:pass_flutter/src/models/pass_json/barcode/barcode.dart';
+import 'package:pass_flutter/src/models/pass_json/location/location.dart';
+import 'package:pass_flutter/src/models/pass_json/structure_dictionary/pass_structure_dictionary.dart';
 
 part 'pass_json.g.dart';
 
 /// A JSON dictionary that defines the pass.
 @JsonSerializable()
 class PassJson extends Equatable {
+  /// Creates a new [PassJson]
+  const PassJson({
+    required this.formatVersion,
+    required this.passTypeIdentifier,
+    required this.description,
+    required this.teamIdentifier,
+    required this.organizationName,
+    required this.serialNumber,
+    this.storeCard,
+    this.coupon,
+    this.generic,
+    this.eventTicket,
+    this.boardingPass,
+    this.labelColor,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.webServiceURL,
+    this.authenticationToken,
+    this.associatedStoreIdentifiers,
+    this.appLaunchURL,
+    this.expirationDate,
+    this.voided,
+    this.groupingIdentifier,
+    this.logoText,
+    this.suppressStripShine,
+    this.barcodes,
+    this.barcode,
+    this.locations,
+    this.maxDistance,
+    this.relevantDate,
+  });
+
+  /// Convert from json
+  factory PassJson.fromJson(Map<String, dynamic> json) =>
+      _$PassJsonFromJson(json);
+
   // Standart keys
 
   /// Required. Brief description of the pass, used by the iOS accessibility technologies.
@@ -149,42 +185,6 @@ class PassJson extends Equatable {
   /// Optional. Indicates that the pass is void—for example, a one time use coupon that has been redeemed. The default value is false.
   /// Available in iOS 7.0.
   final bool? voided;
-
-  /// Creates a new [PassJson]
-  PassJson({
-    required this.formatVersion,
-    this.storeCard,
-    this.coupon,
-    this.generic,
-    this.eventTicket,
-    this.boardingPass,
-    required this.passTypeIdentifier,
-    required this.description,
-    required this.teamIdentifier,
-    this.labelColor,
-    this.backgroundColor,
-    this.foregroundColor,
-    required this.organizationName,
-    this.webServiceURL,
-    required this.serialNumber,
-    this.authenticationToken,
-    this.associatedStoreIdentifiers,
-    this.appLaunchURL,
-    this.expirationDate,
-    this.voided,
-    this.groupingIdentifier,
-    this.logoText,
-    this.suppressStripShine,
-    this.barcodes,
-    this.barcode,
-    this.locations,
-    this.maxDistance,
-    this.relevantDate,
-  });
-
-  /// Convert from json
-  factory PassJson.fromJson(Map<String, dynamic> json) =>
-      _$PassJsonFromJson(json);
 
   /// Convert to json
   Map<String, dynamic> toJson() => _$PassJsonToJson(this);

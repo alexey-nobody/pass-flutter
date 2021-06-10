@@ -6,6 +6,18 @@ part 'location.g.dart';
 /// Locations where the pass is relevant.
 @JsonSerializable()
 class Location extends Equatable {
+  /// Creates a new [Location]
+  const Location({
+    required this.latitude,
+    required this.longitude,
+    this.altitude,
+    this.relevantText,
+  });
+
+  /// Convert from json
+  factory Location.fromJson(Map<String, dynamic> json) =>
+      _$LocationFromJson(json);
+
   /// Optional. Altitude, in meters, of the location.
   final double? altitude;
 
@@ -18,18 +30,6 @@ class Location extends Equatable {
   /// Optional. Text displayed on the lock screen when the pass is currently relevant.
   /// For example, a description of the nearby location such as “Store nearby on 1st and Main.”
   final String? relevantText;
-
-  /// Creates a new [Location]
-  Location({
-    this.altitude,
-    required this.latitude,
-    required this.longitude,
-    this.relevantText,
-  });
-
-  /// Convert from json
-  factory Location.fromJson(Map<String, dynamic> json) =>
-      _$LocationFromJson(json);
 
   /// Convert to json
   Map<String, dynamic> toJson() => _$LocationToJson(this);

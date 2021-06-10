@@ -1,13 +1,26 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
-import './pass_image.dart';
-import './pass_json/pass_json.dart';
-import '../pass_core.dart';
+import 'package:pass_flutter/pass_flutter.dart';
+import 'package:pass_flutter/src/models/pass_json/pass_json.dart';
+import 'package:pass_flutter/src/pass_core.dart';
 
 /// Parsed Apple Wallet pass file
 class PassFile extends Equatable {
+  /// Creates a new instance of [PassFile]
+  const PassFile({
+    required this.id,
+    required this.file,
+    required this.directory,
+    required this.pass,
+    this.background,
+    this.footer,
+    this.icon,
+    this.logo,
+    this.strip,
+    this.thumbnail,
+  });
+
   /// Pass file id
   final String id;
 
@@ -38,20 +51,6 @@ class PassFile extends Equatable {
 
   /// A JSON dictionary that defines the pass.
   final PassJson pass;
-
-  /// Creates a new instance of [PassFile]
-  PassFile({
-    required this.id,
-    required this.file,
-    required this.directory,
-    this.background,
-    this.footer,
-    this.icon,
-    this.logo,
-    this.strip,
-    this.thumbnail,
-    required this.pass,
-  });
 
   @override
   List<Object> get props => [pass];
