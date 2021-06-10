@@ -1,12 +1,26 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import '../../pass_json/structure_dictionary/fields/fields.dart';
+import 'package:pass_flutter/src/models/pass_json/structure_dictionary/fields/fields.dart';
 
 part 'pass_structure_dictionary.g.dart';
 
 /// Keys that define the structure of the pass.
 @JsonSerializable()
 class PassStructureDictionary extends Equatable {
+  /// Creates a new [PassStructureDictionary]
+  const PassStructureDictionary({
+    this.headerFields,
+    this.secondaryFields,
+    this.backFields,
+    this.auxiliaryFields,
+    this.primaryFields,
+    this.transitType,
+  });
+
+  /// Convert from json
+  factory PassStructureDictionary.fromJson(Map<String, dynamic> json) =>
+      _$PassStructureDictionaryFromJson(json);
+
   /// Optional. Additional fields to be displayed on the front of the pass.
   final List<Fields>? auxiliaryFields;
 
@@ -27,20 +41,6 @@ class PassStructureDictionary extends Equatable {
   /// Type of transit. Must be one of the following values:
   /// PKTransitTypeAir, PKTransitTypeBoat, PKTransitTypeBus, PKTransitTypeGeneric,PKTransitTypeTrain.
   final String? transitType;
-
-  /// Creates a new [PassStructureDictionary]
-  PassStructureDictionary({
-    this.headerFields,
-    this.secondaryFields,
-    this.backFields,
-    this.auxiliaryFields,
-    this.primaryFields,
-    this.transitType,
-  });
-
-  /// Convert from json
-  factory PassStructureDictionary.fromJson(Map<String, dynamic> json) =>
-      _$PassStructureDictionaryFromJson(json);
 
   /// Convert to json
   Map<String, dynamic> toJson() => _$PassStructureDictionaryToJson(this);

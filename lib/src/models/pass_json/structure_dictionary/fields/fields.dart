@@ -6,6 +6,17 @@ part 'fields.g.dart';
 /// These keys are used for all dictionaries that define a field.
 @JsonSerializable()
 class Fields extends Equatable {
+  /// Creates a new [Fields]
+  const Fields({
+    required this.key,
+    required this.value,
+    this.label,
+    this.changeMessage,
+  });
+
+  /// Convert from json
+  factory Fields.fromJson(Map<String, dynamic> json) => _$FieldsFromJson(json);
+
   /// Required. The key must be unique within the scope of the entire pass. For example, “departure-gate.”
   final String key;
 
@@ -20,17 +31,6 @@ class Fields extends Equatable {
   /// For example, “Gate changed to %@.”
   /// If you don’t specify a change message, the user isn’t notified when the field changes.
   final String? changeMessage;
-
-  /// Creates a new [Fields]
-  Fields({
-    required this.key,
-    this.label,
-    required this.value,
-    this.changeMessage,
-  });
-
-  /// Convert from json
-  factory Fields.fromJson(Map<String, dynamic> json) => _$FieldsFromJson(json);
 
   /// Convert to json
   Map<String, dynamic> toJson() => _$FieldsToJson(this);

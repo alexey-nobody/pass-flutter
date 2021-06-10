@@ -2,6 +2,13 @@ part of 'pass_core.dart';
 
 // ignore: public_member_api_docs
 class PassParser {
+  /// Creates a new instance of [PassParser]
+  const PassParser({
+    required this.passId,
+    required this.passFile,
+    required this.unpackedPassDirectory,
+  });
+
   /// Id of pass
   final String passId;
 
@@ -11,28 +18,21 @@ class PassParser {
   /// Unpacked [Directory] of pass file
   final Directory unpackedPassDirectory;
 
-  /// Creates a new instance of [PassParser]
-  const PassParser({
-    required this.passId,
-    required this.passFile,
-    required this.unpackedPassDirectory,
-  });
-
   Future<PassJson> _parsePassJson() async {
-    var pathToPassJson = '${unpackedPassDirectory.path}/pass.json';
-    var passJsonFile = File(pathToPassJson);
+    final pathToPassJson = '${unpackedPassDirectory.path}/pass.json';
+    final passJsonFile = File(pathToPassJson);
     if (!passJsonFile.existsSync()) {
-      throw ('Pass file is bad! Not find pass.json in pass file!');
+      throw Exception('Pass file is bad! Not find pass.json in pass file!');
     }
-    var passJson = await passJsonFile.readAsString();
-    var json = jsonDecode(passJson) as Map<String, dynamic>;
+    final passJson = await passJsonFile.readAsString();
+    final json = jsonDecode(passJson) as Map<String, dynamic>;
     return PassJson.fromJson(json);
   }
 
   PassImage _getImage({String? name}) {
-    var image = File('${unpackedPassDirectory.path}/$name.png');
-    var image2x = File('${unpackedPassDirectory.path}/$name@2x.png');
-    var image3x = File('${unpackedPassDirectory.path}/$name@3x.png');
+    final image = File('${unpackedPassDirectory.path}/$name.png');
+    final image2x = File('${unpackedPassDirectory.path}/$name@2x.png');
+    final image3x = File('${unpackedPassDirectory.path}/$name@3x.png');
     return PassImage(
       image: image.existsSync() ? image : null,
       image2x: image2x.existsSync() ? image2x : null,
@@ -42,14 +42,14 @@ class PassParser {
 
   /// Parse unpacked pass file
   Future<PassFile> parse() async {
-    var passJson = await _parsePassJson();
+    final passJson = await _parsePassJson();
 
-    var logo = _getImage(name: 'logo');
-    var background = _getImage(name: 'background');
-    var footer = _getImage(name: 'footer');
-    var strip = _getImage(name: 'strip');
-    var icon = _getImage(name: 'icon');
-    var thumbnail = _getImage(name: 'thumbnail');
+    final logo = _getImage(name: 'logo');
+    final background = _getImage(name: 'background');
+    final footer = _getImage(name: 'footer');
+    final strip = _getImage(name: 'strip');
+    final icon = _getImage(name: 'icon');
+    final thumbnail = _getImage(name: 'thumbnail');
 
     return PassFile(
       id: passId,

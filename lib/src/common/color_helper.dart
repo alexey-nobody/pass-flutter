@@ -5,16 +5,16 @@ class ColorHelper {
   // ignore: public_member_api_docs
   static Color convertToColor(String rgbCssColor) {
     if (rgbCssColor.isEmpty) {
-      return Color.fromRGBO(255, 255, 255, 1);
+      return const Color.fromRGBO(255, 255, 255, 1);
     }
-    var regExp = RegExp(r'rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)');
-    var colorsMatch = regExp.firstMatch(rgbCssColor);
+    final regExp = RegExp(r'rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)');
+    final colorsMatch = regExp.firstMatch(rgbCssColor);
     if (colorsMatch == null) {
-      return Color.fromRGBO(255, 255, 255, 1);
+      return const Color.fromRGBO(255, 255, 255, 1);
     }
-    var red = int.parse(colorsMatch.group(1)!);
-    var green = int.parse(colorsMatch.group(2)!);
-    var blue = int.parse(colorsMatch.group(3)!);
+    final red = int.parse(colorsMatch.group(1)!);
+    final green = int.parse(colorsMatch.group(2)!);
+    final blue = int.parse(colorsMatch.group(3)!);
 
     return Color.fromRGBO(red, green, blue, 1);
   }
