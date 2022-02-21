@@ -6,14 +6,12 @@ import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:pass_flutter/pass_flutter.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:pass_flutter/pass_flutter.dart';
-
 part 'pass_file_io.dart';
-
 part 'pass_parser.dart';
 
 /// Implementation of Apple Passkit.
@@ -45,7 +43,9 @@ class Pass {
   /// Delete all files and folders for passFiles from internal memory and return void
   Future<void> deleteAll() async {
     final parsedPasses = await PassFileIO().getAllSaved();
-    parsedPasses.forEach((pass) => pass.delete());
+    for (final pass in parsedPasses) {
+      pass.delete();
+    }
   }
 
   /// Platform version

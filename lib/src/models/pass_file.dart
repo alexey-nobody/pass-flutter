@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:pass_flutter/pass_flutter.dart';
-import 'package:pass_flutter/src/models/pass_json/pass_json.dart';
 import 'package:pass_flutter/src/pass_core.dart';
 
 /// Parsed Apple Wallet pass file
