@@ -1,4 +1,4 @@
-include: package:pedantic/analysis_options.yaml
+include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
@@ -28,6 +28,7 @@ linter:
     avoid_equals_and_hash_code_on_mutable_classes: true
     avoid_escaping_inner_quotes: true
     avoid_field_initializers_in_const_classes: true
+    avoid_function_literals_in_foreach_calls: true
     avoid_implementing_value_types: true
     avoid_init_to_null: true
     avoid_js_rounded_ints: true
@@ -96,14 +97,14 @@ linter:
     prefer_spread_collections: true
     prefer_typing_uninitialized_variables: true
     provide_deprecation_message: true
-    public_member_api_docs: true
+    public_member_api_docs: false
     recursive_getters: true
     sized_box_for_whitespace: true
     slash_for_doc_comments: true
     sort_child_properties_last: true
     sort_constructors_first: true
     sort_unnamed_constructors_first: true
-    type_annotate_public_apis: true
+    type_annotate_public_apis: false
     type_init_formals: true
     unawaited_futures: true
     unnecessary_await_in_return: true
@@ -161,7 +162,3 @@ linter:
 
     # Pub rules.
     package_names: true
-
-
-    # Temporary, remove after fix it
-    close_sinks: false
