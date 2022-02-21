@@ -32,7 +32,9 @@ PassJson _$PassJsonFromJson(Map<String, dynamic> json) {
     passTypeIdentifier: json['passTypeIdentifier'] as String,
     description: json['description'] as String,
     teamIdentifier: json['teamIdentifier'] as String,
-    labelColor: ColorHelper.convertToColor(json['labelColor'] as String),
+    labelColor: json['labelColor'] == null
+        ? null
+        : ColorHelper.convertToColor(json['labelColor'] as String),
     backgroundColor:
         ColorHelper.convertToColor(json['backgroundColor'] as String),
     foregroundColor:
