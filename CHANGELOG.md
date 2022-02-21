@@ -1,3 +1,7 @@
+## 2.0.1 - 20.02.2022
+- fix: make 'labelColor' an optional field in the JSON (Thanks @ShonFrazier https://github.com/ShonFrazier)
+- optimisation
+
 ## 2.0.0 - 10.06.2021
 - Migrate package to null-safety, increase minimum SDK version to 2.12 (Thanks @WebEferen https://github.com/WebEferen)
 - Add method `deleteAll` for Delete all files and folders for passFiles from internal memory (Thanks @WebEferen https://github.com/WebEferen)
