@@ -1,3 +1,6 @@
+## 2.0.2 - 09.08.2023
+- update dependencies
+
 ## 2.0.1 - 20.02.2022
 - fix: make 'labelColor' an optional field in the JSON (Thanks @ShonFrazier https://github.com/ShonFrazier)
 - optimisation
